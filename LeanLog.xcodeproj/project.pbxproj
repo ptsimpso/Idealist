@@ -21,6 +21,8 @@
 		0BACD12D1AA013F20041A950 /* IdeaTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */; };
 		0BC1C7701AA6C6DC0070EC05 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */; };
 		0BC1C7721AA6C7390070EC05 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC1C7711AA6C7390070EC05 /* Categories.swift */; };
+		0BDA53971AB3CA5C00660546 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */; };
+		0BDA53991AB3CB7300660546 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA53981AB3CB7300660546 /* GroupCell.swift */; };
 		0BE59DE51AA4FD2600DDFF31 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */; };
 		0BEB50841AB1152B00C35EB0 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BEB50831AB1152B00C35EB0 /* AudioToolbox.framework */; };
 		0BEB50861AB1153900C35EB0 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BEB50851AB1153900C35EB0 /* CFNetwork.framework */; };
@@ -39,6 +41,7 @@
 		0BEB50A51AB11BB000C35EB0 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BEB50A41AB11BB000C35EB0 /* Crashlytics.framework */; };
 		0BEB50A71AB127A800C35EB0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */; };
 		0BF2FB2A1AAF9FE20019528D /* IdeaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2FB291AAF9FE20019528D /* IdeaHelper.swift */; };
+		20263C2623D3D481632F229E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D4CFBA66B871B7FDEAC112 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,8 @@
 		0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdeaTitleCell.swift; path = Views/IdeaTitleCell.swift; sourceTree = "<group>"; };
 		0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = ViewControllers/CategoryViewController.swift; sourceTree = "<group>"; };
 		0BC1C7711AA6C7390070EC05 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Categories.swift; path = Model/Categories.swift; sourceTree = "<group>"; };
+		0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupsViewController.swift; path = ViewControllers/GroupsViewController.swift; sourceTree = "<group>"; };
+		0BDA53981AB3CB7300660546 /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupCell.swift; path = Views/GroupCell.swift; sourceTree = "<group>"; };
 		0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = Model/CoreDataStack.swift; sourceTree = "<group>"; };
 		0BEB50831AB1152B00C35EB0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0BEB50851AB1153900C35EB0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -90,6 +95,9 @@
 		0BEB50A41AB11BB000C35EB0 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ViewControllers/SettingsViewController.swift; sourceTree = "<group>"; };
 		0BF2FB291AAF9FE20019528D /* IdeaHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdeaHelper.swift; path = Model/IdeaHelper.swift; sourceTree = "<group>"; };
+		45D4CFBA66B871B7FDEAC112 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C75293C11E0EB20F2CDDCD9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		D9916EC5C0818E4B3F55B704 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +120,7 @@
 				0BEB50881AB1154000C35EB0 /* CoreGraphics.framework in Frameworks */,
 				0BEB50861AB1153900C35EB0 /* CFNetwork.framework in Frameworks */,
 				0BEB50841AB1152B00C35EB0 /* AudioToolbox.framework in Frameworks */,
+				20263C2623D3D481632F229E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,12 +134,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B2B87091AB391B600AA3AEF /* Library */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
 		0BACD0F81AA009CD0041A950 = {
 			isa = PBXGroup;
 			children = (
 				0BACD1031AA009CD0041A950 /* LeanLog */,
 				0BACD11C1AA009CD0041A950 /* LeanLogTests */,
 				0BACD1021AA009CD0041A950 /* Products */,
+				5AC4E8EFF37325B5E07E61C9 /* Pods */,
+				5C5571DD73356697273678DF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +173,7 @@
 				0BACD1101AA009CD0041A950 /* Images.xcassets */,
 				0BACD1121AA009CD0041A950 /* LaunchScreen.xib */,
 				0BEB50A01AB1164800C35EB0 /* LeanLog-Bridging-Header.h */,
+				0B2B87091AB391B600AA3AEF /* Library */,
 				0BEB509F1AB115E100C35EB0 /* Frameworks */,
 				0BACD1041AA009CD0041A950 /* Supporting Files */,
 			);
@@ -189,6 +208,7 @@
 		0BACD12B1AA00AB90041A950 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */,
 				0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */,
 				0B210A401AA50C3A0005D357 /* DetailsViewController.swift */,
 				0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */,
@@ -200,6 +220,7 @@
 		0BACD12E1AA014040041A950 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0BDA53981AB3CB7300660546 /* GroupCell.swift */,
 				0B210A441AA52B6C0005D357 /* CategoryCell.swift */,
 				0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */,
 			);
@@ -242,6 +263,23 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		5AC4E8EFF37325B5E07E61C9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D9916EC5C0818E4B3F55B704 /* Pods.debug.xcconfig */,
+				8C75293C11E0EB20F2CDDCD9 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5C5571DD73356697273678DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45D4CFBA66B871B7FDEAC112 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -249,10 +287,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0BACD1231AA009CD0041A950 /* Build configuration list for PBXNativeTarget "LeanLog" */;
 			buildPhases = (
+				76EB6B74D6A9FD99B6DFFF65 /* Check Pods Manifest.lock */,
 				0BACD0FD1AA009CD0041A950 /* Sources */,
 				0BACD0FE1AA009CD0041A950 /* Frameworks */,
 				0BACD0FF1AA009CD0041A950 /* Resources */,
 				0BEB50A31AB11B9700C35EB0 /* ShellScript */,
+				A2E020DA2E33C966B250EBB4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -358,6 +398,36 @@
 			shellPath = /bin/sh;
 			shellScript = "./Crashlytics.framework/run b78d43f1d70460b77b2d36657656524e3275e3e6 91925bf892d2e7664293bddbd1311a26d5817b4e38077a3a409b6f83e27e7cb8";
 		};
+		76EB6B74D6A9FD99B6DFFF65 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A2E020DA2E33C966B250EBB4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -365,6 +435,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BDA53991AB3CB7300660546 /* GroupCell.swift in Sources */,
+				0BDA53971AB3CA5C00660546 /* GroupsViewController.swift in Sources */,
 				0BACD10A1AA009CD0041A950 /* LeanLog.xcdatamodeld in Sources */,
 				0BACD12A1AA00AB50041A950 /* IdeaListViewController.swift in Sources */,
 				0B1555B61AAFC6980041E799 /* Group.swift in Sources */,
@@ -500,6 +572,7 @@
 		};
 		0BACD1241AA009CD0041A950 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9916EC5C0818E4B3F55B704 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -509,7 +582,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Batch.embeddedframework",
 				);
 				INFOPLIST_FILE = LeanLog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -524,6 +596,7 @@
 		};
 		0BACD1251AA009CD0041A950 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C75293C11E0EB20F2CDDCD9 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -533,7 +606,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Batch.embeddedframework",
 				);
 				INFOPLIST_FILE = LeanLog/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

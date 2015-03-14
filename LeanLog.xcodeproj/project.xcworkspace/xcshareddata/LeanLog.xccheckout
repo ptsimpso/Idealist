@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B7A194D6-DF88-41BE-8BD0-54DA5B33102D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LeanLog</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>66F8340530FEC8EC1CD8479E136498ABDB6A2DDB</key>
+		<string>https://bitbucket.org/psimpson/idealist.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LeanLog.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>66F8340530FEC8EC1CD8479E136498ABDB6A2DDB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/psimpson/idealist.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>66F8340530FEC8EC1CD8479E136498ABDB6A2DDB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>66F8340530FEC8EC1CD8479E136498ABDB6A2DDB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LeanLog</string>
+		</dict>
+	</array>
+</dict>
+</plist>

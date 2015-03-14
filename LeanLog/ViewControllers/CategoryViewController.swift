@@ -85,6 +85,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         }
         notesTextView.delegate = self
         notesTextView.autocorrectionType = UITextAutocorrectionType.No
+        notesTextView.layoutManager.allowsNonContiguousLayout = false
         
     }
 
@@ -115,7 +116,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
                 self.view.layoutIfNeeded()
             })
         } else {
-            textViewBottomConstraint.constant = 160.0
+            textViewBottomConstraint.constant = 150.0
             self.view.layoutIfNeeded()
         }
         

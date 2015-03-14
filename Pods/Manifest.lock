@@ -1,0 +1,10 @@
+PODS:
+  - Batch (1.2.3)
+
+DEPENDENCIES:
+  - Batch (~> 1.2)
+
+SPEC CHECKSUMS:
+  Batch: 284a8f4962f08cf9200d6e9f84e46e8a7ea50bba
+
+COCOAPODS: 0.35.0

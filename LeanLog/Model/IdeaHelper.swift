@@ -87,6 +87,21 @@ struct IdeaHelper {
         }
     }
     
+    static func setUpGroupCell(cell: GroupCell, row: Int, count: Int, group: Group?) {
+        let green: CGFloat = 200.0 - CGFloat(row + 1) / CGFloat(count) * 110.0
+        let cellColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
+        
+        cell.groupTitleLabel.backgroundColor = cellColor
+        cell.groupTitleLabel.layer.masksToBounds = true
+        
+        if row == 0 {
+            cell.groupTitleLabel.text = "Uncategorized"
+        } else {
+            cell.groupTitleLabel.text = group!.title
+        }
+        
+    }
+    
     static func setUpCategoryCell(cell: CategoryCell, row: Int, category: String, idea: Idea) {
         let green: CGFloat = 210.0 - CGFloat(row + 1) / CGFloat(Categories.array.count) * 130.0
         let cellColor: UIColor = UIColor(red: 255/255.0, green: green/255.0, blue: 0/255.0, alpha: 1.0)
@@ -229,45 +244,57 @@ struct IdeaHelper {
     }
     
     static func handleBulletToggleForTextView(textView: UITextView, sender: UIButton, bulletOn: Bool) {
+        let bullet = "\u{25CF} "
         if bulletOn {
             sender.setBackgroundImage(UIImage(named: "bulletOff"), forState: UIControlState.Normal)
-            if textView.text.utf16Count >= 2 {
-                let index = advance(textView.text.endIndex, -2)
-                if textView.text.substringFromIndex(index) == "\u{25CF} " {
-                    textView.text = textView.text.substringToIndex(index)
+            if textView.text.utf16Count >= 2 && textView.selectedRange.location >= 2 {
+                let startIndex = advance(textView.text.startIndex, textView.selectedRange.location - 2)
+                let endIndex = advance(textView.text.startIndex, textView.selectedRange.location)
+                let substring = textView.text.substringWithRange(Range<String.Index>(start: startIndex, end: endIndex))
+                if substring == "\u{25CF} " {
+                    let beginning = textView.beginningOfDocument
+                    let start = textView.positionFromPosition(beginning, offset: textView.selectedRange.location - 2)
+                    let end = textView.positionFromPosition(beginning, offset: textView.selectedRange.location)
+                    let textRange = textView.textRangeFromPosition(start, toPosition: end)
+
+                    textView.replaceRange(textRange, withText: "")
                 }
             }
         } else {
             sender.setBackgroundImage(UIImage(named: "bulletOn"), forState: UIControlState.Normal)
             if textView.text == "" {
-                textView.text = textView.text + "\u{25CF} "
+                let textRange = textView.textRangeFromPosition(textView.endOfDocument, toPosition: textView.endOfDocument)
+                textView.replaceRange(textRange, withText: bullet)
             } else {
-                let index = advance(textView.text.endIndex, -1)
+                let index = advance(textView.text.startIndex, textView.selectedRange.location - 1)
                 if textView.text[index] == "\n" {
-                    textView.text = textView.text + "\u{25CF} "
+                    let beginning = textView.beginningOfDocument
+                    let selectedPosition = textView.positionFromPosition(beginning, offset: textView.selectedRange.location)
+                    let textRange = textView.textRangeFromPosition(selectedPosition, toPosition: selectedPosition)
+
+                    textView.replaceRange(textRange, withText: bullet)
                 }
             }
         }
     }
     
     static func handleTextView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String, withBulletOn bulletOn: Bool) -> Bool {
-        if text == "\n" && bulletOn {
+        if bulletOn && text == "\n" {
             
             let newLineBullet = "\n\u{25CF} "
-            
+            var textRange: UITextRange!
             if range.location == textView.text.utf16Count {
-                let updatedText = textView.text + newLineBullet
-                textView.text = updatedText
+                textRange = textView.textRangeFromPosition(textView.endOfDocument, toPosition: textView.endOfDocument)
             } else {
                 let beginning = textView.beginningOfDocument
                 let start = textView.positionFromPosition(beginning, offset: range.location)
                 let end = textView.positionFromPosition(start!, offset: range.length)
-                let textRange = textView.textRangeFromPosition(start, toPosition: end)
-                
-                textView.replaceRange(textRange, withText: newLineBullet)
-                let cursor = NSMakeRange(range.location + newLineBullet.utf16Count, 0)
-                textView.selectedRange = cursor
+                textRange = textView.textRangeFromPosition(start, toPosition: end)
             }
+            textView.replaceRange(textRange, withText: newLineBullet)
+//            let cursor = NSMakeRange(range.location + newLineBullet.utf16Count, 0)
+//            textView.selectedRange = cursor
+//            textView.scrollRangeToVisible(textView.selectedRange)
             
             return false
         }

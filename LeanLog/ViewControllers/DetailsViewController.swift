@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MessageUI
 
-class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
+class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
 
     let kCategorySegue = "CategorySegue"
     
@@ -18,6 +19,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     let coreDataStack = CoreDataStack.sharedInstance
     
     @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var groupButton: UIButton!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var separatorView: UIView!
     var placeholderLabel : UILabel!
@@ -43,6 +45,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         super.viewDidLoad()
         
         separatorView.backgroundColor = accentColor
+        groupButton.backgroundColor = accentColor
         
         titleField.delegate = self
         titleField.autocorrectionType = UITextAutocorrectionType.No
@@ -54,6 +57,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         notesTextView.delegate = self
         notesTextView.autocorrectionType = UITextAutocorrectionType.No
         notesTextView.textColor = accentColor
+        notesTextView.layoutManager.allowsNonContiguousLayout = false
         
         placeholderLabel = UILabel()
         placeholderLabel.text = "Notes"
@@ -106,6 +110,74 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         }
     }
     
+    @IBAction func shareIdea(sender: UIBarButtonItem) {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposeVC = MFMailComposeViewController()
+            mailComposeVC.mailComposeDelegate = self
+            
+            var messageTitle = "No title"
+            if let title = idea.title {
+                messageTitle = title
+            }
+            var messageNotes = ""
+            if let notes = idea.notes {
+                messageNotes = notes.stringByReplacingOccurrencesOfString("\n", withString: "<br>", options: NSStringCompareOptions.LiteralSearch, range: nil)
+            }
+            var messageProblem = "n/a"
+            if let problem = idea.problem {
+                messageProblem = problem
+            }
+            var messageCustomers = "n/a"
+            if let customers = idea.customerSegments {
+                messageCustomers = customers
+            }
+            var messageAlts = "n/a"
+            if let alts = idea.alternatives {
+                messageAlts = alts
+            }
+            var messageUvp = "n/a"
+            if let uvp = idea.uvp {
+                messageUvp = uvp
+            }
+            var messageSolution = "n/a"
+            if let solution = idea.solution {
+                messageSolution = solution
+            }
+            var messageChannels = "n/a"
+            if let channels = idea.channels {
+                messageChannels = channels
+            }
+            var messageRevenue = "n/a"
+            if let revenue = idea.revenue {
+                messageRevenue = revenue
+            }
+            var messageCosts = "n/a"
+            if let costs = idea.costs {
+                messageCosts = costs
+            }
+            var messageMetrics = "n/a"
+            if let metrics = idea.metrics {
+                messageMetrics = metrics
+            }
+            var messageAdv = "n/a"
+            if let adv = idea.unfairAdv {
+                messageAdv = adv
+            }
+            
+            let htmlStringFirst =
+                "<div style='font-weight:bold'>\(messageTitle)</div><div>\(messageNotes)</div><br><div style='font-weight:bold'>Problem</div><div>\(messageProblem)</div><br><div style='font-weight:bold'>Customer Segments</div><div>\(messageCustomers)</div><br><div style='font-weight:bold'>Existing Alternatives</div><div>\(messageAlts)</div><br><div style='font-weight:bold'>Unique Value Proposition</div><div>\(messageUvp)</div>"
+            let htmlStringSecond =
+                "<br><div style='font-weight:bold'>Solution</div><div>\(messageSolution)</div><br><div style='font-weight:bold'>Channels and Growth</div><div>\(messageChannels)</div><br><div style='font-weight:bold'>Revenue Streams</div><div>\(messageRevenue)</div><br><div style='font-weight:bold'>Costs</div><div>\(messageCosts)</div><br><div style='font-weight:bold'>Key Metrics</div><div>\(messageMetrics)</div><br><div style='font-weight:bold'>Unfair Advantage</div><div>\(messageAdv)</div>"
+            
+            mailComposeVC.setMessageBody(htmlStringFirst + htmlStringSecond, isHTML: true)
+            self.presentViewController(mailComposeVC, animated: true, completion: nil)
+        }
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: - Text Delegates
 
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -142,6 +214,11 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     func refreshData() {
         IdeaHelper.setUpDetailsDots(self, idea: idea)
+        if let group = idea.group {
+            groupButton.setTitle(group.title, forState: .Normal)
+        } else {
+            groupButton.setTitle("Uncategorized", forState: .Normal)
+        }
         self.tableView.reloadData()
     }
     

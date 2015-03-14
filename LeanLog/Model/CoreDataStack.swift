@@ -122,4 +122,21 @@ class CoreDataStack {
         return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Idea]
     }
     
+    func insertNewGroup(name: String) -> Group {
+        let newGroup = NSEntityDescription.insertNewObjectForEntityForName("Group", inManagedObjectContext: managedObjectContext!) as Group
+        newGroup.title = name
+        saveContext()
+        
+        return newGroup
+    }
+    
+    func fetchGroups() -> [Group]? {
+        let fetchRequest = NSFetchRequest(entityName: "Group")
+        
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Group]
+    }
+    
 }
