@@ -16,7 +16,7 @@ struct Categories {
         ],
         [
             "title": "Customer Segments",
-            "prompt": "Who are your target customers and users? What are the characteristics of an early adopter (geographic, demographic, emotional state, etc.)? What are they doing just before and after they choose to engage with your idea?"
+            "prompt": "Who are your target customers and users? What are the characteristics of an early adopter (geographic, demographic, etc.)? What are they doing just before and after they choose to engage with your idea?"
         ],
         [
             "title": "Existing Alternatives",

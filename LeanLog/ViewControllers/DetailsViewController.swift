@@ -12,6 +12,7 @@ import MessageUI
 class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
 
     let kCategorySegue = "CategorySegue"
+    let kGroupSegue = "SetGroupSegue"
     
     var bulletOn = false
     
@@ -19,7 +20,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     let coreDataStack = CoreDataStack.sharedInstance
     
     @IBOutlet weak var titleField: UITextField!
-    @IBOutlet weak var groupButton: UIButton!
+    @IBOutlet weak var groupButton: SpringButton!
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var separatorView: UIView!
     var placeholderLabel : UILabel!
@@ -29,6 +30,8 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableShadow: UIView!
+    
+    @IBOutlet var dotArray: [SpringView]!
     
     @IBOutlet weak var dotProblem: UIView!
     @IBOutlet weak var dotCustomers: UIView!
@@ -43,6 +46,8 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dotArray.sort({ $0.frame.origin.x < $1.frame.origin.x })
         
         separatorView.backgroundColor = accentColor
         groupButton.backgroundColor = accentColor
@@ -94,6 +99,20 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     override func viewWillAppear(animated: Bool) {
         refreshData()
+        var animationCounter = 0
+        for dot in dotArray {
+            if !dot.hidden {
+                let delay: CGFloat = CGFloat(animationCounter) * 0.02 + 0.07
+                dot.delay = delay
+                dot.animate()
+                animationCounter++
+            }
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -111,6 +130,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     @IBAction func shareIdea(sender: UIBarButtonItem) {
+        updateIdea()
         if MFMailComposeViewController.canSendMail() {
             let mailComposeVC = MFMailComposeViewController()
             mailComposeVC.mailComposeDelegate = self
@@ -123,45 +143,48 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             if let notes = idea.notes {
                 messageNotes = notes.stringByReplacingOccurrencesOfString("\n", withString: "<br>", options: NSStringCompareOptions.LiteralSearch, range: nil)
             }
-            var messageProblem = "n/a"
+            
+            let defaultMessage = "n/a"
+            
+            var messageProblem = defaultMessage
             if let problem = idea.problem {
-                messageProblem = problem
+                messageProblem = problem == "" ? defaultMessage : problem
             }
-            var messageCustomers = "n/a"
+            var messageCustomers = defaultMessage
             if let customers = idea.customerSegments {
-                messageCustomers = customers
+                messageCustomers = customers == "" ? defaultMessage : customers
             }
-            var messageAlts = "n/a"
+            var messageAlts = defaultMessage
             if let alts = idea.alternatives {
-                messageAlts = alts
+                messageAlts = alts == "" ? defaultMessage : alts
             }
-            var messageUvp = "n/a"
+            var messageUvp = defaultMessage
             if let uvp = idea.uvp {
-                messageUvp = uvp
+                messageUvp = uvp == "" ? defaultMessage : uvp
             }
-            var messageSolution = "n/a"
+            var messageSolution = defaultMessage
             if let solution = idea.solution {
-                messageSolution = solution
+                messageSolution = solution == "" ? defaultMessage : solution
             }
-            var messageChannels = "n/a"
+            var messageChannels = defaultMessage
             if let channels = idea.channels {
-                messageChannels = channels
+                messageChannels = channels == "" ? defaultMessage : channels
             }
-            var messageRevenue = "n/a"
+            var messageRevenue = defaultMessage
             if let revenue = idea.revenue {
-                messageRevenue = revenue
+                messageRevenue = revenue == "" ? defaultMessage : revenue
             }
-            var messageCosts = "n/a"
+            var messageCosts = defaultMessage
             if let costs = idea.costs {
-                messageCosts = costs
+                messageCosts = costs == "" ? defaultMessage : costs
             }
-            var messageMetrics = "n/a"
+            var messageMetrics = defaultMessage
             if let metrics = idea.metrics {
-                messageMetrics = metrics
+                messageMetrics = metrics == "" ? defaultMessage : metrics
             }
-            var messageAdv = "n/a"
+            var messageAdv = defaultMessage
             if let adv = idea.unfairAdv {
-                messageAdv = adv
+                messageAdv = adv == "" ? defaultMessage : adv
             }
             
             let htmlStringFirst =
@@ -253,6 +276,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == kCategorySegue {
+            
             let indexPath = sender as NSIndexPath
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
             let destination = segue.destinationViewController as CategoryViewController
@@ -265,7 +289,11 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             destination.idea = idea
             
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        } else if segue.identifier == kGroupSegue {
+            
+            let navController = segue.destinationViewController as UINavigationController
+            let destination = navController.viewControllers[0] as GroupsViewController
+            destination.idea = idea
         }
     }
-    
 }

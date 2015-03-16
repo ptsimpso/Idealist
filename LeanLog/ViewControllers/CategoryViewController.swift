@@ -24,9 +24,11 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var promptTextView: UITextView!
     @IBOutlet weak var promptContainer: UIView!
     @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var animateView: SpringView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        animateView.transform = CGAffineTransformMakeTranslation(0, 150)
 
         promptContainer.backgroundColor = accentColor
         promptTextView.text = promptText
@@ -92,6 +94,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController!.navigationBar.barTintColor = accentColor
+        animateView.animate()
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     

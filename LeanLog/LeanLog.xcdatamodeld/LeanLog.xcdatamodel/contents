@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1510" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Group" representedClassName="LeanLog.Group" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="idea" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Idea" inverseName="group" inverseEntity="Idea" syncable="YES"/>
+        <relationship name="ideas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Idea" inverseName="group" inverseEntity="Idea" syncable="YES"/>
     </entity>
     <entity name="Idea" representedClassName="LeanLog.Idea" syncable="YES">
         <attribute name="alternatives" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,10 +19,10 @@
         <attribute name="unfairAdv" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" attributeType="Date" syncable="YES"/>
         <attribute name="uvp" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="idea" inverseEntity="Group" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="ideas" inverseEntity="Group" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Idea" positionX="-441" positionY="38" width="128" height="268"/>
         <element name="Group" positionX="-812" positionY="45" width="128" height="73"/>
+        <element name="Idea" positionX="-441" positionY="38" width="128" height="268"/>
     </elements>
 </model>

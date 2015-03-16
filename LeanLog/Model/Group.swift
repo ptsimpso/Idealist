@@ -12,6 +12,6 @@ import CoreData
 class Group: NSManagedObject {
 
     @NSManaged var title: String
-    @NSManaged var idea: NSSet
+    @NSManaged var ideas: NSSet
 
 }

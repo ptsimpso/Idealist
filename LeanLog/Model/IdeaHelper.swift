@@ -10,6 +10,9 @@ import UIKit
 import Foundation
 
 struct IdeaHelper {
+    
+    static let kBullet = "\u{2022} "
+    
     static func setUpIdeaCell(cell: IdeaTitleCell, idea: Idea, row: Int, count: Int, formatter: NSDateFormatter) {
         let green: CGFloat = 200.0 - CGFloat(row + 1) / CGFloat(count) * 110.0
         let cellColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
@@ -244,14 +247,13 @@ struct IdeaHelper {
     }
     
     static func handleBulletToggleForTextView(textView: UITextView, sender: UIButton, bulletOn: Bool) {
-        let bullet = "\u{25CF} "
         if bulletOn {
             sender.setBackgroundImage(UIImage(named: "bulletOff"), forState: UIControlState.Normal)
-            if textView.text.utf16Count >= 2 && textView.selectedRange.location >= 2 {
+            if textView.selectedRange.location >= 2 {
                 let startIndex = advance(textView.text.startIndex, textView.selectedRange.location - 2)
                 let endIndex = advance(textView.text.startIndex, textView.selectedRange.location)
                 let substring = textView.text.substringWithRange(Range<String.Index>(start: startIndex, end: endIndex))
-                if substring == "\u{25CF} " {
+                if substring == kBullet {
                     let beginning = textView.beginningOfDocument
                     let start = textView.positionFromPosition(beginning, offset: textView.selectedRange.location - 2)
                     let end = textView.positionFromPosition(beginning, offset: textView.selectedRange.location)
@@ -264,16 +266,20 @@ struct IdeaHelper {
             sender.setBackgroundImage(UIImage(named: "bulletOn"), forState: UIControlState.Normal)
             if textView.text == "" {
                 let textRange = textView.textRangeFromPosition(textView.endOfDocument, toPosition: textView.endOfDocument)
-                textView.replaceRange(textRange, withText: bullet)
-            } else {
+                textView.replaceRange(textRange, withText: kBullet)
+            } else if textView.selectedRange.location > 0 {
                 let index = advance(textView.text.startIndex, textView.selectedRange.location - 1)
                 if textView.text[index] == "\n" {
                     let beginning = textView.beginningOfDocument
                     let selectedPosition = textView.positionFromPosition(beginning, offset: textView.selectedRange.location)
                     let textRange = textView.textRangeFromPosition(selectedPosition, toPosition: selectedPosition)
-
-                    textView.replaceRange(textRange, withText: bullet)
+                    textView.replaceRange(textRange, withText: kBullet)
                 }
+            } else {
+                // Selected index is at the very beginning of textView
+                let beginning = textView.beginningOfDocument
+                let textRange = textView.textRangeFromPosition(beginning, toPosition: beginning)
+                textView.replaceRange(textRange, withText: kBullet)
             }
         }
     }
@@ -281,7 +287,7 @@ struct IdeaHelper {
     static func handleTextView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String, withBulletOn bulletOn: Bool) -> Bool {
         if bulletOn && text == "\n" {
             
-            let newLineBullet = "\n\u{25CF} "
+            let newLineBullet = "\n" + kBullet
             var textRange: UITextRange!
             if range.location == textView.text.utf16Count {
                 textRange = textView.textRangeFromPosition(textView.endOfDocument, toPosition: textView.endOfDocument)

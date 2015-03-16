@@ -130,6 +130,11 @@ class CoreDataStack {
         return newGroup
     }
     
+    func deleteGroup(group: Group) {
+        managedObjectContext?.deleteObject(group)
+        saveContext()
+    }
+    
     func fetchGroups() -> [Group]? {
         let fetchRequest = NSFetchRequest(entityName: "Group")
         
@@ -137,6 +142,18 @@ class CoreDataStack {
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Group]
+    }
+    
+    func fetchUngroupedIdeas() -> [Idea]? {
+        let fetchRequest = NSFetchRequest(entityName: "Idea")
+        
+        let predicate = NSPredicate(format: "group == nil")
+        fetchRequest.predicate = predicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "updatedAt", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Idea]
     }
     
 }

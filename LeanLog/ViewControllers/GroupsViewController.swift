@@ -9,19 +9,25 @@
 import UIKit
 import CoreData
 
-class GroupsViewController: UITableViewController {
+class GroupsViewController: UITableViewController, ModalDelegate {
 
+    let kAddGroupSegue = "AddGroupSegue"
+    
     let coreDataStack = CoreDataStack.sharedInstance
     var groups: [Group] = []
+    var idea: Idea!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
 
+    func dismissModalHandler() {
+        refreshData()
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         refreshData()
     }
     
@@ -60,6 +66,18 @@ class GroupsViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0 {
+            idea.group = nil
+        } else {
+            let group = groups[indexPath.row - 1]
+            idea.group = group
+        }
+        idea.updatedAt = NSDate()
+        coreDataStack.saveContext()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     @IBAction func addGroup(sender: UIBarButtonItem) {
         var titleField:UITextField?
         var addAlert = UIAlertController(title: "Add Category", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
@@ -82,8 +100,39 @@ class GroupsViewController: UITableViewController {
         presentViewController(addAlert, animated: true, completion: nil)
     }
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if indexPath.row == 0 {
+            return false
+        }
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let group = groups.removeAtIndex(indexPath.row - 1)
+            coreDataStack.deleteGroup(group)
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+    }
+    
     @IBAction func dismissVC(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func minimizeView(sender: AnyObject) {
+
+    }
+    
+    func maximizeView(sender: AnyObject) {
+
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == kAddGroupSegue {
+            let destination = segue.destinationViewController as AddGroupViewController
+            destination.delegate = self
+        }
     }
 
 }

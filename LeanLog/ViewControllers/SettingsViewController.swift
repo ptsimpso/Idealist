@@ -11,9 +11,30 @@ import MessageUI
 
 class SettingsViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
+    @IBOutlet weak var backButton: SpringButton!
+    @IBOutlet weak var modalView: SpringView!
+    @IBOutlet weak var hiLabel: SpringLabel!
+    @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var rateButton: UIButton!
+    @IBOutlet weak var feedbackButton: UIButton!
+    
+    var delegate: ModalDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        shareButton.layer.borderColor = UIColor.whiteColor().CGColor
+        rateButton.layer.borderColor = UIColor.whiteColor().CGColor
+        feedbackButton.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        modalView.transform = CGAffineTransformMakeTranslation(0, 300)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        delegate.minimizeView(self)
+        backButton.animate()
+        modalView.animate()
+        hiLabel.animate()
     }
     
     @IBAction func sharePressed(sender: AnyObject) {
@@ -42,7 +63,14 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     }
     
     @IBAction func backPressed() {
-        dismissViewControllerAnimated(true, completion: nil)
+        delegate.maximizeView(self)
+        
+        UIView.animateWithDuration(0.25, delay: 0, options: UIViewAnimationOptions.CurveLinear, animations: {
+                self.modalView.transform = CGAffineTransformMakeTranslation(0, 300)
+                self.backButton.alpha = 0
+            }) { (completed: Bool) -> Void in
+                self.dismissViewControllerAnimated(false, completion: nil)
+            }
     }
 
 }
