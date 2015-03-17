@@ -742,7 +742,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "549af752-dfe4-4247-8088-40b167fdb734";
+				PROVISIONING_PROFILE = "89b54424-dce9-485f-99c7-4d779000127a";
 				SWIFT_OBJC_BRIDGING_HEADER = "LeanLog/LeanLog-Bridging-Header.h";
 			};
 			name = Release;

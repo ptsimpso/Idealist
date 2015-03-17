@@ -11,7 +11,7 @@ import Foundation
 
 struct IdeaHelper {
     
-    static let kBullet = "\u{2022} "
+    static let kBullet = "\u{25CF} " // 2022 vs 25CF
     
     static func setUpIdeaCell(cell: IdeaTitleCell, idea: Idea, row: Int, count: Int, formatter: NSDateFormatter) {
         let green: CGFloat = 200.0 - CGFloat(row + 1) / CGFloat(count) * 110.0

@@ -53,14 +53,14 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         groupButton.backgroundColor = accentColor
         
         titleField.delegate = self
-        titleField.autocorrectionType = UITextAutocorrectionType.No
+//        titleField.autocorrectionType = UITextAutocorrectionType.No
         titleField.textColor = accentColor
         if let ideaTitle = idea.title {
             titleField.text = ideaTitle
         }
         
         notesTextView.delegate = self
-        notesTextView.autocorrectionType = UITextAutocorrectionType.No
+//        notesTextView.autocorrectionType = UITextAutocorrectionType.No
         notesTextView.textColor = accentColor
         notesTextView.layoutManager.allowsNonContiguousLayout = false
         
@@ -83,7 +83,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         shadow.locations = [0.0, 0.8]
         tableShadow.layer.insertSublayer(shadow, atIndex:0)
         
-        let backgroundView = UIView(frame: self.tableView.bounds);
+        let backgroundView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, self.tableView.frame.height));
         let gradient = CAGradientLayer()
         gradient.frame = backgroundView.bounds
         let colorArray = [UIColor(red: 1.0, green: 197/255.0, blue: 0, alpha: 1.0).CGColor, UIColor(red: 1.0, green: 80/255.0, blue: 0, alpha: 1.0).CGColor]

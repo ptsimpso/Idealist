@@ -86,7 +86,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
             notesTextView.text = ""
         }
         notesTextView.delegate = self
-        notesTextView.autocorrectionType = UITextAutocorrectionType.No
+//        notesTextView.autocorrectionType = UITextAutocorrectionType.No
         notesTextView.layoutManager.allowsNonContiguousLayout = false
         
     }

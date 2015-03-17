@@ -100,8 +100,9 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             return super.tableView(tableView, viewForHeaderInSection: section)
         } else {
             let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.width, 40.0))
-            let green: CGFloat = 210.0 - CGFloat(section + 1) / CGFloat(groups.count + 1) * 130.0
-            let headerColor: UIColor = UIColor(red: 255/255.0, green: green/255.0, blue: 0/255.0, alpha: 1.0)
+            
+            let green: CGFloat = 200.0 - CGFloat(section + 1) / CGFloat(groups.count + 1) * 110.0
+            let headerColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
             headerView.backgroundColor = headerColor
             
             let headerLabel = UILabel(frame: CGRectMake(18.0, 0, headerView.frame.width - 18.0, headerView.frame.height))
@@ -241,7 +242,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             }
         }
         
-        if userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
+        if !userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             
             let newIdea = coreDataStack.insertNewIdea()
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
