@@ -1,2 +1,0 @@
-PODS_BATCH_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/Batch/**" "$(PODS_ROOT)/Batch/Batch.embeddedframework"
-PODS_BATCH_OTHER_LDFLAGS = -ObjC -l"sqlite3" -framework "Accelerate" -framework "Batch" -framework "CoreGraphics" -framework "CoreTelephony" -framework "CoreText" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"

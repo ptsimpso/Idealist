@@ -102,7 +102,6 @@ struct IdeaHelper {
         } else {
             cell.groupTitleLabel.text = group!.title
         }
-        
     }
     
     static func setUpCategoryCell(cell: CategoryCell, row: Int, category: String, idea: Idea) {

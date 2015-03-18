@@ -20,9 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("lcqPSVVFETGbyRqDafsoOILbBg3ZIR1bV2vAAyqI", clientKey: "NPpHYUKU3paEYReqw7ZIfWAmEO6NbzdecT7pVq9h")
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block:nil)
         PFPurchase.addObserverForProduct("me.petersimpson.idealist.unlimited", block: { (transaction:SKPaymentTransaction!) -> Void in
+            PFAnalytics.trackEventInBackground("completed_purchase", block: nil)
+            Branch.getInstance().userCompletedAction("completed_purchase")
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "unlimited")
             NSUserDefaults.standardUserDefaults().synchronize()
         })
+        
+        Branch.getInstance().initSessionWithLaunchOptions(launchOptions, andRegisterDeepLinkHandler: { (params, error) -> Void in
+            // code
+        })
+        
+        Batch.startWithAPIKey("5501FD63B7A89F3F5EC7B8524EBFB0")
         
         Crashlytics.startWithAPIKey("b78d43f1d70460b77b2d36657656524e3275e3e6")
         
@@ -54,6 +62,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        if Branch.getInstance().handleDeepLink(url) {
+            return true
+        }
+        return true
     }
 
 }

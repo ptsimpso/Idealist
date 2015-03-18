@@ -242,8 +242,8 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             }
         }
         
-        if !userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
-            
+        if userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
+            Branch.getInstance().userCompletedAction("created_idea")
             let newIdea = coreDataStack.insertNewIdea()
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             
@@ -265,7 +265,8 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             performSegueWithIdentifier(kDetailSegue, sender: indexPath)
             
         } else {
-            
+            PFAnalytics.trackEventInBackground("reached_limit", block: nil)
+            Branch.getInstance().userCompletedAction("reached_limit")
             var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for $1.99!", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseAlert.addAction(UIAlertAction(title: "Purchase", style: .Default, handler: { (action: UIAlertAction!) in
