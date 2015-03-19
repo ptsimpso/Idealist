@@ -1266,7 +1266,7 @@
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTc-ZM-s7P" customClass="SpringView" customModule="LeanLog" customModuleProvider="target">
                                 <rect key="frame" x="124" y="108" width="8" height="8"/>
-                                <color key="backgroundColor" red="1" green="0.41452589631080627" blue="0.06494305282831192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.96862745098039216" green="0.31764705882352939" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="8" id="Avb-QV-aOm"/>
                                     <constraint firstAttribute="width" constant="8" id="wzY-P6-qQG"/>
@@ -1450,7 +1450,7 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.86274509803921573" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="1" green="0.86274516582489014" blue="0.16470584273338318" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="0Pv-xf-Kfa" secondAttribute="trailing" constant="10" id="0hT-P7-kGX"/>
                                     <constraint firstAttribute="height" constant="110" id="4as-bJ-Via"/>
