@@ -14,10 +14,17 @@ class IdeaTitleCell: UITableViewCell {
     @IBOutlet weak var stripeView: UIView!
     @IBOutlet weak var barView: UIView!
     
+    @IBOutlet var dotArray: [UIView]!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        dotArray.sort({ (first: UIView, second: UIView) -> Bool in
+            if first.frame.origin.y == second.frame.origin.y {
+                return first.frame.origin.x < second.frame.origin.x
+            } else {
+                return first.frame.origin.y < second.frame.origin.y
+            }
+        })
     }
 
 }

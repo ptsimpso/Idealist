@@ -26,69 +26,13 @@ struct IdeaHelper {
         cell.ideaTitleLabel.textColor = cellColor
         cell.stripeView.backgroundColor = cellColor
         cell.barView.backgroundColor = cellColor
-        /*
-        cell.dotAdvantage.hidden = true
-        cell.dotAlts.hidden = true
-        cell.dotChannels.hidden = true
-        cell.dotCosts.hidden = true
-        cell.dotCustomers.hidden = true
-        cell.dotMetrics.hidden = true
-        cell.dotProblem.hidden = true
-        cell.dotRevenue.hidden = true
-        cell.dotSolution.hidden = true
-        cell.dotUvp.hidden = true
-        
-        if let problem = idea.problem {
-            if problem != "" {
-                cell.dotProblem.hidden = false
+        for index in 0..<cell.dotArray.count {
+            let dot = cell.dotArray[index]
+            dot.hidden = true
+            if index < idea.priority.integerValue {
+                dot.hidden = false
             }
         }
-        if let customer = idea.customerSegments {
-            if customer != "" {
-                cell.dotCustomers.hidden = false
-            }
-        }
-        if let alts = idea.alternatives {
-            if alts != "" {
-                cell.dotAlts.hidden = false
-            }
-        }
-        if let uvp = idea.uvp {
-            if uvp != "" {
-                cell.dotUvp.hidden = false
-            }
-        }
-        if let solution = idea.solution {
-            if solution != "" {
-                cell.dotSolution.hidden = false
-            }
-        }
-        if let channels = idea.channels {
-            if channels != "" {
-                cell.dotChannels.hidden = false
-            }
-        }
-        if let revenue = idea.revenue {
-            if revenue != "" {
-                cell.dotRevenue.hidden = false
-            }
-        }
-        if let costs = idea.costs {
-            if costs != "" {
-                cell.dotCosts.hidden = false
-            }
-        }
-        if let metrics = idea.metrics {
-            if metrics != "" {
-                cell.dotMetrics.hidden = false
-            }
-        }
-        if let unfairAdv = idea.unfairAdv {
-            if unfairAdv != "" {
-                cell.dotAdvantage.hidden = false
-            }
-        }
-        */
     }
     
     static func setUpGroupCell(cell: GroupCell, row: Int, count: Int, group: Group?) {
