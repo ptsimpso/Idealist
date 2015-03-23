@@ -22,6 +22,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var groupButton: SpringButton!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet weak var textViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var separatorView: UIView!
     var placeholderLabel : UILabel!
     
@@ -53,19 +54,17 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         groupButton.backgroundColor = accentColor
         
         titleField.delegate = self
-//        titleField.autocorrectionType = UITextAutocorrectionType.No
         titleField.textColor = accentColor
         if let ideaTitle = idea.title {
             titleField.text = ideaTitle
         }
         
         notesTextView.delegate = self
-//        notesTextView.autocorrectionType = UITextAutocorrectionType.No
         notesTextView.textColor = accentColor
         notesTextView.layoutManager.allowsNonContiguousLayout = false
         
         placeholderLabel = UILabel()
-        placeholderLabel.text = "Notes"
+        placeholderLabel.text = "General notes"
         placeholderLabel.font = UIFont.boldSystemFontOfSize(notesTextView.font.pointSize)
         placeholderLabel.sizeToFit()
         notesTextView.addSubview(placeholderLabel)
@@ -78,7 +77,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         
         let shadow = CAGradientLayer()
         shadow.frame = tableShadow.bounds
-        let shadowArray = [UIColor(red: 0, green: 0, blue: 0, alpha: 0.15).CGColor, UIColor(red: 0, green: 0, blue: 0, alpha: 0.0).CGColor]
+        let shadowArray = [UIColor(red: 0, green: 0, blue: 0, alpha: 0.12).CGColor, UIColor(red: 0, green: 0, blue: 0, alpha: 0.0).CGColor]
         shadow.colors = shadowArray
         shadow.locations = [0.0, 0.8]
         tableShadow.layer.insertSublayer(shadow, atIndex:0)
@@ -99,15 +98,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     override func viewWillAppear(animated: Bool) {
         refreshData()
-        var animationCounter = 0
-        for dot in dotArray {
-            if !dot.hidden {
-                let delay: CGFloat = CGFloat(animationCounter) * 0.02 + 0.07
-                dot.delay = delay
-                dot.animate()
-                animationCounter++
-            }
-        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -117,7 +108,31 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     override func viewWillDisappear(animated: Bool) {
         updateIdea()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        if self.isMovingFromParentViewController() {
+            iRate.sharedInstance().promptIfAllCriteriaMet()
+        }
         super.viewWillDisappear(animated)
+    }
+    
+    func keyboardWillChange(notification: NSNotification) {
+        let userDict: [NSObject : AnyObject] = notification.userInfo!
+        
+        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as NSValue
+        var rect: CGRect = rectRaw.CGRectValue()
+        rect = self.view.convertRect(rect, fromView: nil)
+        let diffValue = self.view.frame.height - rect.origin.y
+        
+        if diffValue > 0 {
+            textViewBottomConstraint.constant = diffValue + 5
+            UIView.animateWithDuration(0.25, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+        } else {
+            textViewBottomConstraint.constant = 260.0
+            self.view.layoutIfNeeded()
+        }
     }
     
     func updateIdea() {
@@ -233,10 +248,22 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         titleField.resignFirstResponder()
         notesTextView.resignFirstResponder()
         updateIdea()
+        iRate.sharedInstance().promptIfAllCriteriaMet()
     }
     
     func refreshData() {
-        IdeaHelper.setUpDetailsDots(self, idea: idea)
+//        IdeaHelper.setUpDetailsDots(self, idea: idea)
+        for index in 0..<dotArray.count {
+            let dot = dotArray[index]
+            dot.hidden = true
+            if index < idea.priority.integerValue {
+                dot.hidden = false
+                let delay: CGFloat = CGFloat(index) * 0.02 + 0.07
+                dot.delay = delay
+                dot.animate()
+            }
+        }
+        
         if let group = idea.group {
             groupButton.setTitle(group.title, forState: .Normal)
         } else {

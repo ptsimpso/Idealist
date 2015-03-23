@@ -113,11 +113,16 @@ class CoreDataStack {
         saveContext()
     }
     
-    func fetchIdeas() -> [Idea]? {
+    func fetchIdeasWithPredicate(predicate: NSPredicate?) -> [Idea]? {
         let fetchRequest = NSFetchRequest(entityName: "Idea")
         
-        let sortDescriptor = NSSortDescriptor(key: "updatedAt", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        if let pred = predicate {
+            fetchRequest.predicate = predicate
+        }
+        
+        let prioritySortDescriptor = NSSortDescriptor(key: "priority", ascending: false)
+        let updatedSortDescriptor = NSSortDescriptor(key: "updatedAt", ascending: false)
+        fetchRequest.sortDescriptors = [prioritySortDescriptor, updatedSortDescriptor]
         
         return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Idea]
     }
@@ -144,16 +149,19 @@ class CoreDataStack {
         return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Group]
     }
     
+    /*
     func fetchUngroupedIdeas() -> [Idea]? {
         let fetchRequest = NSFetchRequest(entityName: "Idea")
         
         let predicate = NSPredicate(format: "group == nil")
         fetchRequest.predicate = predicate
         
-        let sortDescriptor = NSSortDescriptor(key: "updatedAt", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
+        let prioritySortDescriptor = NSSortDescriptor(key: "priority", ascending: false)
+        let updatedSortDescriptor = NSSortDescriptor(key: "updatedAt", ascending: false)
+        fetchRequest.sortDescriptors = [prioritySortDescriptor, updatedSortDescriptor]
         
         return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Idea]
     }
+    */
     
 }

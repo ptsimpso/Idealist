@@ -102,6 +102,11 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         updateIdea()
         self.navigationController!.navigationBar.barTintColor = defaultColor
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        if self.isMovingFromParentViewController() {
+            iRate.sharedInstance().promptIfAllCriteriaMet()
+        }
+        
         super.viewWillDisappear(animated)
     }
     
@@ -114,7 +119,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         let diffValue = self.view.frame.height - rect.origin.y
         
         if diffValue > 0 {
-            textViewBottomConstraint.constant = diffValue
+            textViewBottomConstraint.constant = diffValue + 5
             UIView.animateWithDuration(0.25, animations: { () -> Void in
                 self.view.layoutIfNeeded()
             })
@@ -122,7 +127,6 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
             textViewBottomConstraint.constant = 150.0
             self.view.layoutIfNeeded()
         }
-        
     }
     
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
@@ -147,6 +151,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
     func dismissKeyboard() {
         notesTextView.resignFirstResponder()
         updateIdea()
+        iRate.sharedInstance().promptIfAllCriteriaMet()
     }
     
     func updateIdea() {

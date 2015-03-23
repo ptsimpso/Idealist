@@ -14,6 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    override class func initialize() -> Void {
+        iRate.sharedInstance().applicationName = "Idealist"
+        iRate.sharedInstance().remindPeriod = 3
+        iRate.sharedInstance().promptAtLaunch = false
+        iRate.sharedInstance().useUIAlertControllerIfAvailable = true
+        // Enable iRate preview mode
+        // iRate.sharedInstance().previewMode = true
+    }
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         // Initialize Parse.
@@ -30,7 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // code
         })
         
-        Batch.startWithAPIKey("5501FD63B7A89F3F5EC7B8524EBFB0")
+        // Dev: DEV5501FD63B8E0DCD3A50217441B4
+        // Live: 5501FD63B7A89F3F5EC7B8524EBFB0
+        Batch.startWithAPIKey("DEV5501FD63B8E0DCD3A50217441B4")
         
         Crashlytics.startWithAPIKey("b78d43f1d70460b77b2d36657656524e3275e3e6")
         

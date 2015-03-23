@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B1555B61AAFC6980041E799 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1555B51AAFC6980041E799 /* Group.swift */; };
 		0B1555BA1AAFC76D0041E799 /* Idea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1555B91AAFC76D0041E799 /* Idea.swift */; };
 		0B210A411AA50C3A0005D357 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B210A401AA50C3A0005D357 /* DetailsViewController.swift */; };
 		0B210A451AA52B6C0005D357 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B210A441AA52B6C0005D357 /* CategoryCell.swift */; };
+		0B3BFCB91ABF4DE3005750C1 /* SectionToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3BFCB81ABF4DE3005750C1 /* SectionToggleButton.swift */; };
 		0B3EC7D21AB655720099F725 /* ModalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3EC7D11AB655720099F725 /* ModalProtocol.swift */; };
 		0B3EC7D81AB671BA0099F725 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */; };
+		0B417C1E1AC0C0FA0083148C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B417C1D1AC0C0FA0083148C /* Group.swift */; };
 		0B42D9351AB518BB0098782E /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42D9181AB518BB0098782E /* AsyncButton.swift */; };
 		0B42D9361AB518BB0098782E /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42D9191AB518BB0098782E /* AsyncImageView.swift */; };
 		0B42D9371AB518BB0098782E /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42D91A1AB518BB0098782E /* BlurView.swift */; };
@@ -71,12 +72,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B1555B51AAFC6980041E799 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Group.swift; path = Model/Group.swift; sourceTree = "<group>"; };
 		0B1555B91AAFC76D0041E799 /* Idea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Idea.swift; path = Model/Idea.swift; sourceTree = "<group>"; };
 		0B210A401AA50C3A0005D357 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailsViewController.swift; path = ViewControllers/DetailsViewController.swift; sourceTree = "<group>"; };
 		0B210A441AA52B6C0005D357 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = Views/CategoryCell.swift; sourceTree = "<group>"; };
+		0B3BFCB81ABF4DE3005750C1 /* SectionToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionToggleButton.swift; path = Views/SectionToggleButton.swift; sourceTree = "<group>"; };
 		0B3EC7D11AB655720099F725 /* ModalProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalProtocol.swift; path = Model/ModalProtocol.swift; sourceTree = "<group>"; };
 		0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddGroupViewController.swift; path = ViewControllers/AddGroupViewController.swift; sourceTree = "<group>"; };
+		0B417C1D1AC0C0FA0083148C /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Group.swift; path = Model/Group.swift; sourceTree = "<group>"; };
 		0B42D9181AB518BB0098782E /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		0B42D9191AB518BB0098782E /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		0B42D91A1AB518BB0098782E /* BlurView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 		0BACD12E1AA014040041A950 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0B3BFCB81ABF4DE3005750C1 /* SectionToggleButton.swift */,
 				0BDA53981AB3CB7300660546 /* GroupCell.swift */,
 				0B210A441AA52B6C0005D357 /* CategoryCell.swift */,
 				0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */,
@@ -302,8 +305,8 @@
 				0BF2FB291AAF9FE20019528D /* IdeaHelper.swift */,
 				0BC1C7711AA6C7390070EC05 /* Categories.swift */,
 				0BACD1081AA009CD0041A950 /* LeanLog.xcdatamodeld */,
+				0B417C1D1AC0C0FA0083148C /* Group.swift */,
 				0B1555B91AAFC76D0041E799 /* Idea.swift */,
-				0B1555B51AAFC6980041E799 /* Group.swift */,
 				0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */,
 			);
 			name = Model;
@@ -514,8 +517,8 @@
 				0B42D93C1AB518BB0098782E /* DesignableTextField.swift in Sources */,
 				0B42D9421AB518BB0098782E /* LoadingView.swift in Sources */,
 				0BACD12A1AA00AB50041A950 /* IdeaListViewController.swift in Sources */,
+				0B417C1E1AC0C0FA0083148C /* Group.swift in Sources */,
 				0B42D93B1AB518BB0098782E /* DesignableTabBarController.swift in Sources */,
-				0B1555B61AAFC6980041E799 /* Group.swift in Sources */,
 				0B42D9371AB518BB0098782E /* BlurView.swift in Sources */,
 				0B42D9451AB518BB0098782E /* SoundPlayer.swift in Sources */,
 				0B42D94B1AB518BB0098782E /* SpringTextField.swift in Sources */,
@@ -542,6 +545,7 @@
 				0B42D9391AB518BB0098782E /* DesignableImageView.swift in Sources */,
 				0B42D9381AB518BB0098782E /* DesignableButton.swift in Sources */,
 				0B42D94A1AB518BB0098782E /* SpringLabel.swift in Sources */,
+				0B3BFCB91ABF4DE3005750C1 /* SectionToggleButton.swift in Sources */,
 				0B42D9481AB518BB0098782E /* SpringButton.swift in Sources */,
 				0BC1C7701AA6C6DC0070EC05 /* CategoryViewController.swift in Sources */,
 				0B42D93A1AB518BB0098782E /* DesignableLabel.swift in Sources */,

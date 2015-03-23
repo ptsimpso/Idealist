@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-iRate.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>BC7A247E559A744086730E0A</key>
+		<key>0AB7EED2670EA2360878BEAA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C0C4C51B0835938AED8C4363</key>
+		<key>0FDD09963F1BF0EC709C531E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D014A9384B90D8AF4DCF948A</key>
+		<key>5473FB2C636B749206D9FD76</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9CD7CB76F10212B1EDD4D8E8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

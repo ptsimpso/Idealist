@@ -11,18 +11,25 @@ import CoreData
 
 class IdeaListViewController: UITableViewController, ModalDelegate {
 
+    let kHeaderHeight: CGFloat = 50.0
     let iapKey = "unlimited"
     let kIAPIdentifer = "me.petersimpson.idealist.unlimited"
     let kDetailSegue = "DetailSegue"
     let kSettingsSegue = "SettingsSegue"
     
     let coreDataStack = CoreDataStack.sharedInstance
+    
     var ideas: [Idea] = [];
-    // andrea
-    @IBOutlet weak var searchSegmentedControl: UISegmentedControl!
     var ungrouped: [Idea] = [];
     var groups: [Group] = [];
     var groupIdeaArrays: [[Idea]] = [];
+    var toggleArray: [Int] = []
+    
+    var accentColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
+    let defaultColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
+    
+    // andrea
+    @IBOutlet weak var searchSegmentedControl: UISegmentedControl!
     
     let formatter: NSDateFormatter = NSDateFormatter()
     
@@ -40,7 +47,6 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         formatter.dateFormat = "h:mm a, MMM d"
         formatter.AMSymbol = "am"
         formatter.PMSymbol = "pm"
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -78,11 +84,15 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             }
             return 1
         } else {
-            if section == 0 {
-                return ungrouped.count
+            if contains(toggleArray, section) {
+                if section == 0 {
+                    return ungrouped.count
+                } else {
+                    let ideaArray = groupIdeaArrays[section - 1]
+                    return ideaArray.count
+                }
             } else {
-                let ideaArray = groupIdeaArrays[section - 1]
-                return ideaArray.count
+                return 0
             }
         }
     }
@@ -91,7 +101,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         if searchSegmentedControl.selectedSegmentIndex == 0 {
             return super.tableView(tableView, heightForHeaderInSection: section)
         } else {
-            return 40.0
+            return kHeaderHeight
         }
     }
     
@@ -99,12 +109,11 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         if searchSegmentedControl.selectedSegmentIndex == 0 {
             return super.tableView(tableView, viewForHeaderInSection: section)
         } else {
-            let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.width, 40.0))
+            let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.width, kHeaderHeight))
             
             let green: CGFloat = 200.0 - CGFloat(section + 1) / CGFloat(groups.count + 1) * 110.0
             let headerColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
             headerView.backgroundColor = headerColor
-            
             let headerLabel = UILabel(frame: CGRectMake(18.0, 0, headerView.frame.width - 18.0, headerView.frame.height))
             headerLabel.textColor = UIColor.whiteColor()
             headerLabel.font = UIFont.boldSystemFontOfSize(16.0)
@@ -118,13 +127,21 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             
             headerView.addSubview(headerLabel)
             
+            let toggleButton = SectionToggleButton(parentView: headerView)
+            toggleButton.addTarget(self, action: "sectionTogglePressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            toggleButton.tag = section
+            if !contains(toggleArray, section) {
+                toggleButton.toggleIcon.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
+            }
+            headerView.addSubview(toggleButton)
+            
             return headerView
         }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if ideas.count > 0 || searchSegmentedControl.selectedSegmentIndex == 1 {
-            return 70.0
+            return 60.0
         }
         return 142.0
     }
@@ -202,14 +219,25 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             }
         }
     }
+
+    func sectionTogglePressed(sender: SectionToggleButton) {
+        if contains(toggleArray, sender.tag) {
+            toggleArray.removeAtIndex(find(toggleArray, sender.tag)!)
+        } else {
+            toggleArray.append(sender.tag)
+        }
+        
+        self.tableView.reloadSections(NSIndexSet(index: sender.tag), withRowAnimation: UITableViewRowAnimation.Automatic)
+    }
     
     @IBAction func searchControlPressed(sender: UISegmentedControl) {
         refreshData()
+        iRate.sharedInstance().promptIfAllCriteriaMet()
     }
 
     func refreshData() {
         if searchSegmentedControl.selectedSegmentIndex == 0 {
-            if let fetchResults = coreDataStack.fetchIdeas() {
+            if let fetchResults = coreDataStack.fetchIdeasWithPredicate(nil) {
                 ideas = fetchResults
             }
         } else {
@@ -218,14 +246,27 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 groups = groupResults
                 for singleGroup: Group in groups {
                     var groupIdeas: [Idea] = singleGroup.ideas.allObjects as [Idea]
+                    groupIdeas.sort({ (first: Idea, second: Idea) -> Bool in
+                        let firstInt = first.priority.integerValue
+                        let secondInt = second.priority.integerValue
+                        if firstInt == secondInt {
+                            if first.updatedAt.compare(second.updatedAt) == NSComparisonResult.OrderedDescending {
+                                return true
+                            }
+                            return false
+                        } else {
+                            return firstInt > secondInt
+                        }
+                    })
                     groupIdeaArrays.append(groupIdeas)
                 }
             }
-            if let ungroupedIdeas = coreDataStack.fetchUngroupedIdeas() {
+            let predicate = NSPredicate(format: "group == nil")
+            if let ungroupedIdeas = coreDataStack.fetchIdeasWithPredicate(predicate) {
                 ungrouped = ungroupedIdeas
             }
         }
-        
+
         self.tableView.reloadData()
     }
 
@@ -244,6 +285,9 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         
         if userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
+            
+            self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+            
             let newIdea = coreDataStack.insertNewIdea()
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             
@@ -253,7 +297,11 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 needsRefresh = ideas.count <= 1
             } else {
                 ungrouped.insert(newIdea, atIndex: 0)
-                needsRefresh = ungrouped.count <= 1
+                needsRefresh = true
+                if !contains(toggleArray, 0) {
+                    toggleArray.append(0)
+                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
+                }
             }
             
             if needsRefresh {
@@ -262,6 +310,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
             }
             
+            accentColor = defaultColor
             performSegueWithIdentifier(kDetailSegue, sender: indexPath)
             
         } else {
@@ -293,10 +342,11 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             
             presentViewController(purchaseAlert, animated: true, completion: nil)
         }
-        
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell: IdeaTitleCell = self.tableView.cellForRowAtIndexPath(indexPath) as IdeaTitleCell
+        accentColor = cell.ideaTitleLabel.textColor
         performSegueWithIdentifier(kDetailSegue, sender: indexPath)
     }
     
@@ -304,11 +354,10 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         if segue.identifier == kDetailSegue {
             
             let indexPath = sender as NSIndexPath
-            let cell: IdeaTitleCell = self.tableView.cellForRowAtIndexPath(indexPath) as IdeaTitleCell
             
             let destination = segue.destinationViewController as DetailsViewController
-            destination.accentColor = cell.ideaTitleLabel.textColor
-            destination.defaultColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
+            destination.accentColor = accentColor
+            destination.defaultColor = defaultColor
             
             if searchSegmentedControl.selectedSegmentIndex == 0 {
                 destination.idea = ideas[indexPath.row]
@@ -330,7 +379,6 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     
     func minimizeView(sender: AnyObject) {
         spring(0.7, {
-            // .935
             self.navigationController!.view.transform = CGAffineTransformMakeScale(0.935, 0.935)
         })
     }

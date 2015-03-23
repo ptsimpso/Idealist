@@ -11,6 +11,7 @@ import CoreData
 
 class Idea: NSManagedObject {
 
+    @NSManaged var priority: NSNumber
     @NSManaged var alternatives: String?
     @NSManaged var channels: String?
     @NSManaged var costs: String?

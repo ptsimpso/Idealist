@@ -2,18 +2,21 @@ PODS:
   - Batch (1.2.3)
   - Bolts (1.1.4)
   - Branch (0.4.7)
+  - iRate (1.11.3)
   - Parse (1.6.4):
     - Bolts (~> 1.1)
 
 DEPENDENCIES:
   - Batch (~> 1.2)
   - Branch
+  - iRate
   - Parse
 
 SPEC CHECKSUMS:
   Batch: 284a8f4962f08cf9200d6e9f84e46e8a7ea50bba
   Bolts: dd9fb8433d67f5acc3b6b4d1379bbc5513d716c1
   Branch: a714f67cce53d4ddbc373e77a2e39d67b7573686
+  iRate: 5e1978bac8b3f3f0296dbeccc0dd7b50e6e50657
   Parse: c2610f7a12ad0defc974803b819c4efe7746e6db
 
 COCOAPODS: 0.36.0

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zwt-we-q1M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zwt-we-q1M">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -277,18 +277,18 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lb0-8l-Ezf">
-                                            <rect key="frame" x="99" y="35" width="496" height="2"/>
+                                            <rect key="frame" x="95" y="35" width="500" height="2"/>
                                             <color key="backgroundColor" red="0.36538764834403992" green="0.47422665357589722" blue="0.8158184289932251" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="2" id="Xoj-Qf-kcC"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="990" text="Idea Title" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpj-Db-L6d">
-                                            <rect key="frame" x="18" y="0.0" width="76.5" height="70"/>
+                                            <rect key="frame" x="18" y="0.0" width="72.5" height="70"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" priority="900" constant="77" id="iOC-Le-bly"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -949,9 +949,9 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uCc-nx-hgo" userLabel="Table Shadow">
-                                <rect key="frame" x="0.0" y="345" width="600" height="5"/>
+                                <rect key="frame" x="0.0" y="345" width="600" height="4"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="5" id="jHY-5c-dDB"/>
+                                    <constraint firstAttribute="height" constant="4" id="jHY-5c-dDB"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yFS-cE-4ep" userLabel="Gray dot">
@@ -1321,7 +1321,6 @@
                             <constraint firstItem="7Q0-wy-XJN" firstAttribute="leading" secondItem="9l2-6T-VVs" secondAttribute="trailing" constant="4" id="8h2-nr-Ooy"/>
                             <constraint firstItem="Sa2-XJ-xmH" firstAttribute="top" secondItem="krD-ak-4hr" secondAttribute="bottom" constant="6" id="9H4-OY-T8I"/>
                             <constraint firstItem="ul0-St-WB3" firstAttribute="leading" secondItem="1Eg-lg-pa0" secondAttribute="trailing" constant="4" id="9z0-qT-wGC"/>
-                            <constraint firstItem="IhN-hi-DYG" firstAttribute="top" secondItem="BBx-2c-9TQ" secondAttribute="bottom" constant="5" id="AAz-Bi-Awj"/>
                             <constraint firstItem="Sa2-XJ-xmH" firstAttribute="top" secondItem="Bid-8r-R4U" secondAttribute="bottom" constant="6" id="Afz-3a-UTs"/>
                             <constraint firstItem="krD-ak-4hr" firstAttribute="leading" secondItem="cPw-RP-b08" secondAttribute="trailing" constant="4" id="BKU-lE-yFX"/>
                             <constraint firstItem="Sa2-XJ-xmH" firstAttribute="top" secondItem="i8M-hl-w7H" secondAttribute="bottom" constant="6" id="Du4-cK-H4s"/>
@@ -1345,6 +1344,7 @@
                             <constraint firstItem="Sa2-XJ-xmH" firstAttribute="top" secondItem="yFS-cE-4ep" secondAttribute="bottom" constant="6" id="Znl-IS-vfV"/>
                             <constraint firstItem="Sa2-XJ-xmH" firstAttribute="top" secondItem="d0Y-Ky-Ql2" secondAttribute="bottom" constant="6" id="a4s-jn-a1T"/>
                             <constraint firstItem="A9a-tK-rFp" firstAttribute="top" secondItem="IhN-hi-DYG" secondAttribute="bottom" id="aEI-F9-L7x"/>
+                            <constraint firstItem="A9a-tK-rFp" firstAttribute="top" secondItem="BBx-2c-9TQ" secondAttribute="bottom" constant="260" id="bi7-Vp-Hss"/>
                             <constraint firstItem="i8M-hl-w7H" firstAttribute="leading" secondItem="SYB-In-Vlx" secondAttribute="trailing" constant="4" id="c8R-HF-biG"/>
                             <constraint firstItem="gn0-Z2-9cW" firstAttribute="leading" secondItem="k6u-Ho-D2O" secondAttribute="trailing" constant="4" id="czS-tA-WqR"/>
                             <constraint firstItem="d0Y-Ky-Ql2" firstAttribute="leading" secondItem="ul0-St-WB3" secondAttribute="trailing" constant="4" id="dan-Az-VL6"/>
@@ -1393,6 +1393,7 @@
                         <outlet property="separatorView" destination="Sa2-XJ-xmH" id="KD3-qw-Lld"/>
                         <outlet property="tableShadow" destination="uCc-nx-hgo" id="vY3-8n-vlQ"/>
                         <outlet property="tableView" destination="IhN-hi-DYG" id="Wxa-qK-gsG"/>
+                        <outlet property="textViewBottomConstraint" destination="bi7-Vp-Hss" id="rE9-wl-GjK"/>
                         <outlet property="titleField" destination="zov-kl-G1w" id="tvg-ID-I90"/>
                         <outletCollection property="dotArray" destination="SYB-In-Vlx" collectionClass="NSMutableArray" id="MYy-pJ-gnm"/>
                         <outletCollection property="dotArray" destination="i8M-hl-w7H" collectionClass="NSMutableArray" id="gPO-HI-m0s"/>

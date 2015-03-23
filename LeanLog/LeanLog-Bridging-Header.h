@@ -5,3 +5,4 @@
 #import <Parse/Parse.h>
 #import <Branch/Branch.h>
 #import <Batch/Batch.h>
+#import <iRate/iRate.h>
