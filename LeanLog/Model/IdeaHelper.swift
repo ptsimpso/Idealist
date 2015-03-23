@@ -26,7 +26,7 @@ struct IdeaHelper {
         cell.ideaTitleLabel.textColor = cellColor
         cell.stripeView.backgroundColor = cellColor
         cell.barView.backgroundColor = cellColor
-        
+        /*
         cell.dotAdvantage.hidden = true
         cell.dotAlts.hidden = true
         cell.dotChannels.hidden = true
@@ -88,6 +88,7 @@ struct IdeaHelper {
                 cell.dotAdvantage.hidden = false
             }
         }
+        */
     }
     
     static func setUpGroupCell(cell: GroupCell, row: Int, count: Int, group: Group?) {

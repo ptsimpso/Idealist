@@ -14,16 +14,6 @@ class IdeaTitleCell: UITableViewCell {
     @IBOutlet weak var stripeView: UIView!
     @IBOutlet weak var barView: UIView!
     
-    @IBOutlet weak var dotProblem: UIView!
-    @IBOutlet weak var dotCustomers: UIView!
-    @IBOutlet weak var dotAlts: UIView!
-    @IBOutlet weak var dotUvp: UIView!
-    @IBOutlet weak var dotSolution: UIView!
-    @IBOutlet weak var dotChannels: UIView!
-    @IBOutlet weak var dotRevenue: UIView!
-    @IBOutlet weak var dotCosts: UIView!
-    @IBOutlet weak var dotMetrics: UIView!
-    @IBOutlet weak var dotAdvantage: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

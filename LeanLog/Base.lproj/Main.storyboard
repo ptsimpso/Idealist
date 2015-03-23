@@ -608,16 +608,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="barView" destination="USd-Au-vyv" id="oBr-0z-u8S"/>
-                                    <outlet property="dotAdvantage" destination="aoJ-Jy-XK2" id="ccC-ah-lbQ"/>
-                                    <outlet property="dotAlts" destination="zFL-st-h9Y" id="UF2-6M-U3H"/>
-                                    <outlet property="dotChannels" destination="Ed0-pT-KlL" id="Y2U-DU-9nZ"/>
-                                    <outlet property="dotCosts" destination="a9P-Kd-V7t" id="asl-UR-1fJ"/>
-                                    <outlet property="dotCustomers" destination="fVd-7y-SY2" id="mMS-wL-bIl"/>
-                                    <outlet property="dotMetrics" destination="3hG-4j-vNT" id="gQf-tD-JfO"/>
-                                    <outlet property="dotProblem" destination="UqA-1k-5xo" id="iRL-lJ-SyG"/>
-                                    <outlet property="dotRevenue" destination="zIq-7r-62r" id="zW5-Ld-8oC"/>
-                                    <outlet property="dotSolution" destination="AGu-Qf-jir" id="Bcd-l5-qOv"/>
-                                    <outlet property="dotUvp" destination="ozy-L9-w14" id="K1h-l6-vxX"/>
                                     <outlet property="ideaTitleLabel" destination="lpj-Db-L6d" id="m0I-8I-YHY"/>
                                     <outlet property="stripeView" destination="Lb0-8l-Ezf" id="UWy-Dm-CzA"/>
                                 </connections>
