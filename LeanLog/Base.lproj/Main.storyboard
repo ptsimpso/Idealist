@@ -1378,16 +1378,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dotAdvantage" destination="BTc-ZM-s7P" id="evS-mw-T27"/>
-                        <outlet property="dotAlts" destination="s5O-Ca-SW4" id="U7l-2Y-hxv"/>
-                        <outlet property="dotChannels" destination="ul0-St-WB3" id="sq8-vX-ytT"/>
-                        <outlet property="dotCosts" destination="p9b-Nb-rfP" id="RGT-BU-Bei"/>
-                        <outlet property="dotCustomers" destination="i8M-hl-w7H" id="Ohr-xj-6AF"/>
-                        <outlet property="dotMetrics" destination="Bid-8r-R4U" id="IiM-dl-KKr"/>
-                        <outlet property="dotProblem" destination="SYB-In-Vlx" id="9pi-sg-Hic"/>
-                        <outlet property="dotRevenue" destination="d0Y-Ky-Ql2" id="4gT-BD-VHv"/>
-                        <outlet property="dotSolution" destination="1Eg-lg-pa0" id="za8-Gz-KBs"/>
-                        <outlet property="dotUvp" destination="7uQ-I9-iZj" id="McT-AS-vgE"/>
                         <outlet property="groupButton" destination="hwG-sc-XLG" id="xEm-aA-Qu9"/>
                         <outlet property="notesTextView" destination="BBx-2c-9TQ" id="mHP-F0-AuX"/>
                         <outlet property="separatorView" destination="Sa2-XJ-xmH" id="KD3-qw-Lld"/>

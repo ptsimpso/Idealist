@@ -34,17 +34,6 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     @IBOutlet var dotArray: [SpringView]!
     
-    @IBOutlet weak var dotProblem: UIView!
-    @IBOutlet weak var dotCustomers: UIView!
-    @IBOutlet weak var dotAlts: UIView!
-    @IBOutlet weak var dotUvp: UIView!
-    @IBOutlet weak var dotSolution: UIView!
-    @IBOutlet weak var dotChannels: UIView!
-    @IBOutlet weak var dotRevenue: UIView!
-    @IBOutlet weak var dotCosts: UIView!
-    @IBOutlet weak var dotMetrics: UIView!
-    @IBOutlet weak var dotAdvantage: UIView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -252,7 +241,6 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     func refreshData() {
-//        IdeaHelper.setUpDetailsDots(self, idea: idea)
         for index in 0..<dotArray.count {
             let dot = dotArray[index]
             dot.hidden = true
