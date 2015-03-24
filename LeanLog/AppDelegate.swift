@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Dev: DEV5501FD63B8E0DCD3A50217441B4
         // Live: 5501FD63B7A89F3F5EC7B8524EBFB0
-        Batch.startWithAPIKey("5501FD63B7A89F3F5EC7B8524EBFB0")
+        Batch.startWithAPIKey("DEV5501FD63B8E0DCD3A50217441B4")
         
         Crashlytics.startWithAPIKey("b78d43f1d70460b77b2d36657656524e3275e3e6")
         

@@ -12,10 +12,13 @@ class AddGroupViewController: UIViewController {
 
     let coreDataStack = CoreDataStack.sharedInstance
     
+    var group: Group?
+    
     @IBOutlet weak var modalView: SpringView!
     @IBOutlet weak var groupTitleField: UITextField!
     @IBOutlet weak var closeButton: SpringButton!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var delegate: ModalDelegate!
     
@@ -27,6 +30,11 @@ class AddGroupViewController: UIViewController {
         saveButton.layer.cornerRadius = 2.0
         saveButton.layer.borderColor = UIColor.whiteColor().CGColor
         saveButton.layer.borderWidth = 2.0
+        
+        if let unwrappedGroup = group {
+            titleLabel.text = "Edit Category"
+            groupTitleField.text = unwrappedGroup.title
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -39,7 +47,12 @@ class AddGroupViewController: UIViewController {
 
     @IBAction func savePressed(sender: UIButton) {
         if (countElements(groupTitleField.text) > 0) {
-            coreDataStack.insertNewGroup(groupTitleField.text)
+            if group != nil {
+                group?.title = groupTitleField.text
+                coreDataStack.saveContext()
+            } else {
+                coreDataStack.insertNewGroup(groupTitleField.text)
+            }
             self.delegate.dismissModalHandler()
             dismissVC()
         }

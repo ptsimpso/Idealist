@@ -723,6 +723,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="aC3-4G-pTR" kind="presentation" identifier="EditGroupSegue" modalPresentationStyle="overCurrentContext" animates="NO" id="mB9-8J-Dk5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UiD-AL-egD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -843,6 +846,7 @@
                         <outlet property="groupTitleField" destination="yOJ-Qi-VWi" id="Hx4-f9-ZZ5"/>
                         <outlet property="modalView" destination="PPk-UM-xZk" id="HK5-TB-GWJ"/>
                         <outlet property="saveButton" destination="egG-lt-O0Z" id="WbO-Yk-Tuv"/>
+                        <outlet property="titleLabel" destination="fjk-Qg-dbw" id="jUU-53-MDy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPE-uc-deh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1720,4 +1724,7 @@
         <image name="settings" width="22" height="22"/>
         <image name="star" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="mB9-8J-Dk5"/>
+    </inferredMetricsTieBreakers>
 </document>

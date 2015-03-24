@@ -12,6 +12,7 @@ import CoreData
 class GroupsViewController: UITableViewController, ModalDelegate {
 
     let kAddGroupSegue = "AddGroupSegue"
+    let kEditGroupSegue = "EditGroupSegue"
     
     let coreDataStack = CoreDataStack.sharedInstance
     var groups: [Group] = []
@@ -107,14 +108,35 @@ class GroupsViewController: UITableViewController, ModalDelegate {
         return true
     }
     
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (rowAction, indexPath) -> Void in
+            let group = self.groups.removeAtIndex(indexPath.row - 1)
+            self.coreDataStack.deleteGroup(group)
+            
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
+        let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Edit") { (rowAction, indexPath) -> Void in
+            
+            let group = self.groups[indexPath.row - 1]
+            self.performSegueWithIdentifier(self.kEditGroupSegue, sender: group)
+            
+            self.tableView.editing = false
+        }
+        editAction.backgroundColor = UIColor.lightGrayColor()
+        return [deleteAction, editAction]
+    }
+
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        /*
         if editingStyle == .Delete {
             let group = groups.removeAtIndex(indexPath.row - 1)
             coreDataStack.deleteGroup(group)
             
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }
+        */
     }
+
     
     @IBAction func dismissVC(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -131,6 +153,10 @@ class GroupsViewController: UITableViewController, ModalDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == kAddGroupSegue {
             let destination = segue.destinationViewController as AddGroupViewController
+            destination.delegate = self
+        } else if segue.identifier == kEditGroupSegue {
+            let destination = segue.destinationViewController as AddGroupViewController
+            destination.group = sender as? Group
             destination.delegate = self
         }
     }
