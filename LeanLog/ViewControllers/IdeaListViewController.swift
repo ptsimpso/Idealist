@@ -85,10 +85,10 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             return 1
         } else {
             if contains(toggleArray, section) {
-                if section == 0 {
+                if section == groupIdeaArrays.count {
                     return ungrouped.count
                 } else {
-                    let ideaArray = groupIdeaArrays[section - 1]
+                    let ideaArray = groupIdeaArrays[section]
                     return ideaArray.count
                 }
             } else {
@@ -118,10 +118,10 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             headerLabel.textColor = UIColor.whiteColor()
             headerLabel.font = UIFont.boldSystemFontOfSize(16.0)
             
-            if section == 0 {
+            if section == groups.count {
                 headerLabel.text = "Uncategorized"
             } else {
-                let group = groups[section - 1]
+                let group = groups[section]
                 headerLabel.text = group.title
             }
             
@@ -166,11 +166,11 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             var rowIdea: Idea!
             var count: Int!
             
-            if indexPath.section == 0 {
+            if indexPath.section == groupIdeaArrays.count {
                 rowIdea = ungrouped[indexPath.row]
                 count = ungrouped.count
             } else {
-                let ideaArray = groupIdeaArrays[indexPath.section - 1]
+                let ideaArray = groupIdeaArrays[indexPath.section]
                 rowIdea = ideaArray[indexPath.row]
                 count = ideaArray.count
             }
@@ -197,7 +197,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             }
         } else {
             if editingStyle == .Delete {
-                if indexPath.section == 0 {
+                if indexPath.section == groupIdeaArrays.count {
                     let idea = ungrouped.removeAtIndex(indexPath.row)
                     coreDataStack.deleteIdea(idea)
                     
@@ -207,10 +207,10 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                     }
                 } else {
-                    let idea = groupIdeaArrays[indexPath.section - 1].removeAtIndex(indexPath.row)
+                    let idea = groupIdeaArrays[indexPath.section].removeAtIndex(indexPath.row)
                     coreDataStack.deleteIdea(idea)
                     
-                    if groupIdeaArrays[indexPath.section - 1].count == 0 {
+                    if groupIdeaArrays[indexPath.section].count == 0 {
                         tableView.reloadData()
                     } else {
                         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
@@ -362,10 +362,10 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             if searchSegmentedControl.selectedSegmentIndex == 0 {
                 destination.idea = ideas[indexPath.row]
             } else {
-                if indexPath.section == 0 {
+                if indexPath.section == groupIdeaArrays.count {
                     destination.idea = ungrouped[indexPath.row]
                 } else {
-                    let ideaArray = groupIdeaArrays[indexPath.section - 1]
+                    let ideaArray = groupIdeaArrays[indexPath.section]
                     destination.idea = ideaArray[indexPath.row]
                 }
             }

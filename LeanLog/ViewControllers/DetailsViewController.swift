@@ -86,17 +86,13 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     override func viewWillAppear(animated: Bool) {
+        refreshDots()
         refreshData()
         NSNotificationCenter.defaultCenter().addObserver(self, selector:"keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     override func viewWillDisappear(animated: Bool) {
-        updateIdea()
+        updateIdeaText()
         NSNotificationCenter.defaultCenter().removeObserver(self)
         
         if self.isMovingFromParentViewController() {
@@ -124,7 +120,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         }
     }
     
-    func updateIdea() {
+    func updateIdeaText() {
         if titleField.text != idea.title || notesTextView.text != idea.notes {
             idea.title = titleField.text
             idea.notes = notesTextView.text
@@ -134,7 +130,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     @IBAction func shareIdea(sender: UIBarButtonItem) {
-        updateIdea()
+        updateIdeaText()
         if MFMailComposeViewController.canSendMail() {
             let mailComposeVC = MFMailComposeViewController()
             mailComposeVC.mailComposeDelegate = self
@@ -236,11 +232,17 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     func dismissKeyboard() {
         titleField.resignFirstResponder()
         notesTextView.resignFirstResponder()
-        updateIdea()
+        updateIdeaText()
         iRate.sharedInstance().promptIfAllCriteriaMet()
     }
     
-    func refreshData() {
+    @IBAction func priorityTapped(sender: UIButton) {
+        idea.priority = sender.tag
+        coreDataStack.saveContext()
+        refreshDots()
+    }
+    
+    func refreshDots() {
         for index in 0..<dotArray.count {
             let dot = dotArray[index]
             dot.hidden = true
@@ -251,7 +253,9 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
                 dot.animate()
             }
         }
-        
+    }
+    
+    func refreshData() {
         if let group = idea.group {
             groupButton.setTitle(group.title, forState: .Normal)
         } else {
