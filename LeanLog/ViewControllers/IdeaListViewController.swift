@@ -282,16 +282,17 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 totalIdeas += ideaArray.count
             }
         }
-        
         if userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
             
             let newIdea = coreDataStack.insertNewIdea()
-            let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+            var indexPath: NSIndexPath!
             
             if searchIndex == 0 {
+                indexPath = NSIndexPath(forRow: 0, inSection: 0)
                 ideas.insert(newIdea, atIndex: 0)
             } else {
+                indexPath = NSIndexPath(forRow: 0, inSection: groupIdeaArrays.count)
                 ungrouped.insert(newIdea, atIndex: 0)
             }
             
