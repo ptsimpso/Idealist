@@ -79,28 +79,6 @@ class GroupsViewController: UITableViewController, ModalDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func addGroup(sender: UIBarButtonItem) {
-        var titleField:UITextField?
-        var addAlert = UIAlertController(title: "Add Category", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-        addAlert.addTextFieldWithConfigurationHandler({
-            (field: UITextField!) in
-            field.autocapitalizationType = UITextAutocapitalizationType.Words
-            field.placeholder = "Category title"
-            titleField = field
-        })
-        
-        addAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
-        
-        addAlert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { (action: UIAlertAction!) in
-            if (countElements(titleField!.text) > 0) {
-                self.coreDataStack.insertNewGroup(titleField!.text)
-                self.refreshData()
-            }
-        }))
-        
-        presentViewController(addAlert, animated: true, completion: nil)
-    }
-    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         if indexPath.row == 0 {
             return false
