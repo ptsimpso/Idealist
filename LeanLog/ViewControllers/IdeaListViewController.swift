@@ -286,28 +286,13 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         if userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
             
-            self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
-            
             let newIdea = coreDataStack.insertNewIdea()
             let indexPath = NSIndexPath(forRow: 0, inSection: 0)
             
-            var needsRefresh: Bool = true
             if searchIndex == 0 {
                 ideas.insert(newIdea, atIndex: 0)
-                needsRefresh = ideas.count <= 1
             } else {
                 ungrouped.insert(newIdea, atIndex: 0)
-                needsRefresh = true
-                if !contains(toggleArray, 0) {
-                    toggleArray.append(0)
-                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Automatic)
-                }
-            }
-            
-            if needsRefresh {
-                tableView.reloadData()
-            } else {
-                self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Top)
             }
             
             accentColor = defaultColor
