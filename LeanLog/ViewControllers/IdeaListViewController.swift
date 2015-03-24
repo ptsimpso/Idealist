@@ -180,37 +180,34 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             return cell
         }
     }
-
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if searchSegmentedControl.selectedSegmentIndex == 0 {
-            if editingStyle == .Delete {
-                let idea = ideas.removeAtIndex(indexPath.row)
-                coreDataStack.deleteIdea(idea)
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (rowAction, indexPath) -> Void in
+            if self.searchSegmentedControl.selectedSegmentIndex == 0 {
+                let idea = self.ideas.removeAtIndex(indexPath.row)
+                self.coreDataStack.deleteIdea(idea)
                 
-                if ideas.count == 0 {
+                if self.ideas.count == 0 {
                     tableView.reloadData()
                 } else {
                     // Delete the row from the data source
                     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                 }
-            }
-        } else {
-            if editingStyle == .Delete {
-                if indexPath.section == groupIdeaArrays.count {
-                    let idea = ungrouped.removeAtIndex(indexPath.row)
-                    coreDataStack.deleteIdea(idea)
+            } else {
+                if indexPath.section == self.groupIdeaArrays.count {
+                    let idea = self.ungrouped.removeAtIndex(indexPath.row)
+                    self.coreDataStack.deleteIdea(idea)
                     
-                    if ungrouped.count == 0 {
+                    if self.ungrouped.count == 0 {
                         tableView.reloadData()
                     } else {
                         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
                     }
                 } else {
-                    let idea = groupIdeaArrays[indexPath.section].removeAtIndex(indexPath.row)
-                    coreDataStack.deleteIdea(idea)
+                    let idea = self.groupIdeaArrays[indexPath.section].removeAtIndex(indexPath.row)
+                    self.coreDataStack.deleteIdea(idea)
                     
-                    if groupIdeaArrays[indexPath.section].count == 0 {
+                    if self.groupIdeaArrays[indexPath.section].count == 0 {
                         tableView.reloadData()
                     } else {
                         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
@@ -218,6 +215,12 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 }
             }
         }
+        deleteAction.backgroundColor = UIColor(red: 237/255.0, green: 55/255.0, blue: 0, alpha: 1.0)
+        return [deleteAction]
+    }
+
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
 
     func sectionTogglePressed(sender: SectionToggleButton) {

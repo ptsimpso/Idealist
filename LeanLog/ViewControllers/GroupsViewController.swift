@@ -105,14 +105,7 @@ class GroupsViewController: UITableViewController, ModalDelegate {
     }
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        /*
-        if editingStyle == .Delete {
-            let group = groups.removeAtIndex(indexPath.row - 1)
-            coreDataStack.deleteGroup(group)
-            
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
-        */
+
     }
 
     

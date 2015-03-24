@@ -1270,7 +1270,7 @@
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTc-ZM-s7P" customClass="SpringView" customModule="LeanLog" customModuleProvider="target">
                                 <rect key="frame" x="124" y="108" width="8" height="8"/>
-                                <color key="backgroundColor" red="0.96862745098039216" green="0.31764705882352939" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.96864205598831177" green="0.31774282455444336" blue="0.043886266648769379" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="8" id="Avb-QV-aOm"/>
                                     <constraint firstAttribute="width" constant="8" id="wzY-P6-qQG"/>
