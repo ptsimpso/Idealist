@@ -52,6 +52,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         notesTextView.textColor = accentColor
         notesTextView.layoutManager.allowsNonContiguousLayout = false
         
+        // TODO: all .frame stuff should be in viewDidLayoutSubviews
         placeholderLabel = UILabel()
         placeholderLabel.text = "General notes"
         placeholderLabel.font = UIFont.boldSystemFontOfSize(notesTextView.font.pointSize)
