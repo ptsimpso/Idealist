@@ -19,16 +19,19 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     
     let coreDataStack = CoreDataStack.sharedInstance
     
+    // Data source when "All" is selected
     var ideas: [Idea] = [];
+    
+    // Data sources when "Categories" is selected
     var ungrouped: [Idea] = [];
     var groups: [Group] = [];
     var groupIdeaArrays: [[Idea]] = [];
-    var toggleArray: [Int] = []
+    
+    var toggleArray: [Int] = [] // Keeps track of which section headers are tapped
     
     var accentColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
     let defaultColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
     
-    // andrea
     @IBOutlet weak var searchSegmentedControl: UISegmentedControl!
     
     let formatter: NSDateFormatter = NSDateFormatter()
@@ -37,8 +40,8 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
         
+        // Set up gold-strip background view
         let backgroundView = UIView(frame: CGRectMake(self.tableView.frame.width-6, 0, 6.0, self.tableView.frame.height));
-        
         let goldView = UIView(frame: CGRectMake(self.tableView.frame.width-6, 0, 6.0, self.tableView.frame.height))
         goldView.backgroundColor = UIColor(red: 1.0, green: 213/255.0, blue: 0, alpha: 1.0)
         backgroundView.addSubview(goldView);
@@ -52,6 +55,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        // iCloud sync notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "persistentStoreDidChange", name: NSPersistentStoreCoordinatorStoresDidChangeNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "persistentStoreWillChange:", name: NSPersistentStoreCoordinatorStoresWillChangeNotification, object: coreDataStack.managedObjectContext!.persistentStoreCoordinator)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveICloudChanges:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: coreDataStack.managedObjectContext!.persistentStoreCoordinator)
@@ -68,7 +72,6 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if searchSegmentedControl.selectedSegmentIndex == 0 {
             return 1
@@ -109,31 +112,14 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         if searchSegmentedControl.selectedSegmentIndex == 0 {
             return super.tableView(tableView, viewForHeaderInSection: section)
         } else {
-            let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.width, kHeaderHeight))
-            
-            let green: CGFloat = 200.0 - CGFloat(section + 1) / CGFloat(groups.count + 1) * 110.0
-            let headerColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
-            headerView.backgroundColor = headerColor
-            let headerLabel = UILabel(frame: CGRectMake(18.0, 0, headerView.frame.width - 18.0, headerView.frame.height))
-            headerLabel.textColor = UIColor.whiteColor()
-            headerLabel.font = UIFont.boldSystemFontOfSize(16.0)
-            
+            var sectionTitle: String
             if section == groups.count {
-                headerLabel.text = "Uncategorized"
+                sectionTitle = "Uncategorized"
             } else {
                 let group = groups[section]
-                headerLabel.text = group.title
+                sectionTitle = group.title
             }
-            
-            headerView.addSubview(headerLabel)
-            
-            let toggleButton = SectionToggleButton(parentView: headerView)
-            toggleButton.addTarget(self, action: "sectionTogglePressed:", forControlEvents: UIControlEvents.TouchUpInside)
-            toggleButton.tag = section
-            if !contains(toggleArray, section) {
-                toggleButton.toggleIcon.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
-            }
-            headerView.addSubview(toggleButton)
+            let headerView = IdeaHelper.createSectionHeader(section, title: sectionTitle, headersCount: groups.count + 1, parentVC: self)
             
             return headerView
         }
@@ -223,6 +209,8 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         
     }
 
+    // MARK: Actions
+    
     func sectionTogglePressed(sender: SectionToggleButton) {
         if contains(toggleArray, sender.tag) {
             toggleArray.removeAtIndex(find(toggleArray, sender.tag)!)
@@ -236,41 +224,6 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     @IBAction func searchControlPressed(sender: UISegmentedControl) {
         refreshData()
         iRate.sharedInstance().promptIfAllCriteriaMet()
-    }
-
-    func refreshData() {
-        if searchSegmentedControl.selectedSegmentIndex == 0 {
-            if let fetchResults = coreDataStack.fetchIdeasWithPredicate(nil) {
-                ideas = fetchResults
-            }
-        } else {
-            if let groupResults = coreDataStack.fetchGroups() {
-                groupIdeaArrays.removeAll(keepCapacity: true)
-                groups = groupResults
-                for singleGroup: Group in groups {
-                    var groupIdeas: [Idea] = singleGroup.ideas.allObjects as [Idea]
-                    groupIdeas.sort({ (first: Idea, second: Idea) -> Bool in
-                        let firstInt = first.priority.integerValue
-                        let secondInt = second.priority.integerValue
-                        if firstInt == secondInt {
-                            if first.updatedAt.compare(second.updatedAt) == NSComparisonResult.OrderedDescending {
-                                return true
-                            }
-                            return false
-                        } else {
-                            return firstInt > secondInt
-                        }
-                    })
-                    groupIdeaArrays.append(groupIdeas)
-                }
-            }
-            let predicate = NSPredicate(format: "group == nil")
-            if let ungroupedIdeas = coreDataStack.fetchIdeasWithPredicate(predicate) {
-                ungrouped = ungroupedIdeas
-            }
-        }
-
-        self.tableView.reloadData()
     }
 
     @IBAction func addPressed(sender: UIBarButtonItem) {
@@ -339,6 +292,72 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         performSegueWithIdentifier(kDetailSegue, sender: indexPath)
     }
     
+    // MARK: Refresh data
+    
+    func refreshData() {
+        if searchSegmentedControl.selectedSegmentIndex == 0 {
+            if let fetchResults = coreDataStack.fetchIdeasWithPredicate(nil) {
+                ideas = fetchResults
+            }
+        } else {
+            if let groupResults = coreDataStack.fetchGroups() {
+                groupIdeaArrays.removeAll(keepCapacity: true)
+                groups = groupResults
+                for singleGroup: Group in groups {
+                    var groupIdeas: [Idea] = singleGroup.ideas.allObjects as [Idea]
+                    groupIdeas.sort({ (first: Idea, second: Idea) -> Bool in
+                        let firstInt = first.priority.integerValue
+                        let secondInt = second.priority.integerValue
+                        if firstInt == secondInt {
+                            if first.updatedAt.compare(second.updatedAt) == NSComparisonResult.OrderedDescending {
+                                return true
+                            }
+                            return false
+                        } else {
+                            return firstInt > secondInt
+                        }
+                    })
+                    groupIdeaArrays.append(groupIdeas)
+                }
+            }
+            let predicate = NSPredicate(format: "group == nil")
+            if let ungroupedIdeas = coreDataStack.fetchIdeasWithPredicate(predicate) {
+                ungrouped = ungroupedIdeas
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    // iCloud / Core Data sync notifications
+    func persistentStoreDidChange() {
+        println("did change")
+    }
+    
+    func persistentStoreWillChange(notification: NSNotification) {
+        println("will change")
+        coreDataStack.managedObjectContext!.performBlock { () -> Void in
+            var error: NSError? = nil
+            self.coreDataStack.managedObjectContext!.save(&error)
+            if error != nil {
+                println("Save error: \(error)")
+            } else {
+                self.coreDataStack.managedObjectContext!.reset()
+                self.refreshData()
+            }
+        }
+    }
+    
+    func receiveICloudChanges(notification: NSNotification) {
+        println("icloud")
+        coreDataStack.managedObjectContext!.performBlock { () -> Void in
+            self.coreDataStack.managedObjectContext!.mergeChangesFromContextDidSaveNotification(notification)
+            self.refreshData()
+        }
+    }
+    
+    // MARK: Navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == kDetailSegue {
             
@@ -380,34 +399,6 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     
     func dismissModalHandler() {
         
-    }
-    
-    // MARK: Core Data Notifications
-    func persistentStoreDidChange() {
-        println("did change")
-//        self.refreshData()
-    }
-    
-    func persistentStoreWillChange(notification: NSNotification) {
-        println("will change")
-        coreDataStack.managedObjectContext!.performBlock { () -> Void in
-            var error: NSError? = nil
-            self.coreDataStack.managedObjectContext!.save(&error)
-            if error != nil {
-                println("Save error: \(error)")
-            } else {
-                self.coreDataStack.managedObjectContext!.reset()
-                self.refreshData()
-            }
-        }
-    }
-    
-    func receiveICloudChanges(notification: NSNotification) {
-        println("icloud")
-        coreDataStack.managedObjectContext!.performBlock { () -> Void in
-            self.coreDataStack.managedObjectContext!.mergeChangesFromContextDidSaveNotification(notification)
-            self.refreshData()
-        }
     }
 
 }

@@ -108,6 +108,7 @@ class GroupsViewController: UITableViewController, ModalDelegate {
 
     }
 
+    // MARK: Navigation
     
     @IBAction func dismissVC(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)

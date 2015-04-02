@@ -39,7 +39,7 @@ class AddGroupViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        delegate.minimizeView(self)
+        
         closeButton.animate()
         modalView.animate()
         groupTitleField.becomeFirstResponder()

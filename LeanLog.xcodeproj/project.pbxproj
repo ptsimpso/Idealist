@@ -57,7 +57,7 @@
 		0BE59DE51AA4FD2600DDFF31 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */; };
 		0BEB50A51AB11BB000C35EB0 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BEB50A41AB11BB000C35EB0 /* Crashlytics.framework */; };
 		0BEB50A71AB127A800C35EB0 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */; };
-		0BF2FB2A1AAF9FE20019528D /* IdeaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2FB291AAF9FE20019528D /* IdeaHelper.swift */; };
+		0BF2FB2A1AAF9FE20019528D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF2FB291AAF9FE20019528D /* Helpers.swift */; };
 		20263C2623D3D481632F229E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D4CFBA66B871B7FDEAC112 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -140,7 +140,7 @@
 		0BEB50A01AB1164800C35EB0 /* LeanLog-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LeanLog-Bridging-Header.h"; sourceTree = "<group>"; };
 		0BEB50A41AB11BB000C35EB0 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = ViewControllers/SettingsViewController.swift; sourceTree = "<group>"; };
-		0BF2FB291AAF9FE20019528D /* IdeaHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdeaHelper.swift; path = Model/IdeaHelper.swift; sourceTree = "<group>"; };
+		0BF2FB291AAF9FE20019528D /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Model/Helpers.swift; sourceTree = "<group>"; };
 		45D4CFBA66B871B7FDEAC112 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C75293C11E0EB20F2CDDCD9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D9916EC5C0818E4B3F55B704 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -302,7 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				0B3EC7D11AB655720099F725 /* ModalProtocol.swift */,
-				0BF2FB291AAF9FE20019528D /* IdeaHelper.swift */,
+				0BF2FB291AAF9FE20019528D /* Helpers.swift */,
 				0BC1C7711AA6C7390070EC05 /* Categories.swift */,
 				0BACD1081AA009CD0041A950 /* LeanLog.xcdatamodeld */,
 				0B417C1D1AC0C0FA0083148C /* Group.swift */,
@@ -535,7 +535,7 @@
 				0B42D94C1AB518BB0098782E /* SpringTextView.swift in Sources */,
 				0BACD1071AA009CD0041A950 /* AppDelegate.swift in Sources */,
 				0B3EC7D21AB655720099F725 /* ModalProtocol.swift in Sources */,
-				0BF2FB2A1AAF9FE20019528D /* IdeaHelper.swift in Sources */,
+				0BF2FB2A1AAF9FE20019528D /* Helpers.swift in Sources */,
 				0B1555BA1AAFC76D0041E799 /* Idea.swift in Sources */,
 				0BC1C7721AA6C7390070EC05 /* Categories.swift in Sources */,
 				0B42D9361AB518BB0098782E /* AsyncImageView.swift in Sources */,

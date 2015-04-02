@@ -11,7 +11,7 @@ import Foundation
 
 struct IdeaHelper {
     
-    static let kBullet = "\u{25CF} " // 2022 vs 25CF
+    // MARK: IdeaListViewController helpers
     
     static func setUpIdeaCell(cell: IdeaTitleCell, idea: Idea, row: Int, count: Int, formatter: NSDateFormatter) {
         let green: CGFloat = 200.0 - CGFloat(row + 1) / CGFloat(count) * 110.0
@@ -35,19 +35,31 @@ struct IdeaHelper {
         }
     }
     
-    static func setUpGroupCell(cell: GroupCell, row: Int, count: Int, group: Group?) {
-        let green: CGFloat = 200.0 - CGFloat(row + 1) / CGFloat(count) * 110.0
-        let cellColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
+    static func createSectionHeader(section: Int, title: String, headersCount: Int, parentVC: IdeaListViewController) -> UIView {
+        let headerView = UIView(frame: CGRectMake(0, 0, parentVC.tableView.frame.width, parentVC.kHeaderHeight))
         
-        cell.groupTitleLabel.backgroundColor = cellColor
-        cell.groupTitleLabel.layer.masksToBounds = true
+        let green: CGFloat = 200.0 - CGFloat(section + 1) / CGFloat(headersCount) * 110.0
+        let headerColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
+        headerView.backgroundColor = headerColor
+        let headerLabel = UILabel(frame: CGRectMake(18.0, 0, headerView.frame.width - 18.0, headerView.frame.height))
+        headerLabel.textColor = UIColor.whiteColor()
+        headerLabel.font = UIFont.boldSystemFontOfSize(16.0)
+        headerLabel.text = title
         
-        if row == 0 {
-            cell.groupTitleLabel.text = "Uncategorized"
-        } else {
-            cell.groupTitleLabel.text = group!.title
+        headerView.addSubview(headerLabel)
+        
+        let toggleButton = SectionToggleButton(parentView: headerView)
+        toggleButton.addTarget(parentVC, action: "sectionTogglePressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        toggleButton.tag = section
+        if !contains(parentVC.toggleArray, section) {
+            toggleButton.toggleIcon.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI_2))
         }
+        headerView.addSubview(toggleButton)
+        
+        return headerView
     }
+    
+    // MARK: DetailsViewController helpers
     
     static func setUpCategoryCell(cell: CategoryCell, row: Int, category: String, idea: Idea) {
         let green: CGFloat = 210.0 - CGFloat(row + 1) / CGFloat(Categories.array.count) * 130.0
@@ -90,6 +102,88 @@ struct IdeaHelper {
             }
         }
     }
+    
+    static func composeShareStringWithIdea(idea: Idea) -> String {
+        var messageTitle = "No title"
+        if let title = idea.title {
+            messageTitle = title
+        }
+        var messageNotes = ""
+        if let notes = idea.notes {
+            messageNotes = notes.stringByReplacingOccurrencesOfString("\n", withString: "<br>", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        }
+        
+        let defaultMessage = "n/a"
+        
+        var messageProblem = defaultMessage
+        if let problem = idea.problem {
+            messageProblem = problem == "" ? defaultMessage : problem
+        }
+        var messageCustomers = defaultMessage
+        if let customers = idea.customerSegments {
+            messageCustomers = customers == "" ? defaultMessage : customers
+        }
+        var messageAlts = defaultMessage
+        if let alts = idea.alternatives {
+            messageAlts = alts == "" ? defaultMessage : alts
+        }
+        var messageUvp = defaultMessage
+        if let uvp = idea.uvp {
+            messageUvp = uvp == "" ? defaultMessage : uvp
+        }
+        var messageSolution = defaultMessage
+        if let solution = idea.solution {
+            messageSolution = solution == "" ? defaultMessage : solution
+        }
+        var messageChannels = defaultMessage
+        if let channels = idea.channels {
+            messageChannels = channels == "" ? defaultMessage : channels
+        }
+        var messageRevenue = defaultMessage
+        if let revenue = idea.revenue {
+            messageRevenue = revenue == "" ? defaultMessage : revenue
+        }
+        var messageCosts = defaultMessage
+        if let costs = idea.costs {
+            messageCosts = costs == "" ? defaultMessage : costs
+        }
+        var messageMetrics = defaultMessage
+        if let metrics = idea.metrics {
+            messageMetrics = metrics == "" ? defaultMessage : metrics
+        }
+        var messageAdv = defaultMessage
+        if let adv = idea.unfairAdv {
+            messageAdv = adv == "" ? defaultMessage : adv
+        }
+        
+        // Split string to keep Swift compiler happy
+        let htmlStringFirst =
+        "<div style='font-weight:bold'>\(messageTitle)</div><div>\(messageNotes)</div><br><div style='font-weight:bold'>Problem</div><div>\(messageProblem)</div><br><div style='font-weight:bold'>Customer Segments</div><div>\(messageCustomers)</div><br><div style='font-weight:bold'>Existing Alternatives</div><div>\(messageAlts)</div><br><div style='font-weight:bold'>Unique Value Proposition</div><div>\(messageUvp)</div>"
+        let htmlStringSecond =
+        "<br><div style='font-weight:bold'>Solution</div><div>\(messageSolution)</div><br><div style='font-weight:bold'>Channels and Growth</div><div>\(messageChannels)</div><br><div style='font-weight:bold'>Revenue Streams</div><div>\(messageRevenue)</div><br><div style='font-weight:bold'>Costs</div><div>\(messageCosts)</div><br><div style='font-weight:bold'>Key Metrics</div><div>\(messageMetrics)</div><br><div style='font-weight:bold'>Unfair Advantage</div><div>\(messageAdv)</div>"
+        
+        return htmlStringFirst + htmlStringSecond
+    }
+    
+    // MARK: GroupsViewController helpers
+    
+    static func setUpGroupCell(cell: GroupCell, row: Int, count: Int, group: Group?) {
+        let green: CGFloat = 200.0 - CGFloat(row + 1) / CGFloat(count) * 110.0
+        let cellColor: UIColor = UIColor(red: 75/255.0, green: green/255.0, blue: 195/255.0, alpha: 1.0)
+        
+        cell.groupTitleLabel.backgroundColor = cellColor
+        cell.groupTitleLabel.layer.masksToBounds = true
+        
+        if row == 0 {
+            cell.groupTitleLabel.text = "Uncategorized"
+        } else {
+            cell.groupTitleLabel.text = group!.title
+        }
+    }
+    
+    // MARK: TextView helpers
+    
+    static let kBullet = "\u{25CF} "
     
     static func createAccessoryView(viewController: UIViewController) -> UIView {
         let accessoryView = UIView(frame: CGRectMake(0, 0, viewController.view.frame.width, 40))
@@ -178,9 +272,6 @@ struct IdeaHelper {
                 textRange = textView.textRangeFromPosition(start, toPosition: end)
             }
             textView.replaceRange(textRange, withText: newLineBullet)
-//            let cursor = NSMakeRange(range.location + newLineBullet.utf16Count, 0)
-//            textView.selectedRange = cursor
-//            textView.scrollRangeToVisible(textView.selectedRange)
             
             return false
         }

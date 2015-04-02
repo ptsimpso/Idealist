@@ -86,7 +86,6 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
             notesTextView.text = ""
         }
         notesTextView.delegate = self
-//        notesTextView.autocorrectionType = UITextAutocorrectionType.No
         notesTextView.layoutManager.allowsNonContiguousLayout = false
         
     }
@@ -108,50 +107,6 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         }
         
         super.viewWillDisappear(animated)
-    }
-    
-    func keyboardWillChange(notification: NSNotification) {
-        let userDict: [NSObject : AnyObject] = notification.userInfo!
-        
-        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as NSValue
-        var rect: CGRect = rectRaw.CGRectValue()
-        rect = self.view.convertRect(rect, fromView: nil)
-        let diffValue = self.view.frame.height - rect.origin.y
-        
-        if diffValue > 0 {
-            textViewBottomConstraint.constant = diffValue + 5
-            UIView.animateWithDuration(0.25, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-            })
-        } else {
-            textViewBottomConstraint.constant = 150.0
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-        if notesTextView.inputAccessoryView == nil {
-            notesTextView.inputAccessoryView = IdeaHelper.createBulletAccessoryView(self)
-        }
-        
-        return true
-    }
-    
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        
-        return IdeaHelper.handleTextView(textView, shouldChangeTextInRange: range, replacementText: text, withBulletOn: bulletOn)
-        
-    }
-    
-    func toggleBullet(sender: UIButton) {
-        IdeaHelper.handleBulletToggleForTextView(notesTextView, sender: sender, bulletOn: bulletOn)
-        bulletOn = !bulletOn
-    }
-    
-    func dismissKeyboard() {
-        notesTextView.resignFirstResponder()
-        updateIdea()
-        iRate.sharedInstance().promptIfAllCriteriaMet()
     }
     
     func updateIdea() {
@@ -183,6 +138,51 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         
         idea.updatedAt = NSDate();
         coreDataStack.saveContext()
+    }
+    
+    // MARK: Keyboard and TextView manipulation
+    func dismissKeyboard() {
+        notesTextView.resignFirstResponder()
+        updateIdea()
+        iRate.sharedInstance().promptIfAllCriteriaMet()
+    }
+    
+    func keyboardWillChange(notification: NSNotification) {
+        
+        // Animate UITextView bottom constraint
+        let userDict: [NSObject : AnyObject] = notification.userInfo!
+        
+        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as NSValue
+        var rect: CGRect = rectRaw.CGRectValue()
+        rect = self.view.convertRect(rect, fromView: nil)
+        let diffValue = self.view.frame.height - rect.origin.y
+        
+        if diffValue > 0 {
+            textViewBottomConstraint.constant = diffValue + 5
+            UIView.animateWithDuration(0.25, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+        } else {
+            textViewBottomConstraint.constant = 150.0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
+        if notesTextView.inputAccessoryView == nil {
+            notesTextView.inputAccessoryView = IdeaHelper.createBulletAccessoryView(self)
+        }
+        
+        return true
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        return IdeaHelper.handleTextView(textView, shouldChangeTextInRange: range, replacementText: text, withBulletOn: bulletOn)
+    }
+    
+    func toggleBullet(sender: UIButton) {
+        IdeaHelper.handleBulletToggleForTextView(notesTextView, sender: sender, bulletOn: bulletOn)
+        bulletOn = !bulletOn
     }
     
 }
