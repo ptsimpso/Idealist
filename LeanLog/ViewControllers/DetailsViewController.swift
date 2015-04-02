@@ -37,7 +37,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dotArray.sort({ $0.frame.origin.x < $1.frame.origin.x })
+        dotArray.sort({ $0.frame.origin.x < $1.frame.origin.x }) // Can now access dots from left to right
         
         separatorView.backgroundColor = accentColor
         groupButton.backgroundColor = accentColor
@@ -52,7 +52,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         notesTextView.textColor = accentColor
         notesTextView.layoutManager.allowsNonContiguousLayout = false
         
-        // TODO: all .frame stuff should be in viewDidLayoutSubviews
+        // Placeholder hack for UITextView
         placeholderLabel = UILabel()
         placeholderLabel.text = "General notes"
         placeholderLabel.font = UIFont.boldSystemFontOfSize(notesTextView.font.pointSize)
@@ -65,6 +65,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         }
         placeholderLabel.hidden = countElements(notesTextView.text) != 0
         
+        // Layout category TableView background and top shadow
         let shadow = CAGradientLayer()
         shadow.frame = tableShadow.bounds
         let shadowArray = [UIColor(red: 0, green: 0, blue: 0, alpha: 0.12).CGColor, UIColor(red: 0, green: 0, blue: 0, alpha: 0.0).CGColor]
@@ -80,10 +81,6 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         gradient.locations = [0.5, 0.5]
         backgroundView.layer.insertSublayer(gradient, atIndex:0)
         self.tableView.backgroundView = backgroundView
-    }
-    
-    func textViewDidChange(textView: UITextView) {
-        placeholderLabel.hidden = countElements(textView.text) != 0
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -102,108 +99,12 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         super.viewWillDisappear(animated)
     }
     
-    func keyboardWillChange(notification: NSNotification) {
-        let userDict: [NSObject : AnyObject] = notification.userInfo!
-        
-        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as NSValue
-        var rect: CGRect = rectRaw.CGRectValue()
-        rect = self.view.convertRect(rect, fromView: nil)
-        let diffValue = self.view.frame.height - rect.origin.y
-        
-        if diffValue > 0 {
-            textViewBottomConstraint.constant = diffValue + 5
-            UIView.animateWithDuration(0.25, animations: { () -> Void in
-                self.view.layoutIfNeeded()
-            })
-        } else {
-            textViewBottomConstraint.constant = 260.0
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    func updateIdeaText() {
-        if titleField.text != idea.title || notesTextView.text != idea.notes {
-            idea.title = titleField.text
-            idea.notes = notesTextView.text
-            idea.updatedAt = NSDate();
-            coreDataStack.saveContext()
-        }
-    }
-    
-    @IBAction func shareIdea(sender: UIBarButtonItem) {
-        updateIdeaText()
-        if MFMailComposeViewController.canSendMail() {
-            let mailComposeVC = MFMailComposeViewController()
-            mailComposeVC.mailComposeDelegate = self
-            
-            var messageTitle = "No title"
-            if let title = idea.title {
-                messageTitle = title
-            }
-            var messageNotes = ""
-            if let notes = idea.notes {
-                messageNotes = notes.stringByReplacingOccurrencesOfString("\n", withString: "<br>", options: NSStringCompareOptions.LiteralSearch, range: nil)
-            }
-            
-            let defaultMessage = "n/a"
-            
-            var messageProblem = defaultMessage
-            if let problem = idea.problem {
-                messageProblem = problem == "" ? defaultMessage : problem
-            }
-            var messageCustomers = defaultMessage
-            if let customers = idea.customerSegments {
-                messageCustomers = customers == "" ? defaultMessage : customers
-            }
-            var messageAlts = defaultMessage
-            if let alts = idea.alternatives {
-                messageAlts = alts == "" ? defaultMessage : alts
-            }
-            var messageUvp = defaultMessage
-            if let uvp = idea.uvp {
-                messageUvp = uvp == "" ? defaultMessage : uvp
-            }
-            var messageSolution = defaultMessage
-            if let solution = idea.solution {
-                messageSolution = solution == "" ? defaultMessage : solution
-            }
-            var messageChannels = defaultMessage
-            if let channels = idea.channels {
-                messageChannels = channels == "" ? defaultMessage : channels
-            }
-            var messageRevenue = defaultMessage
-            if let revenue = idea.revenue {
-                messageRevenue = revenue == "" ? defaultMessage : revenue
-            }
-            var messageCosts = defaultMessage
-            if let costs = idea.costs {
-                messageCosts = costs == "" ? defaultMessage : costs
-            }
-            var messageMetrics = defaultMessage
-            if let metrics = idea.metrics {
-                messageMetrics = metrics == "" ? defaultMessage : metrics
-            }
-            var messageAdv = defaultMessage
-            if let adv = idea.unfairAdv {
-                messageAdv = adv == "" ? defaultMessage : adv
-            }
-            
-            let htmlStringFirst =
-                "<div style='font-weight:bold'>\(messageTitle)</div><div>\(messageNotes)</div><br><div style='font-weight:bold'>Problem</div><div>\(messageProblem)</div><br><div style='font-weight:bold'>Customer Segments</div><div>\(messageCustomers)</div><br><div style='font-weight:bold'>Existing Alternatives</div><div>\(messageAlts)</div><br><div style='font-weight:bold'>Unique Value Proposition</div><div>\(messageUvp)</div>"
-            let htmlStringSecond =
-                "<br><div style='font-weight:bold'>Solution</div><div>\(messageSolution)</div><br><div style='font-weight:bold'>Channels and Growth</div><div>\(messageChannels)</div><br><div style='font-weight:bold'>Revenue Streams</div><div>\(messageRevenue)</div><br><div style='font-weight:bold'>Costs</div><div>\(messageCosts)</div><br><div style='font-weight:bold'>Key Metrics</div><div>\(messageMetrics)</div><br><div style='font-weight:bold'>Unfair Advantage</div><div>\(messageAdv)</div>"
-            
-            mailComposeVC.setMessageBody(htmlStringFirst + htmlStringSecond, isHTML: true)
-            self.presentViewController(mailComposeVC, animated: true, completion: nil)
-        }
-    }
-    
-    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // MARK: - Text Delegates
+    // MARK: - Text and keyboard manipulation
 
+    func textViewDidChange(textView: UITextView) {
+        placeholderLabel.hidden = countElements(textView.text) != 0
+    }
+    
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         if titleField.inputAccessoryView == nil {
             titleField.inputAccessoryView = IdeaHelper.createAccessoryView(self)
@@ -235,6 +136,35 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         notesTextView.resignFirstResponder()
         updateIdeaText()
         iRate.sharedInstance().promptIfAllCriteriaMet()
+    }
+    
+    func keyboardWillChange(notification: NSNotification) {
+        let userDict: [NSObject : AnyObject] = notification.userInfo!
+        
+        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as NSValue
+        var rect: CGRect = rectRaw.CGRectValue()
+        rect = self.view.convertRect(rect, fromView: nil)
+        let diffValue = self.view.frame.height - rect.origin.y
+        
+        if diffValue > 0 {
+            textViewBottomConstraint.constant = diffValue + 5
+            UIView.animateWithDuration(0.25, animations: { () -> Void in
+                self.view.layoutIfNeeded()
+            })
+        } else {
+            textViewBottomConstraint.constant = 260.0
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    // MARK: Refreshing / saving data and views
+    func updateIdeaText() {
+        if titleField.text != idea.title || notesTextView.text != idea.notes {
+            idea.title = titleField.text
+            idea.notes = notesTextView.text
+            idea.updatedAt = NSDate();
+            coreDataStack.saveContext()
+        }
     }
     
     @IBAction func priorityTapped(sender: UIButton) {
@@ -315,5 +245,24 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             let destination = navController.viewControllers[0] as GroupsViewController
             destination.idea = idea
         }
+    }
+    
+    // MARK: Sharing idea
+    
+    @IBAction func shareIdea(sender: UIBarButtonItem) {
+        updateIdeaText()
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposeVC = MFMailComposeViewController()
+            mailComposeVC.mailComposeDelegate = self
+            
+            let htmlString = IdeaHelper.composeShareStringWithIdea(idea)
+            
+            mailComposeVC.setMessageBody(htmlString, isHTML: true)
+            self.presentViewController(mailComposeVC, animated: true, completion: nil)
+        }
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
 }
