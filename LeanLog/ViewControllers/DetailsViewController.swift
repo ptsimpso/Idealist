@@ -168,6 +168,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     @IBAction func priorityTapped(sender: UIButton) {
+        Branch.getInstance().userCompletedAction("set_priority")
         idea.priority = sender.tag
         coreDataStack.saveContext()
         refreshDots()

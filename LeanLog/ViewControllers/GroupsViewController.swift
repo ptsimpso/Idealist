@@ -71,6 +71,7 @@ class GroupsViewController: UITableViewController, ModalDelegate {
         if indexPath.row == 0 {
             idea.group = nil
         } else {
+            Branch.getInstance().userCompletedAction("selected_group")
             let group = groups[indexPath.row - 1]
             idea.group = group
         }
