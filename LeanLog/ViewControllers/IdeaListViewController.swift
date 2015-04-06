@@ -246,31 +246,49 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         } else {
             PFAnalytics.trackEventInBackground("reached_limit", block: nil)
             Branch.getInstance().userCompletedAction("reached_limit")
-            var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for $1.99!", preferredStyle: UIAlertControllerStyle.Alert)
             
-            purchaseAlert.addAction(UIAlertAction(title: "Purchase", style: .Default, handler: { (action: UIAlertAction!) in
-                PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
-                    if error != nil {
-                        let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    }
-                })
-            }))
-            
-            purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
-                PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
-                    if error != nil {
-                        let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    }
-                })
-            }))
-            
-            purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
-            
-            presentViewController(purchaseAlert, animated: true, completion: nil)
+            PFConfig.getConfigInBackgroundWithBlock {
+                (var config: PFConfig!, error) -> Void in
+                if error == nil {
+                    
+                } else {
+                    config = PFConfig.currentConfig()
+                }
+                
+                var productPriceString: String
+                var productPriceConfig = config["productPrice"] as? String
+                if let productPrice = productPriceConfig {
+                    productPriceString = productPrice
+                } else {
+                    productPriceString = "$1.99"
+                }
+                
+                var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for \(productPriceString)", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                purchaseAlert.addAction(UIAlertAction(title: "Purchase", style: .Default, handler: { (action: UIAlertAction!) in
+                    PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
+                        if error != nil {
+                            let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        }
+                    })
+                }))
+                
+                purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
+                    PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
+                        if error != nil {
+                            let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        }
+                    })
+                }))
+                
+                purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
+                
+                self.presentViewController(purchaseAlert, animated: true, completion: nil)
+            }
         }
     }
     
