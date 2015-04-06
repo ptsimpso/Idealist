@@ -23,7 +23,7 @@ class GroupsViewController: UITableViewController, ModalDelegate {
 
     }
 
-    func dismissModalHandler() {
+    func dismissModalHandler(sender: AnyObject?) {
         refreshData()
     }
     

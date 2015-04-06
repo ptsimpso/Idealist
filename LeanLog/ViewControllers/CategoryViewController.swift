@@ -138,6 +138,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         
         idea.updatedAt = NSDate();
         coreDataStack.saveContext()
+        Branch.getInstance().userCompletedAction("saved_category")
     }
     
     // MARK: Keyboard and TextView manipulation

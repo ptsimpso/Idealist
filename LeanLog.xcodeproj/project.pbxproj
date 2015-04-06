@@ -42,6 +42,7 @@
 		0B42D94E1AB518BB0098782E /* TransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42D9321AB518BB0098782E /* TransitionManager.swift */; };
 		0B42D94F1AB518BB0098782E /* TransitionZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42D9331AB518BB0098782E /* TransitionZoom.swift */; };
 		0B42D9501AB518BB0098782E /* UnwindSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B42D9341AB518BB0098782E /* UnwindSegue.swift */; };
+		0BA09E211AD335C50008C6D8 /* AddIdeaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BA09E201AD335C50008C6D8 /* AddIdeaViewController.swift */; };
 		0BACD1071AA009CD0041A950 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BACD1061AA009CD0041A950 /* AppDelegate.swift */; };
 		0BACD10A1AA009CD0041A950 /* LeanLog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0BACD1081AA009CD0041A950 /* LeanLog.xcdatamodeld */; };
 		0BACD10F1AA009CD0041A950 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BACD10D1AA009CD0041A950 /* Main.storyboard */; };
@@ -109,6 +110,7 @@
 		0B42D9331AB518BB0098782E /* TransitionZoom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionZoom.swift; sourceTree = "<group>"; };
 		0B42D9341AB518BB0098782E /* UnwindSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwindSegue.swift; sourceTree = "<group>"; };
 		0B648D131AAFBC5E001D69A6 /* LeanLog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LeanLog.entitlements; sourceTree = "<group>"; };
+		0BA09E201AD335C50008C6D8 /* AddIdeaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddIdeaViewController.swift; path = ViewControllers/AddIdeaViewController.swift; sourceTree = "<group>"; };
 		0BACD1011AA009CD0041A950 /* LeanLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeanLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BACD1051AA009CD0041A950 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BACD1061AA009CD0041A950 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		0BACD12B1AA00AB90041A950 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0BA09E201AD335C50008C6D8 /* AddIdeaViewController.swift */,
 				0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */,
 				0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */,
 				0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */,
@@ -531,6 +534,7 @@
 				0B42D9461AB518BB0098782E /* Spring.swift in Sources */,
 				0B42D9491AB518BB0098782E /* SpringImageView.swift in Sources */,
 				0B210A411AA50C3A0005D357 /* DetailsViewController.swift in Sources */,
+				0BA09E211AD335C50008C6D8 /* AddIdeaViewController.swift in Sources */,
 				0B42D9441AB518BB0098782E /* Misc.swift in Sources */,
 				0B42D94C1AB518BB0098782E /* SpringTextView.swift in Sources */,
 				0BACD1071AA009CD0041A950 /* AppDelegate.swift in Sources */,

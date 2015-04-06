@@ -17,6 +17,8 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var rateButton: UIButton!
     @IBOutlet weak var feedbackButton: UIButton!
+    @IBOutlet weak var iCloudButton: UIButton!
+    var iCloudBool = true
     
     var delegate: ModalDelegate!
     
@@ -27,6 +29,12 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         feedbackButton.layer.borderColor = UIColor.whiteColor().CGColor
         
         modalView.transform = CGAffineTransformMakeTranslation(0, 300)
+        
+        let iCloudBoolOpt: Bool? = NSUserDefaults.standardUserDefaults().boolForKey("iCloudDisabled")
+        if let storediCloudBool = iCloudBoolOpt {
+            iCloudBool = storediCloudBool
+            updateiCloudButton()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -61,6 +69,17 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     
     func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
         controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func iCloudPressed(sender: AnyObject) {
+        iCloudBool = !iCloudBool
+        NSUserDefaults.standardUserDefaults().setBool(iCloudBool, forKey: "iCloudDisabled")
+        updateiCloudButton()
+    }
+    
+    func updateiCloudButton() {
+        var boolString = iCloudBool ? "disabled" : "enabled"
+        iCloudButton.setTitle("iCloud sync " + boolString, forState: UIControlState.Normal)
     }
     
     @IBAction func backPressed() {

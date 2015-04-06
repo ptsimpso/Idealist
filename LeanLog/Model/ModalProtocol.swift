@@ -11,5 +11,5 @@ import Foundation
 protocol ModalDelegate {
     func minimizeView(sender: AnyObject) -> Void
     func maximizeView(sender: AnyObject) -> Void
-    func dismissModalHandler() -> Void
+    func dismissModalHandler(sender: AnyObject?) -> Void
 }

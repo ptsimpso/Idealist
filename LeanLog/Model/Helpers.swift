@@ -193,6 +193,13 @@ struct IdeaHelper {
         closeIcon.image = UIImage(named: "arrow-down")
         accessoryView.addSubview(closeIcon)
         
+        let saveLabel = UILabel(frame: CGRectMake(0, 0, accessoryView.frame.width, accessoryView.frame.height))
+        saveLabel.textAlignment = NSTextAlignment.Center
+        saveLabel.text = "Save"
+        saveLabel.textColor = UIColor.whiteColor()
+        saveLabel.font = UIFont.boldSystemFontOfSize(16.0)
+        accessoryView.addSubview(saveLabel)
+        
         let closeButton = UIButton(frame: accessoryView.frame)
         closeButton.addTarget(viewController, action: "dismissKeyboard", forControlEvents: UIControlEvents.TouchUpInside)
         accessoryView.addSubview(closeButton)
@@ -208,12 +215,19 @@ struct IdeaHelper {
         closeIcon.image = UIImage(named: "arrow-down")
         accessoryView.addSubview(closeIcon)
         
+        let saveLabel = UILabel(frame: CGRectMake(0, 0, accessoryView.frame.width, accessoryView.frame.height))
+        saveLabel.textAlignment = NSTextAlignment.Center
+        saveLabel.text = "Save"
+        saveLabel.textColor = UIColor.whiteColor()
+        saveLabel.font = UIFont.boldSystemFontOfSize(16.0)
+        accessoryView.addSubview(saveLabel)
+        
         let bulletButton = UIButton(frame: CGRectMake(0, 0, 60, 40))
         bulletButton.addTarget(viewController, action: "toggleBullet:", forControlEvents: UIControlEvents.TouchUpInside)
         bulletButton.setBackgroundImage(UIImage(named: "bulletOff"), forState: UIControlState.Normal)
         accessoryView.addSubview(bulletButton)
         
-        let closeButton = UIButton(frame: CGRectMake(accessoryView.frame.width-100, 0, 100, accessoryView.frame.height))
+        let closeButton = UIButton(frame: CGRectMake(80, 0, accessoryView.frame.width-80, accessoryView.frame.height))
         closeButton.addTarget(viewController, action: "dismissKeyboard", forControlEvents: UIControlEvents.TouchUpInside)
         accessoryView.addSubview(closeButton)
         

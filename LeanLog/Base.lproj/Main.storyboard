@@ -54,11 +54,27 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3SP-jL-MGb">
+                                                <rect key="frame" x="204" y="14" width="192" height="33"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="33" id="gkB-Xu-AzW"/>
+                                                    <constraint firstAttribute="width" constant="192" id="vmr-Jz-Jpv"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                <state key="normal" title="iCloud sync enabled">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="iCloudPressed:" destination="7IG-fi-xwY" eventType="touchUpInside" id="YG0-dv-CVa"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95768958330154419" green="0.65806114673614502" blue="0.11744614690542221" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="r9Z-K0-mVr" firstAttribute="top" secondItem="eoy-Oe-nG2" secondAttribute="top" constant="20" id="7bX-pg-aHh"/>
                                             <constraint firstAttribute="height" constant="160" id="VpW-1U-EVH"/>
+                                            <constraint firstAttribute="centerX" secondItem="3SP-jL-MGb" secondAttribute="centerX" id="als-ay-mnu"/>
+                                            <constraint firstItem="3SP-jL-MGb" firstAttribute="top" secondItem="eoy-Oe-nG2" secondAttribute="top" constant="14" id="lc6-gG-vA1"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59e-iN-JP0">
@@ -225,6 +241,7 @@
                         <outlet property="backButton" destination="WB9-dU-RE4" id="OTD-Lq-1y6"/>
                         <outlet property="feedbackButton" destination="fqd-KB-HOL" id="7eE-q9-Sqi"/>
                         <outlet property="hiLabel" destination="r9Z-K0-mVr" id="F24-eL-PSc"/>
+                        <outlet property="iCloudButton" destination="3SP-jL-MGb" id="qZq-KA-J3v"/>
                         <outlet property="modalView" destination="Hwm-2e-JBt" id="X14-3W-DMa"/>
                         <outlet property="rateButton" destination="NEW-HL-hw9" id="co3-87-afi"/>
                         <outlet property="shareButton" destination="Tjp-O8-bMx" id="HSF-4Q-FhP"/>
@@ -658,6 +675,7 @@
                     <connections>
                         <outlet property="searchSegmentedControl" destination="Tsq-j7-FvP" id="RmX-PQ-aus"/>
                         <segue destination="pWb-xF-mgy" kind="show" identifier="DetailSegue" id="2HS-jg-zuo"/>
+                        <segue destination="WSH-Y7-Axx" kind="presentation" identifier="AddIdeaSegue" modalPresentationStyle="overCurrentContext" animates="NO" id="iLA-xg-zDg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z2v-Mf-xYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1712,6 +1730,127 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d6h-rv-UCO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2909" y="-195"/>
+        </scene>
+        <!--Add Idea View Controller-->
+        <scene sceneID="FfL-Jh-KJL">
+            <objects>
+                <viewController id="WSH-Y7-Axx" customClass="AddIdeaViewController" customModule="LeanLog" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9CK-n9-71c"/>
+                        <viewControllerLayoutGuide type="bottom" id="Go0-N5-pmD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eIy-D6-OMg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B6p-rd-P3g" customClass="SpringButton" customModule="LeanLog" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="closePressed:" destination="WSH-Y7-Axx" eventType="touchUpInside" id="PGK-ib-s3n"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNC-lO-Jqf" customClass="SpringView" customModule="LeanLog" customModuleProvider="target">
+                                <rect key="frame" x="143" y="152" width="314" height="173"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Idea" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Es-dj-Fsx">
+                                        <rect key="frame" x="71" y="18" width="170" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="22" id="K9B-7Q-4Gi"/>
+                                            <constraint firstAttribute="width" constant="170" id="woU-Al-ktM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HrG-Tn-db4">
+                                        <rect key="frame" x="15" y="56" width="284" height="34"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W1x-vz-dOF">
+                                                <rect key="frame" x="11" y="0.0" width="261" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                            </textField>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="W1x-vz-dOF" secondAttribute="trailing" constant="12" id="7fp-ui-620"/>
+                                            <constraint firstAttribute="height" constant="34" id="DxL-8L-30g"/>
+                                            <constraint firstItem="W1x-vz-dOF" firstAttribute="top" secondItem="HrG-Tn-db4" secondAttribute="top" id="N62-pU-a70"/>
+                                            <constraint firstItem="W1x-vz-dOF" firstAttribute="leading" secondItem="HrG-Tn-db4" secondAttribute="leading" constant="11" id="bZJ-qR-vc2"/>
+                                            <constraint firstAttribute="bottom" secondItem="W1x-vz-dOF" secondAttribute="bottom" id="ha6-LP-F6i"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="431-zQ-dah">
+                                        <rect key="frame" x="15" y="105" width="284" height="54"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="54" id="kjD-gZ-Dv2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="savePressed:" destination="WSH-Y7-Axx" eventType="touchUpInside" id="hQe-vG-VcC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.86428695919999998" blue="0.16495865579999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="4Es-dj-Fsx" firstAttribute="top" secondItem="FNC-lO-Jqf" secondAttribute="top" constant="18" id="1bS-Mw-p0l"/>
+                                    <constraint firstAttribute="trailing" secondItem="431-zQ-dah" secondAttribute="trailing" constant="15" id="20Q-eY-9sS"/>
+                                    <constraint firstAttribute="centerX" secondItem="4Es-dj-Fsx" secondAttribute="centerX" constant="1" id="9bR-kV-NEv"/>
+                                    <constraint firstItem="HrG-Tn-db4" firstAttribute="leading" secondItem="FNC-lO-Jqf" secondAttribute="leading" constant="15" id="Ue3-Qx-1Qn"/>
+                                    <constraint firstItem="431-zQ-dah" firstAttribute="top" secondItem="HrG-Tn-db4" secondAttribute="bottom" constant="15" id="WCs-wZ-UKr"/>
+                                    <constraint firstAttribute="height" constant="173" id="Zfe-EJ-4ue"/>
+                                    <constraint firstAttribute="trailing" secondItem="HrG-Tn-db4" secondAttribute="trailing" constant="15" id="aOf-A6-Kee"/>
+                                    <constraint firstAttribute="width" priority="900" constant="314" id="gtT-V1-y4S"/>
+                                    <constraint firstItem="HrG-Tn-db4" firstAttribute="top" secondItem="4Es-dj-Fsx" secondAttribute="bottom" constant="16" id="ihk-Vm-ooi"/>
+                                    <constraint firstItem="431-zQ-dah" firstAttribute="leading" secondItem="FNC-lO-Jqf" secondAttribute="leading" constant="15" id="uEV-zG-S0R"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="squeezeDown"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autohide" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="B6p-rd-P3g" firstAttribute="width" secondItem="eIy-D6-OMg" secondAttribute="width" id="0L3-Ki-fRU"/>
+                            <constraint firstItem="B6p-rd-P3g" firstAttribute="top" secondItem="eIy-D6-OMg" secondAttribute="topMargin" id="4SJ-cQ-Rro"/>
+                            <constraint firstAttribute="centerX" secondItem="B6p-rd-P3g" secondAttribute="centerX" id="AR8-JZ-87M"/>
+                            <constraint firstAttribute="centerX" secondItem="FNC-lO-Jqf" secondAttribute="centerX" id="M65-Lv-pMd"/>
+                            <constraint firstItem="Go0-N5-pmD" firstAttribute="top" secondItem="B6p-rd-P3g" secondAttribute="bottom" id="PGm-cU-zcK"/>
+                            <constraint firstItem="Go0-N5-pmD" firstAttribute="top" secondItem="FNC-lO-Jqf" secondAttribute="bottom" constant="275" id="aRv-KS-hzM"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="FNC-lO-Jqf" secondAttribute="trailing" constant="2" id="oR7-IC-FIN"/>
+                            <constraint firstItem="FNC-lO-Jqf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eIy-D6-OMg" secondAttribute="leadingMargin" constant="2" id="qIn-mD-YP5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="closeButton" destination="B6p-rd-P3g" id="3rt-7B-zhH"/>
+                        <outlet property="ideaTitleField" destination="W1x-vz-dOF" id="Hpg-l1-CXK"/>
+                        <outlet property="modalView" destination="FNC-lO-Jqf" id="lqP-DI-u7W"/>
+                        <outlet property="saveButton" destination="431-zQ-dah" id="3un-dH-KMy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8l1-W2-9Qb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2133" y="1235"/>
         </scene>
     </scenes>
     <resources>

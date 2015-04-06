@@ -1,59 +1,48 @@
 //
-//  AddGroupViewController.swift
+//  AddIdeaViewController.swift
 //  LeanLog
 //
-//  Created by Peter Simpson on 3/15/15.
+//  Created by Peter Simpson on 4/6/15.
 //  Copyright (c) 2015 Pete Simpson. All rights reserved.
 //
 
 import UIKit
 
-class AddGroupViewController: UIViewController {
-
-    let coreDataStack = CoreDataStack.sharedInstance
-    
-    var group: Group?
+class AddIdeaViewController: UIViewController {
     
     @IBOutlet weak var modalView: SpringView!
-    @IBOutlet weak var groupTitleField: UITextField!
+    @IBOutlet weak var ideaTitleField: UITextField!
     @IBOutlet weak var closeButton: SpringButton!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    
+
     var delegate: ModalDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        groupTitleField.autocorrectionType = UITextAutocorrectionType.No
-        groupTitleField.autocapitalizationType = UITextAutocapitalizationType.Words
+        ideaTitleField.autocorrectionType = UITextAutocorrectionType.No
+        ideaTitleField.autocapitalizationType = UITextAutocapitalizationType.Words
         saveButton.layer.cornerRadius = 2.0
         saveButton.layer.borderColor = UIColor.whiteColor().CGColor
         saveButton.layer.borderWidth = 2.0
-        
-        if let unwrappedGroup = group {
-            titleLabel.text = "Edit Category"
-            groupTitleField.text = unwrappedGroup.title
-        }
     }
-
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
         closeButton.animate()
         modalView.animate()
-        groupTitleField.becomeFirstResponder()
+        ideaTitleField.becomeFirstResponder()
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     @IBAction func savePressed(sender: UIButton) {
-        if (countElements(groupTitleField.text) > 0) {
-            if group != nil {
-                group?.title = groupTitleField.text
-                coreDataStack.saveContext()
-            } else {
-                coreDataStack.insertNewGroup(groupTitleField.text)
-            }
-            self.delegate.dismissModalHandler(nil)
+        if (countElements(ideaTitleField.text) > 0) {
+            self.delegate.dismissModalHandler(ideaTitleField.text)
             dismissVC()
         }
     }
@@ -63,7 +52,7 @@ class AddGroupViewController: UIViewController {
     }
     
     func dismissVC() {
-        groupTitleField.resignFirstResponder()
+        ideaTitleField.resignFirstResponder()
         closeButton.animation = "fadeOut"
         modalView.animation = "fall"
         closeButton.animate()
@@ -73,4 +62,5 @@ class AddGroupViewController: UIViewController {
             })
         })
     }
+
 }

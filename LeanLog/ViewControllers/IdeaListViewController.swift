@@ -16,6 +16,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     let kIAPIdentifer = "me.petersimpson.idealist.unlimited"
     let kDetailSegue = "DetailSegue"
     let kSettingsSegue = "SettingsSegue"
+    let kAddIdeaSegue = "AddIdeaSegue"
     
     let coreDataStack = CoreDataStack.sharedInstance
     
@@ -223,7 +224,6 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     
     @IBAction func searchControlPressed(sender: UISegmentedControl) {
         refreshData()
-        iRate.sharedInstance().promptIfAllCriteriaMet()
     }
 
     @IBAction func addPressed(sender: UIBarButtonItem) {
@@ -241,19 +241,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         if userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
             
-            let newIdea = coreDataStack.insertNewIdea()
-            var indexPath: NSIndexPath!
-            
-            if searchIndex == 0 {
-                indexPath = NSIndexPath(forRow: 0, inSection: 0)
-                ideas.insert(newIdea, atIndex: 0)
-            } else {
-                indexPath = NSIndexPath(forRow: 0, inSection: groupIdeaArrays.count)
-                ungrouped.insert(newIdea, atIndex: 0)
-            }
-            
-            accentColor = defaultColor
-            performSegueWithIdentifier(kDetailSegue, sender: indexPath)
+            performSegueWithIdentifier(kAddIdeaSegue, sender: nil)
             
         } else {
             PFAnalytics.trackEventInBackground("reached_limit", block: nil)
@@ -382,6 +370,9 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         } else if segue.identifier == kSettingsSegue {
             let destination = segue.destinationViewController as SettingsViewController
             destination.delegate = self
+        } else if segue.identifier == kAddIdeaSegue {
+            let destination = segue.destinationViewController as AddIdeaViewController
+            destination.delegate = self
         }
     }
     
@@ -397,8 +388,24 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         })
     }
     
-    func dismissModalHandler() {
-        
+    func dismissModalHandler(sender: AnyObject?) {
+        let ideaTitleOpt = sender as String?
+        if let ideaTitle = ideaTitleOpt {
+            let newIdea = coreDataStack.insertNewIdea()
+            newIdea.title = ideaTitle
+            var indexPath: NSIndexPath!
+            
+            if searchSegmentedControl.selectedSegmentIndex == 0 {
+                indexPath = NSIndexPath(forRow: 0, inSection: 0)
+                ideas.insert(newIdea, atIndex: 0)
+            } else {
+                indexPath = NSIndexPath(forRow: 0, inSection: groupIdeaArrays.count)
+                ungrouped.insert(newIdea, atIndex: 0)
+            }
+            
+            accentColor = defaultColor
+            performSegueWithIdentifier(kDetailSegue, sender: indexPath)
+        }
     }
 
 }
