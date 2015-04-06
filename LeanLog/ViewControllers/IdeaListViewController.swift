@@ -12,7 +12,7 @@ import CoreData
 class IdeaListViewController: UITableViewController, ModalDelegate {
 
     let kHeaderHeight: CGFloat = 50.0
-    let iapKey = "unlimited"
+    let kIAPKey = "unlimited"
     let kIAPIdentifer = "me.petersimpson.idealist.unlimited"
     let kDetailSegue = "DetailSegue"
     let kSettingsSegue = "SettingsSegue"
@@ -238,7 +238,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 totalIdeas += ideaArray.count
             }
         }
-        if userDefaults.boolForKey(iapKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
+        if userDefaults.boolForKey(kIAPKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
             
             performSegueWithIdentifier(kAddIdeaSegue, sender: nil)
@@ -255,39 +255,53 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                     config = PFConfig.currentConfig()
                 }
                 
-                var productPriceString: String
-                var productPriceConfig = config["productPrice"] as? String
-                if let productPrice = productPriceConfig {
-                    productPriceString = productPrice
+                var paidApp: Bool
+                var paidAppOpt = config["paidApp"] as Bool?
+                if let paidAppBool = paidAppOpt {
+                    paidApp = paidAppBool
                 } else {
-                    productPriceString = "$1.99"
+                    paidApp = false
                 }
                 
-                var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for \(productPriceString)", preferredStyle: UIAlertControllerStyle.Alert)
+                if paidApp {
+                    userDefaults.setBool(true, forKey: self.kIAPKey)
+                    self.performSegueWithIdentifier(self.kAddIdeaSegue, sender: nil)
+                } else {
+                    var productPriceString: String
+                    var productPriceConfig = config["productPrice"] as? String
+                    if let productPrice = productPriceConfig {
+                        productPriceString = productPrice
+                    } else {
+                        productPriceString = "$1.99"
+                    }
+                    
+                    var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for \(productPriceString)", preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    purchaseAlert.addAction(UIAlertAction(title: "Purchase", style: .Default, handler: { (action: UIAlertAction!) in
+                        PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
+                            if error != nil {
+                                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                                self.presentViewController(alert, animated: true, completion: nil)
+                            }
+                        })
+                    }))
+                    
+                    purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
+                        PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
+                            if error != nil {
+                                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                                self.presentViewController(alert, animated: true, completion: nil)
+                            }
+                        })
+                    }))
+                    
+                    purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
+                    
+                    self.presentViewController(purchaseAlert, animated: true, completion: nil)
+                }
                 
-                purchaseAlert.addAction(UIAlertAction(title: "Purchase", style: .Default, handler: { (action: UIAlertAction!) in
-                    PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
-                        if error != nil {
-                            let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                            self.presentViewController(alert, animated: true, completion: nil)
-                        }
-                    })
-                }))
-                
-                purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
-                    PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
-                        if error != nil {
-                            let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                            self.presentViewController(alert, animated: true, completion: nil)
-                        }
-                    })
-                }))
-                
-                purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
-                
-                self.presentViewController(purchaseAlert, animated: true, completion: nil)
             }
         }
     }
