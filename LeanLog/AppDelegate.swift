@@ -29,10 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("lcqPSVVFETGbyRqDafsoOILbBg3ZIR1bV2vAAyqI", clientKey: "NPpHYUKU3paEYReqw7ZIfWAmEO6NbzdecT7pVq9h")
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block:nil)
         PFPurchase.addObserverForProduct("me.petersimpson.idealist.unlimited", block: { (transaction:SKPaymentTransaction!) -> Void in
-            PFAnalytics.trackEventInBackground("completed_purchase", block: nil)
             Branch.getInstance().userCompletedAction("completed_purchase")
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "unlimited")
             NSUserDefaults.standardUserDefaults().synchronize()
+            let alertView = UIAlertView(title: "Success!", message: "You can now create unlimited ideas.", delegate: nil, cancelButtonTitle: "Ok")
+            alertView.show()
         })
         
         Branch.getInstance().initSessionWithLaunchOptions(launchOptions, andRegisterDeepLinkHandler: { (params, error) -> Void in

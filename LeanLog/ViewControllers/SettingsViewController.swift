@@ -48,7 +48,6 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     @IBAction func sharePressed(sender: AnyObject) {
         var shareText = "Idealist -- app for tracking biz ideas: https://bnc.lt/idealist-ios"
         Branch.getInstance().userCompletedAction("shared")
-        PFAnalytics.trackEventInBackground("shared", block: nil)
         let activityVC: UIActivityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
         self.presentViewController(activityVC, animated: true, completion: nil)
     }

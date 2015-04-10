@@ -244,7 +244,6 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             performSegueWithIdentifier(kAddIdeaSegue, sender: nil)
             
         } else {
-            PFAnalytics.trackEventInBackground("reached_limit", block: nil)
             Branch.getInstance().userCompletedAction("reached_limit")
             
             PFConfig.getConfigInBackgroundWithBlock {
@@ -288,13 +287,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                     }))
                     
                     purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
-                        PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
-                            if error != nil {
-                                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-                                self.presentViewController(alert, animated: true, completion: nil)
-                            }
-                        })
+                        PFPurchase.restore()
                     }))
                     
                     purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
