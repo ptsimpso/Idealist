@@ -240,7 +240,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             destination.categoryIndex = indexPath.row
             destination.idea = idea
             
-            // track pressing section with index path
+            Heap.track("Section Pressed", withProperties:["sectionIndex":indexPath.row])
             
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         } else if segue.identifier == kGroupSegue {
