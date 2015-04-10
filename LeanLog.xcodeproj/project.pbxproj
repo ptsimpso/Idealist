@@ -53,6 +53,7 @@
 		0BACD12D1AA013F20041A950 /* IdeaTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */; };
 		0BC1C7701AA6C6DC0070EC05 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */; };
 		0BC1C7721AA6C7390070EC05 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC1C7711AA6C7390070EC05 /* Categories.swift */; };
+		0BD2136A1AD84A6500A15C3A /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD213691AD84A6500A15C3A /* Purchase.swift */; };
 		0BDA53971AB3CA5C00660546 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */; };
 		0BDA53991AB3CB7300660546 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA53981AB3CB7300660546 /* GroupCell.swift */; };
 		0BE59DE51AA4FD2600DDFF31 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */; };
@@ -125,6 +126,8 @@
 		0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdeaTitleCell.swift; path = Views/IdeaTitleCell.swift; sourceTree = "<group>"; };
 		0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = ViewControllers/CategoryViewController.swift; sourceTree = "<group>"; };
 		0BC1C7711AA6C7390070EC05 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Categories.swift; path = Model/Categories.swift; sourceTree = "<group>"; };
+		0BD213681AD849B300A15C3A /* LeanLog_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LeanLog_2.xcdatamodel; sourceTree = "<group>"; };
+		0BD213691AD84A6500A15C3A /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Purchase.swift; path = Model/Purchase.swift; sourceTree = "<group>"; };
 		0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupsViewController.swift; path = ViewControllers/GroupsViewController.swift; sourceTree = "<group>"; };
 		0BDA53981AB3CB7300660546 /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupCell.swift; path = Views/GroupCell.swift; sourceTree = "<group>"; };
 		0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = Model/CoreDataStack.swift; sourceTree = "<group>"; };
@@ -308,6 +311,7 @@
 				0BF2FB291AAF9FE20019528D /* Helpers.swift */,
 				0BC1C7711AA6C7390070EC05 /* Categories.swift */,
 				0BACD1081AA009CD0041A950 /* LeanLog.xcdatamodeld */,
+				0BD213691AD84A6500A15C3A /* Purchase.swift */,
 				0B417C1D1AC0C0FA0083148C /* Group.swift */,
 				0B1555B91AAFC76D0041E799 /* Idea.swift */,
 				0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */,
@@ -537,6 +541,7 @@
 				0BA09E211AD335C50008C6D8 /* AddIdeaViewController.swift in Sources */,
 				0B42D9441AB518BB0098782E /* Misc.swift in Sources */,
 				0B42D94C1AB518BB0098782E /* SpringTextView.swift in Sources */,
+				0BD2136A1AD84A6500A15C3A /* Purchase.swift in Sources */,
 				0BACD1071AA009CD0041A950 /* AppDelegate.swift in Sources */,
 				0B3EC7D21AB655720099F725 /* ModalProtocol.swift in Sources */,
 				0BF2FB2A1AAF9FE20019528D /* Helpers.swift in Sources */,
@@ -793,9 +798,10 @@
 		0BACD1081AA009CD0041A950 /* LeanLog.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0BD213681AD849B300A15C3A /* LeanLog_2.xcdatamodel */,
 				0BACD1091AA009CD0041A950 /* LeanLog.xcdatamodel */,
 			);
-			currentVersion = 0BACD1091AA009CD0041A950 /* LeanLog.xcdatamodel */;
+			currentVersion = 0BD213681AD849B300A15C3A /* LeanLog_2.xcdatamodel */;
 			path = LeanLog.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -37,7 +37,11 @@ class CoreDataStack {
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
         
-        let storeOptions = [NSPersistentStoreUbiquitousContentNameKey:"LeanLogStore"]
+        let storeOptions = [
+            NSPersistentStoreUbiquitousContentNameKey:"LeanLogStore",
+            NSMigratePersistentStoresAutomaticallyOption: true,
+            NSInferMappingModelAutomaticallyOption: true
+        ]
         
         if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: storeOptions, error: &error) == nil {
             coordinator = nil
