@@ -44,6 +44,10 @@ You may not remove or hide any existing mark or brand from the files as provided
 
 Unless otherwise expressly agreed by Branch Metrics in a separate written license agreement, these files are provided AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT  SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. As a condition to your use of these files, you are solely responsible  for such use. Branch Metrics will have no liability to you for direct, indirect, consequential, incidental, special, or punitive damages or for lost profits or data.
 
+## Heap
+
+See https://heapanalytics.com/terms
+
 ## Parse
 
 See https://www.parse.com/about/terms

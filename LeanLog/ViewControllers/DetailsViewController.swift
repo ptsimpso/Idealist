@@ -168,6 +168,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     @IBAction func priorityTapped(sender: UIButton) {
+        Heap.track("Priority Set")
         Branch.getInstance().userCompletedAction("set_priority")
         idea.priority = sender.tag
         coreDataStack.saveContext()
@@ -238,6 +239,8 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             destination.defaultColor = defaultColor
             destination.categoryIndex = indexPath.row
             destination.idea = idea
+            
+            // track pressing section with index path
             
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         } else if segue.identifier == kGroupSegue {

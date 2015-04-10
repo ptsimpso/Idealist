@@ -263,6 +263,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 }
                 
                 if paidApp {
+                    Heap.setEventProperties(["Payment":"Paid"])
                     userDefaults.setBool(true, forKey: self.kIAPKey)
                     self.performSegueWithIdentifier(self.kAddIdeaSegue, sender: nil)
                 } else {

@@ -30,11 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block:nil)
         PFPurchase.addObserverForProduct("me.petersimpson.idealist.unlimited", block: { (transaction:SKPaymentTransaction!) -> Void in
             Branch.getInstance().userCompletedAction("completed_purchase")
+            Heap.setEventProperties(["Payment":"IAP"])
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "unlimited")
             NSUserDefaults.standardUserDefaults().synchronize()
             let alertView = UIAlertView(title: "Success!", message: "You can now create unlimited ideas.", delegate: nil, cancelButtonTitle: "Ok")
             alertView.show()
         })
+        
+        Heap.setAppId("2862434026")
+        #if DEBUG
+            Heap.enableVisualizer()
+        #endif
         
         Branch.getInstance().initSessionWithLaunchOptions(launchOptions, andRegisterDeepLinkHandler: { (params, error) -> Void in
             // code
