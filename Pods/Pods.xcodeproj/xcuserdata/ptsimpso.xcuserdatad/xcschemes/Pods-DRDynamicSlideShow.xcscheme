@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C39E0290D1F9E76A90DF6081"
-               BuildableName = "libPods-Heap.a"
-               BlueprintName = "Pods-Heap"
+               BlueprintIdentifier = "4B47E6401266FED340A09FFF"
+               BuildableName = "libPods-DRDynamicSlideShow.a"
+               BlueprintName = "Pods-DRDynamicSlideShow"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

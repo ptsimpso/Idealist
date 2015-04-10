@@ -13,6 +13,8 @@ import Crashlytics
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    let kPaidKey = "unlimited"
 
     override class func initialize() -> Void {
         iRate.sharedInstance().applicationName = "Idealist"
@@ -31,7 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFPurchase.addObserverForProduct("me.petersimpson.idealist.unlimited", block: { (transaction:SKPaymentTransaction!) -> Void in
             Branch.getInstance().userCompletedAction("completed_purchase")
             Heap.setEventProperties(["Payment":"IAP"])
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "unlimited")
+            CoreDataStack.sharedInstance.insertNewPurchase("IAP")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: self.kPaidKey)
             NSUserDefaults.standardUserDefaults().synchronize()
             let alertView = UIAlertView(title: "Success!", message: "You can now create unlimited ideas.", delegate: nil, cancelButtonTitle: "Ok")
             alertView.show()
@@ -43,11 +46,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         Branch.getInstance().initSessionWithLaunchOptions(launchOptions, andRegisterDeepLinkHandler: { (params, error) -> Void in
-            // code
+            // Don't need anything here
         })
         
-        // Dev: DEV5501FD63B8E0DCD3A50217441B4
-        // Live: 5501FD63B7A89F3F5EC7B8524EBFB0
         #if DEBUG
             Batch.startWithAPIKey("DEV5501FD63B8E0DCD3A50217441B4")
         #else
@@ -56,9 +57,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Crashlytics.startWithAPIKey("b78d43f1d70460b77b2d36657656524e3275e3e6")
         
-        // Override point for customization after application launch.
         window?.tintColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        
+        // Check if this user has already paid on another device if no paid key on this device
+        if !NSUserDefaults.standardUserDefaults().boolForKey(kPaidKey) {
+            let purchasesOpt = CoreDataStack.sharedInstance.fetchPurchases()
+            if let purchases = purchasesOpt {
+                if purchases.count > 0 {
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: self.kPaidKey)
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                }
+            }
+        }
         
         return true
     }

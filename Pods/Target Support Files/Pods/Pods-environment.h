@@ -24,6 +24,12 @@
 #define COCOAPODS_VERSION_MINOR_Branch 4
 #define COCOAPODS_VERSION_PATCH_Branch 7
 
+// DRDynamicSlideShow
+#define COCOAPODS_POD_AVAILABLE_DRDynamicSlideShow
+#define COCOAPODS_VERSION_MAJOR_DRDynamicSlideShow 1
+#define COCOAPODS_VERSION_MINOR_DRDynamicSlideShow 0
+#define COCOAPODS_VERSION_PATCH_DRDynamicSlideShow 1
+
 // Heap
 #define COCOAPODS_POD_AVAILABLE_Heap
 #define COCOAPODS_VERSION_MAJOR_Heap 2

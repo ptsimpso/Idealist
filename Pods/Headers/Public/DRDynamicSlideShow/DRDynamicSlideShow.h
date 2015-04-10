@@ -1,0 +1,1 @@
+../../../DRDynamicSlideShow/Source/DRDynamicSlideShow.h

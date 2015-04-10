@@ -131,6 +131,14 @@ class CoreDataStack {
         saveContext()
     }
     
+    func insertNewPurchase(type: String) -> Purchase {
+        let newPurchase = NSEntityDescription.insertNewObjectForEntityForName("Purchase", inManagedObjectContext: managedObjectContext!) as Purchase
+        newPurchase.type = type
+        saveContext()
+        
+        return newPurchase
+    }
+    
     func fetchGroups() -> [Group]? {
         let fetchRequest = NSFetchRequest(entityName: "Group")
         
@@ -138,6 +146,12 @@ class CoreDataStack {
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Group]
+    }
+    
+    func fetchPurchases() -> [Purchase]? {
+        let fetchRequest = NSFetchRequest(entityName: "Purchase")
+        
+        return managedObjectContext?.executeFetchRequest(fetchRequest, error: nil) as? [Purchase]
     }
     
 }

@@ -12,7 +12,7 @@ import CoreData
 class IdeaListViewController: UITableViewController, ModalDelegate {
 
     let kHeaderHeight: CGFloat = 50.0
-    let kIAPKey = "unlimited"
+    let kPaidKey = "unlimited"
     let kIAPIdentifer = "me.petersimpson.idealist.unlimited"
     let kDetailSegue = "DetailSegue"
     let kSettingsSegue = "SettingsSegue"
@@ -39,6 +39,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tableView.tableFooterView = UIView(frame: CGRectZero)
         
         // Set up gold-strip background view
@@ -238,7 +239,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 totalIdeas += ideaArray.count
             }
         }
-        if userDefaults.boolForKey(kIAPKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
+        if userDefaults.boolForKey(kPaidKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
             
             performSegueWithIdentifier(kAddIdeaSegue, sender: nil)
@@ -264,7 +265,9 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 
                 if paidApp {
                     Heap.setEventProperties(["Payment":"Paid"])
-                    userDefaults.setBool(true, forKey: self.kIAPKey)
+                    userDefaults.setBool(true, forKey: self.kPaidKey)
+                    userDefaults.synchronize()
+                    self.coreDataStack.insertNewPurchase("paid")
                     self.performSegueWithIdentifier(self.kAddIdeaSegue, sender: nil)
                 } else {
                     var productPriceString: String
