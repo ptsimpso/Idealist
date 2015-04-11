@@ -130,12 +130,17 @@ class IntroViewController: UIViewController {
         
         // PAGE 1
         
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsImageView, page: 1, keyPath: "alpha", fromValue: NSNumber(integer: 0), toValue: NSNumber(integer: 1), delay: 0.75) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsImageView, page: 0, keyPath: "alpha", fromValue: NSNumber(integer: 0), toValue: NSNumber(integer: 1), delay: 0.75) as DRDynamicSlideShowAnimation)
         
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsTitle, page: 1, keyPath: "alpha", fromValue: NSNumber(integer: 0), toValue: NSNumber(integer: 1), delay: 0.75) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsTitle, page: 0, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as DRDynamicSlideShowAnimation)
         
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsTitle, page: 1, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsLabel, page: 0, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as DRDynamicSlideShowAnimation)
         
+        // PAGE 2
+        
+        dismissButton.center = CGPointMake(dismissButton.center.x-self.slideShow.frame.size.width, dismissButton.center.y+self.slideShow.frame.size.height)
+        let dismissButtonPoint = CGPointMake(dismissButton.center.x+self.slideShow.frame.size.width, dismissButton.center.y-self.slideShow.frame.size.height)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(dismissButton, page: 1, keyPath: "center", toValue: NSValue(CGPoint: dismissButtonPoint), delay: 0) as DRDynamicSlideShowAnimation)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -144,6 +149,10 @@ class IntroViewController: UIViewController {
         UIView.animateWithDuration(0.6, delay: 0.2, options: nil, animations: { () -> Void in
             self.slideShow.alpha = 1.0
         }, completion: nil)
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        userDefaults.setBool(true, forKey: "firstRun")
+        userDefaults.synchronize()
     }
     
     /*

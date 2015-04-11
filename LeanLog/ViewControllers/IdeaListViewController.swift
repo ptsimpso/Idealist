@@ -63,8 +63,9 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveICloudChanges:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: coreDataStack.managedObjectContext!.persistentStoreCoordinator)
 
         refreshData()
-        
-        performSegueWithIdentifier("IntroSegue", sender: nil)
+        if !NSUserDefaults.standardUserDefaults().boolForKey("firstRun") {
+            performSegueWithIdentifier("IntroSegue", sender: nil)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

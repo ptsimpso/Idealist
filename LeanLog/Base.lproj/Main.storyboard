@@ -676,7 +676,7 @@
                         <outlet property="searchSegmentedControl" destination="Tsq-j7-FvP" id="RmX-PQ-aus"/>
                         <segue destination="pWb-xF-mgy" kind="show" identifier="DetailSegue" id="2HS-jg-zuo"/>
                         <segue destination="WSH-Y7-Axx" kind="presentation" identifier="AddIdeaSegue" modalPresentationStyle="overCurrentContext" animates="NO" id="iLA-xg-zDg"/>
-                        <segue destination="9yq-Iw-tYM" kind="presentation" identifier="IntroSegue" id="t0i-Wh-2Kt"/>
+                        <segue destination="9yq-Iw-tYM" kind="presentation" identifier="IntroSegue" animates="NO" id="t0i-Wh-2Kt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z2v-Mf-xYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
