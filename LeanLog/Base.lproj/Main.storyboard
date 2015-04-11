@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zwt-we-q1M">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Zwt-we-q1M">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -676,6 +676,7 @@
                         <outlet property="searchSegmentedControl" destination="Tsq-j7-FvP" id="RmX-PQ-aus"/>
                         <segue destination="pWb-xF-mgy" kind="show" identifier="DetailSegue" id="2HS-jg-zuo"/>
                         <segue destination="WSH-Y7-Axx" kind="presentation" identifier="AddIdeaSegue" modalPresentationStyle="overCurrentContext" animates="NO" id="iLA-xg-zDg"/>
+                        <segue destination="9yq-Iw-tYM" kind="presentation" identifier="IntroSegue" id="t0i-Wh-2Kt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z2v-Mf-xYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1683,6 +1684,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cMr-zS-9ee" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3583" y="543"/>
+        </scene>
+        <!--Intro View Controller-->
+        <scene sceneID="g9F-tC-Cfh">
+            <objects>
+                <viewController storyboardIdentifier="IntroViewController" id="9yq-Iw-tYM" customClass="IntroViewController" customModule="LeanLog" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ezs-jr-lbV"/>
+                        <viewControllerLayoutGuide type="bottom" id="agh-yH-J2A"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kcc-Mr-ZOL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aF-zL-1Mp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1215" y="-232"/>
         </scene>
         <!--All-->
         <scene sceneID="xJ5-9i-Xew">
