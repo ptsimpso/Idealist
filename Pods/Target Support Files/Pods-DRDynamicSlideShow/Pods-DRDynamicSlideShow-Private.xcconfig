@@ -1,6 +1,6 @@
 #include "Pods-DRDynamicSlideShow.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/DRDynamicSlideShow" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Batch" "${PODS_ROOT}/Headers/Public/Bolts" "${PODS_ROOT}/Headers/Public/Branch" "${PODS_ROOT}/Headers/Public/DRDynamicSlideShow" "${PODS_ROOT}/Headers/Public/Heap" "${PODS_ROOT}/Headers/Public/Parse" "${PODS_ROOT}/Headers/Public/iRate"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/DRDynamicSlideShow" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Batch" "${PODS_ROOT}/Headers/Public/Bolts" "${PODS_ROOT}/Headers/Public/Branch" "${PODS_ROOT}/Headers/Public/DRDynamicSlideShow" "${PODS_ROOT}/Headers/Public/Heap" "${PODS_ROOT}/Headers/Public/JTSImageViewController" "${PODS_ROOT}/Headers/Public/Parse" "${PODS_ROOT}/Headers/Public/iRate"
 OTHER_LDFLAGS = -ObjC
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES

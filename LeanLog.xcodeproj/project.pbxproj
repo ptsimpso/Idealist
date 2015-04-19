@@ -54,6 +54,8 @@
 		0BACD12D1AA013F20041A950 /* IdeaTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */; };
 		0BC1C7701AA6C6DC0070EC05 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */; };
 		0BC1C7721AA6C7390070EC05 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC1C7711AA6C7390070EC05 /* Categories.swift */; };
+		0BCB5B291AE42417007C2C1A /* PicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB5B281AE42417007C2C1A /* PicsViewController.swift */; };
+		0BCB5B2B1AE42C85007C2C1A /* PicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB5B2A1AE42C85007C2C1A /* PicCell.swift */; };
 		0BD2136A1AD84A6500A15C3A /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD213691AD84A6500A15C3A /* Purchase.swift */; };
 		0BD2136C1AD8615D00A15C3A /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD2136B1AD8615D00A15C3A /* IntroViewController.swift */; };
 		0BDA53971AB3CA5C00660546 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */; };
@@ -129,6 +131,8 @@
 		0BACD12C1AA013F20041A950 /* IdeaTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdeaTitleCell.swift; path = Views/IdeaTitleCell.swift; sourceTree = "<group>"; };
 		0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = ViewControllers/CategoryViewController.swift; sourceTree = "<group>"; };
 		0BC1C7711AA6C7390070EC05 /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Categories.swift; path = Model/Categories.swift; sourceTree = "<group>"; };
+		0BCB5B281AE42417007C2C1A /* PicsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PicsViewController.swift; path = ViewControllers/PicsViewController.swift; sourceTree = "<group>"; };
+		0BCB5B2A1AE42C85007C2C1A /* PicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PicCell.swift; path = Views/PicCell.swift; sourceTree = "<group>"; };
 		0BD213681AD849B300A15C3A /* LeanLog_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LeanLog_2.xcdatamodel; sourceTree = "<group>"; };
 		0BD213691AD84A6500A15C3A /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Purchase.swift; path = Model/Purchase.swift; sourceTree = "<group>"; };
 		0BD2136B1AD8615D00A15C3A /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroViewController.swift; path = ViewControllers/IntroViewController.swift; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 				0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */,
 				0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */,
 				0B210A401AA50C3A0005D357 /* DetailsViewController.swift */,
+				0BCB5B281AE42417007C2C1A /* PicsViewController.swift */,
 				0BC1C76F1AA6C6DC0070EC05 /* CategoryViewController.swift */,
 				0BACD1291AA00AB50041A950 /* IdeaListViewController.swift */,
 			);
@@ -302,6 +307,7 @@
 		0BACD12E1AA014040041A950 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0BCB5B2A1AE42C85007C2C1A /* PicCell.swift */,
 				0B3BFCB81ABF4DE3005750C1 /* SectionToggleButton.swift */,
 				0BDA53981AB3CB7300660546 /* GroupCell.swift */,
 				0B210A441AA52B6C0005D357 /* CategoryCell.swift */,
@@ -531,7 +537,9 @@
 				0B84CF341ADD6EEA00E848DA /* AutoTextView.swift in Sources */,
 				0B84CF3A1ADD6EEA00E848DA /* DesignableTextField.swift in Sources */,
 				0B84CF481ADD6EEA00E848DA /* SpringLabel.swift in Sources */,
+				0BCB5B2B1AE42C85007C2C1A /* PicCell.swift in Sources */,
 				0B84CF371ADD6EEA00E848DA /* DesignableImageView.swift in Sources */,
+				0BCB5B291AE42417007C2C1A /* PicsViewController.swift in Sources */,
 				0BACD12A1AA00AB50041A950 /* IdeaListViewController.swift in Sources */,
 				0B84CF471ADD6EEA00E848DA /* SpringImageView.swift in Sources */,
 				0BD2136C1AD8615D00A15C3A /* IntroViewController.swift in Sources */,

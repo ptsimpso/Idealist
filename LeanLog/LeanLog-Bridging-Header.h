@@ -8,3 +8,4 @@
 #import <iRate/iRate.h>
 #import <Heap/Heap.h>
 #import <DRDynamicSlideShow/DRDynamicSlideShow.h>
+#import <JTSImageViewController/JTSImageViewController.h>

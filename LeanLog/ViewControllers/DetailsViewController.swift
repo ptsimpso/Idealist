@@ -13,6 +13,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
 
     let kCategorySegue = "CategorySegue"
     let kGroupSegue = "SetGroupSegue"
+    let kPicSegue = "PicSegue"
     
     var bulletOn = false
     
@@ -248,6 +249,8 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             let navController = segue.destinationViewController as! UINavigationController
             let destination = navController.viewControllers[0] as! GroupsViewController
             destination.idea = idea
+        } else if segue.identifier == kPicSegue {
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         }
     }
     

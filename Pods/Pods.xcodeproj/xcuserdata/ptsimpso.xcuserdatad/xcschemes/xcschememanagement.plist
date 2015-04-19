@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-JTSImageViewController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-iRate.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>049289635CE43418A68C62D1</key>
+		<key>6B42FA101E366DDA2E143AC2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1EA5806803718AED025E6AA5</key>
+		<key>97170D1780A6820130C26833</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>54257699BB8D9124C9D4F256</key>
+		<key>B62CBB010FFB3BC3373AA3C0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>72021A3093BCBBD11D4B613E</key>
+		<key>C71ACA6338D6527750D58A12</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>95C949B7D19E7F817136F3CC</key>
+		<key>C9155E82E57427061A858C4A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9F021A8FBAE2E995B6A60615</key>
+		<key>D88501DDF6C566FC1B2EBFCE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DEC42A122BEAA044F9C31A2F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
