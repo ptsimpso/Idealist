@@ -55,7 +55,7 @@ class IntroViewController: UIViewController {
         actionsTitle.textColor = UIColor.whiteColor()
         
         let actionsLabel = UILabel(frame: CGRectMake(self.view.frame.width / 2 - 130, self.view.frame.height / 2 + 80, 260, 130))
-        actionsLabel.text = "Tap the dots beneath the title to give a priority from 0-10. Tap the 'Uncategorized' tag to add the idea to a category. Swipe left on categories to edit or delete."
+        actionsLabel.text = "Tap the dots beneath the title to give a priority from 0-10.\n\nTap the 'Uncategorized' tag to add the idea to a category."
         actionsLabel.numberOfLines = 0
         actionsLabel.textColor = UIColor.whiteColor()
         actionsLabel.font = UIFont.systemFontOfSize(17.0)
@@ -95,6 +95,14 @@ class IntroViewController: UIViewController {
         
         let pageThree = UIView(frame: CGRectMake(self.view.frame.width * 2, 0, self.view.frame.width, self.view.frame.height))
         
+        let syncLabel = UILabel(frame: CGRectMake(0, self.view.frame.height / 2 - 130, self.view.frame.width, 100))
+        syncLabel.text = "iCloud syncs across\ndevices automatically."
+        syncLabel.textColor = UIColor.whiteColor()
+        syncLabel.font = UIFont.boldSystemFontOfSize(17.0)
+        syncLabel.numberOfLines = 2
+        syncLabel.textAlignment = NSTextAlignment.Center
+        syncLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        
         let dismissButton = UIButton(frame: CGRectMake(self.view.frame.width / 2 - 120, self.view.frame.height / 2 - 30, 240, 60))
         dismissButton.backgroundColor = UIColor.clearColor()
         dismissButton.setTitle("I'm ready!", forState: UIControlState.Normal)
@@ -106,6 +114,7 @@ class IntroViewController: UIViewController {
         dismissButton.addTarget(self, action: "dismissVC", forControlEvents: UIControlEvents.TouchUpInside)
         
         pageThree.addSubview(dismissButton)
+        pageThree.addSubview(syncLabel)
         
         slideShow.addSubview(pageOne)
         slideShow.addSubview(pageTwo)
@@ -137,6 +146,9 @@ class IntroViewController: UIViewController {
         slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsLabel, page: 0, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as! DRDynamicSlideShowAnimation)
         
         // PAGE 2
+        syncLabel.center = CGPointMake(syncLabel.center.x-self.slideShow.frame.size.width, syncLabel.center.y-self.slideShow.frame.size.height)
+        let syncLabelPoint = CGPointMake(syncLabel.center.x+self.slideShow.frame.size.width, syncLabel.center.y+self.slideShow.frame.size.height)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(syncLabel, page: 1, keyPath: "center", toValue: NSValue(CGPoint: syncLabelPoint), delay: 0) as! DRDynamicSlideShowAnimation)
         
         dismissButton.center = CGPointMake(dismissButton.center.x-self.slideShow.frame.size.width, dismissButton.center.y+self.slideShow.frame.size.height)
         let dismissButtonPoint = CGPointMake(dismissButton.center.x+self.slideShow.frame.size.width, dismissButton.center.y-self.slideShow.frame.size.height)

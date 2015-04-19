@@ -14,7 +14,7 @@ DEPENDENCIES:
   - DRDynamicSlideShow
   - Heap
   - iRate
-  - Parse (~> 1.7)
+  - Parse (~> 1.0)
 
 SPEC CHECKSUMS:
   Batch: bdb14b14903e28e252f0b1b6da6716ee4c8fa85c

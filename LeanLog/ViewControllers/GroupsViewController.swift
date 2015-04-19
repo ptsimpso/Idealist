@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class GroupsViewController: UITableViewController, ModalDelegate {
+class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDelegate {
 
     let kAddGroupSegue = "AddGroupSegue"
     let kEditGroupSegue = "EditGroupSegue"
@@ -55,16 +55,23 @@ class GroupsViewController: UITableViewController, ModalDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("GroupCell", forIndexPath: indexPath) as! GroupCell
-        
-        var group: Group?
-        if indexPath.row > 0 {
-            group = groups[indexPath.row - 1]
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("GroupCell", forIndexPath: indexPath) as! GroupCell
+            
+            var group: Group?
+            
+            IdeaHelper.setUpGroupCell(cell, row: indexPath.row, count: groups.count + 1, group: group)
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("GroupEditCell", forIndexPath: indexPath) as! GroupCell
+            
+            var group: Group? = groups[indexPath.row - 1]
+            
+            IdeaHelper.setUpGroupCell(cell, row: indexPath.row, count: groups.count + 1, group: group)
+            cell.delegate = self
+            return cell
         }
-        
-        IdeaHelper.setUpGroupCell(cell, row: indexPath.row, count: groups.count + 1, group: group)
-        
-        return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -79,14 +86,42 @@ class GroupsViewController: UITableViewController, ModalDelegate {
         coreDataStack.saveContext()
         dismissViewControllerAnimated(true, completion: nil)
     }
-    
+    /*
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         if indexPath.row == 0 {
             return false
         }
         return true
     }
+*/
     
+    func handleEditPressed(sender: GroupCell) {
+        let indexPath = self.tableView.indexPathForCell(sender)
+        if let indexPath = indexPath {
+            let group = self.groups[indexPath.row - 1]
+            self.performSegueWithIdentifier(self.kEditGroupSegue, sender: group)
+        }
+    }
+    
+    func handleDeletePressed(sender: GroupCell) {
+        
+        var deleteAlert = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this category?", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        deleteAlert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action: UIAlertAction!) in
+            let indexPath = self.tableView.indexPathForCell(sender)
+            if let indexPath = indexPath {
+                let group = self.groups.removeAtIndex(indexPath.row - 1)
+                self.coreDataStack.deleteGroup(group)
+                
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
+        
+        self.presentViewController(deleteAlert, animated: true, completion: nil)
+    }
+    /*
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
         let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (rowAction, indexPath) -> Void in
             let group = self.groups.removeAtIndex(indexPath.row - 1)
@@ -104,11 +139,12 @@ class GroupsViewController: UITableViewController, ModalDelegate {
         editAction.backgroundColor = UIColor.lightGrayColor()
         return [deleteAction, editAction]
     }
-
+*/
+/*
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 
     }
-
+*/
     // MARK: Navigation
     
     @IBAction func dismissVC(sender: UIBarButtonItem) {

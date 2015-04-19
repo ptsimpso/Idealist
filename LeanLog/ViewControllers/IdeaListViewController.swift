@@ -259,7 +259,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 }
                 
                 var paidApp: Bool
-                var paidAppOpt = config["paidApp"] as? Bool
+                var paidAppOpt = config?.objectForKey("paidApp") as? Bool
                 if let paidAppBool = paidAppOpt {
                     paidApp = paidAppBool
                 } else {
@@ -274,7 +274,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                     self.performSegueWithIdentifier(self.kAddIdeaSegue, sender: nil)
                 } else {
                     var productPriceString: String
-                    var productPriceConfig = config["productPrice"] as? String
+                    var productPriceConfig = config?.objectForKey("productPrice") as? String
                     if let productPrice = productPriceConfig {
                         productPriceString = productPrice
                     } else {
