@@ -55,7 +55,7 @@ class IntroViewController: UIViewController {
         actionsTitle.textColor = UIColor.whiteColor()
         
         let actionsLabel = UILabel(frame: CGRectMake(self.view.frame.width / 2 - 130, self.view.frame.height / 2 + 80, 260, 130))
-        actionsLabel.text = "Tap the dots beneath the title to give the idea a priority from 0-10.\n\nTap the 'Uncategorized' tag to add the idea to a category."
+        actionsLabel.text = "Tap the dots beneath the title to give a priority from 0-10. Tap the 'Uncategorized' tag to add the idea to a category. Swipe left on categories to edit or delete."
         actionsLabel.numberOfLines = 0
         actionsLabel.textColor = UIColor.whiteColor()
         actionsLabel.font = UIFont.systemFontOfSize(17.0)
@@ -118,29 +118,29 @@ class IntroViewController: UIViewController {
         // PAGE 0
         
         let actionsImagePoint = CGPointMake(actionsImageView.center.x+self.slideShow.frame.size.width, actionsImageView.center.y-self.slideShow.frame.size.height)
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsImageView, page: 0, keyPath: "center", toValue: NSValue(CGPoint: actionsImagePoint), delay: 0) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsImageView, page: 0, keyPath: "center", toValue: NSValue(CGPoint: actionsImagePoint), delay: 0) as! DRDynamicSlideShowAnimation)
         
         let actionsTitlePoint = CGPointMake(actionsTitle.center.x+slideShow.frame.size.width, actionsTitle.center.y+slideShow.frame.size.height*2)
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsTitle, page: 0, keyPath: "center", toValue: NSValue(CGPoint: actionsTitlePoint), delay: 0) as DRDynamicSlideShowAnimation)
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsTitle, page: 0, keyPath: "alpha", toValue: NSNumber(integer: 0), delay: 0) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsTitle, page: 0, keyPath: "center", toValue: NSValue(CGPoint: actionsTitlePoint), delay: 0) as! DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsTitle, page: 0, keyPath: "alpha", toValue: NSNumber(integer: 0), delay: 0) as! DRDynamicSlideShowAnimation)
         
         let actionsLabelPoint = CGPointMake(actionsLabel.center.x+slideShow.frame.size.width, actionsLabel.center.y+slideShow.frame.size.height*2)
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsLabel, page: 0, keyPath: "center", toValue: NSValue(CGPoint: actionsLabelPoint), delay: 0) as DRDynamicSlideShowAnimation)
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsLabel, page: 0, keyPath: "alpha", toValue: NSNumber(integer: 0), delay: 0) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsLabel, page: 0, keyPath: "center", toValue: NSValue(CGPoint: actionsLabelPoint), delay: 0) as! DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(actionsLabel, page: 0, keyPath: "alpha", toValue: NSNumber(integer: 0), delay: 0) as! DRDynamicSlideShowAnimation)
         
         // PAGE 1
         
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsImageView, page: 0, keyPath: "alpha", fromValue: NSNumber(integer: 0), toValue: NSNumber(integer: 1), delay: 0.75) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsImageView, page: 0, keyPath: "alpha", fromValue: NSNumber(integer: 0), toValue: NSNumber(integer: 1), delay: 0.75) as! DRDynamicSlideShowAnimation)
         
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsTitle, page: 0, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsTitle, page: 0, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as! DRDynamicSlideShowAnimation)
         
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsLabel, page: 0, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(sectionsLabel, page: 0, keyPath: "transform", fromValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(-0.9)), toValue: NSValue(CGAffineTransform: CGAffineTransformMakeRotation(0)), delay: 0) as! DRDynamicSlideShowAnimation)
         
         // PAGE 2
         
         dismissButton.center = CGPointMake(dismissButton.center.x-self.slideShow.frame.size.width, dismissButton.center.y+self.slideShow.frame.size.height)
         let dismissButtonPoint = CGPointMake(dismissButton.center.x+self.slideShow.frame.size.width, dismissButton.center.y-self.slideShow.frame.size.height)
-        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(dismissButton, page: 1, keyPath: "center", toValue: NSValue(CGPoint: dismissButtonPoint), delay: 0) as DRDynamicSlideShowAnimation)
+        slideShow.addAnimation(DRDynamicSlideShowAnimation.animationForSubview(dismissButton, page: 1, keyPath: "center", toValue: NSValue(CGPoint: dismissButtonPoint), delay: 0) as! DRDynamicSlideShowAnimation)
     }
     
     override func viewDidAppear(animated: Bool) {

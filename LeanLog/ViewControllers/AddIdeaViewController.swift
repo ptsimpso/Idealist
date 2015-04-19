@@ -41,7 +41,7 @@ class AddIdeaViewController: UIViewController {
     }
     
     @IBAction func savePressed(sender: UIButton) {
-        if (countElements(ideaTitleField.text) > 0) {
+        if (count(ideaTitleField.text) > 0) {
             self.delegate.dismissModalHandler(ideaTitleField.text)
             dismissVC()
         }

@@ -153,7 +153,7 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         // Animate UITextView bottom constraint
         let userDict: [NSObject : AnyObject] = notification.userInfo!
         
-        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as NSValue
+        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as! NSValue
         var rect: CGRect = rectRaw.CGRectValue()
         rect = self.view.convertRect(rect, fromView: nil)
         let diffValue = self.view.frame.height - rect.origin.y

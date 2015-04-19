@@ -141,18 +141,18 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if searchSegmentedControl.selectedSegmentIndex == 0 {
             if ideas.count > 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("IdeaCell", forIndexPath: indexPath) as IdeaTitleCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("IdeaCell", forIndexPath: indexPath) as! IdeaTitleCell
                 
                 IdeaHelper.setUpIdeaCell(cell, idea: ideas[indexPath.row], row: indexPath.row, count: ideas.count, formatter: formatter)
                 
                 return cell
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoDataCell", forIndexPath: indexPath) as UITableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoDataCell", forIndexPath: indexPath) as! UITableViewCell
                 
                 return cell
             }
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("IdeaCell", forIndexPath: indexPath) as IdeaTitleCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("IdeaCell", forIndexPath: indexPath) as! IdeaTitleCell
             
             var rowIdea: Idea!
             var count: Int!
@@ -251,7 +251,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             Branch.getInstance().userCompletedAction("reached_limit")
             
             PFConfig.getConfigInBackgroundWithBlock {
-                (var config: PFConfig!, error) -> Void in
+                (var config, error) -> Void in
                 if error == nil {
                     
                 } else {
@@ -259,7 +259,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 }
                 
                 var paidApp: Bool
-                var paidAppOpt = config["paidApp"] as Bool?
+                var paidAppOpt = config["paidApp"] as? Bool
                 if let paidAppBool = paidAppOpt {
                     paidApp = paidAppBool
                 } else {
@@ -307,7 +307,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell: IdeaTitleCell = self.tableView.cellForRowAtIndexPath(indexPath) as IdeaTitleCell
+        let cell: IdeaTitleCell = self.tableView.cellForRowAtIndexPath(indexPath) as! IdeaTitleCell
         accentColor = cell.ideaTitleLabel.textColor
         performSegueWithIdentifier(kDetailSegue, sender: indexPath)
     }
@@ -324,7 +324,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 groupIdeaArrays.removeAll(keepCapacity: true)
                 groups = groupResults
                 for singleGroup: Group in groups {
-                    var groupIdeas: [Idea] = singleGroup.ideas.allObjects as [Idea]
+                    var groupIdeas: [Idea] = singleGroup.ideas.allObjects as! [Idea]
                     groupIdeas.sort({ (first: Idea, second: Idea) -> Bool in
                         let firstInt = first.priority.integerValue
                         let secondInt = second.priority.integerValue
@@ -381,9 +381,9 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == kDetailSegue {
             
-            let indexPath = sender as NSIndexPath
+            let indexPath = sender as! NSIndexPath
             
-            let destination = segue.destinationViewController as DetailsViewController
+            let destination = segue.destinationViewController as! DetailsViewController
             destination.accentColor = accentColor
             destination.defaultColor = defaultColor
             
@@ -400,10 +400,10 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
             
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         } else if segue.identifier == kSettingsSegue {
-            let destination = segue.destinationViewController as SettingsViewController
+            let destination = segue.destinationViewController as! SettingsViewController
             destination.delegate = self
         } else if segue.identifier == kAddIdeaSegue {
-            let destination = segue.destinationViewController as AddIdeaViewController
+            let destination = segue.destinationViewController as! AddIdeaViewController
             destination.delegate = self
         }
     }
@@ -421,7 +421,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
     }
     
     func dismissModalHandler(sender: AnyObject?) {
-        let ideaTitleOpt = sender as String?
+        let ideaTitleOpt = sender as! String?
         if let ideaTitle = ideaTitleOpt {
             let newIdea = coreDataStack.insertNewIdea()
             newIdea.title = ideaTitle

@@ -5,7 +5,7 @@ PODS:
   - DRDynamicSlideShow (1.0.1)
   - Heap (2.1.3)
   - iRate (1.11.3)
-  - Parse (1.6.4):
+  - Parse (1.7.1):
     - Bolts (~> 1.1)
 
 DEPENDENCIES:
@@ -14,7 +14,7 @@ DEPENDENCIES:
   - DRDynamicSlideShow
   - Heap
   - iRate
-  - Parse
+  - Parse (~> 1.7)
 
 SPEC CHECKSUMS:
   Batch: bdb14b14903e28e252f0b1b6da6716ee4c8fa85c
@@ -23,6 +23,6 @@ SPEC CHECKSUMS:
   DRDynamicSlideShow: 04d7a439462a5b8714c3cd61e929dbd76cfae522
   Heap: f3b32fcad4c4cb60558f21c596b01679960235d6
   iRate: 09ef501c74ade02013348bc33225ea48f7aa4e55
-  Parse: 6ada00e82e77f73eb00f35accfe52a5f54e3c2aa
+  Parse: fa8ec29de6d82035635986c11946299fb1b38316
 
 COCOAPODS: 0.36.3

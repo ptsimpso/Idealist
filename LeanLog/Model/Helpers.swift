@@ -277,7 +277,7 @@ struct IdeaHelper {
             
             let newLineBullet = "\n" + kBullet
             var textRange: UITextRange!
-            if range.location == textView.text.utf16Count {
+            if range.location == count(textView.text.utf16) {
                 textRange = textView.textRangeFromPosition(textView.endOfDocument, toPosition: textView.endOfDocument)
             } else {
                 let beginning = textView.beginningOfDocument

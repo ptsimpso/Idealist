@@ -63,7 +63,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         if let ideaNotes = idea.notes {
             notesTextView.text = ideaNotes
         }
-        placeholderLabel.hidden = countElements(notesTextView.text) != 0
+        placeholderLabel.hidden = count(notesTextView.text) != 0
         
         // Layout category TableView background and top shadow
         let shadow = CAGradientLayer()
@@ -102,7 +102,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     // MARK: - Text and keyboard manipulation
 
     func textViewDidChange(textView: UITextView) {
-        placeholderLabel.hidden = countElements(textView.text) != 0
+        placeholderLabel.hidden = count(textView.text) != 0
     }
     
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -141,7 +141,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     func keyboardWillChange(notification: NSNotification) {
         let userDict: [NSObject : AnyObject] = notification.userInfo!
         
-        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as NSValue
+        let rectRaw: NSValue = userDict[UIKeyboardFrameEndUserInfoKey] as! NSValue
         var rect: CGRect = rectRaw.CGRectValue()
         rect = self.view.convertRect(rect, fromView: nil)
         let diffValue = self.view.frame.height - rect.origin.y
@@ -213,7 +213,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell", forIndexPath: indexPath) as CategoryCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CategoryCell", forIndexPath: indexPath) as! CategoryCell
         
         // Configure the cell...
         let category = Categories.array[indexPath.row]["title"]
@@ -229,9 +229,9 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == kCategorySegue {
             
-            let indexPath = sender as NSIndexPath
+            let indexPath = sender as! NSIndexPath
             let cell = self.tableView.cellForRowAtIndexPath(indexPath)
-            let destination = segue.destinationViewController as CategoryViewController
+            let destination = segue.destinationViewController as! CategoryViewController
             let categoryDict = Categories.array[indexPath.row]
             destination.title = categoryDict["title"]
             destination.promptText = categoryDict["prompt"]!
@@ -245,8 +245,8 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         } else if segue.identifier == kGroupSegue {
             
-            let navController = segue.destinationViewController as UINavigationController
-            let destination = navController.viewControllers[0] as GroupsViewController
+            let navController = segue.destinationViewController as! UINavigationController
+            let destination = navController.viewControllers[0] as! GroupsViewController
             destination.idea = idea
         }
     }

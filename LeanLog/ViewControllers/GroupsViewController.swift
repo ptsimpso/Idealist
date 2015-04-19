@@ -55,7 +55,7 @@ class GroupsViewController: UITableViewController, ModalDelegate {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("GroupCell", forIndexPath: indexPath) as GroupCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("GroupCell", forIndexPath: indexPath) as! GroupCell
         
         var group: Group?
         if indexPath.row > 0 {
@@ -125,10 +125,10 @@ class GroupsViewController: UITableViewController, ModalDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == kAddGroupSegue {
-            let destination = segue.destinationViewController as AddGroupViewController
+            let destination = segue.destinationViewController as! AddGroupViewController
             destination.delegate = self
         } else if segue.identifier == kEditGroupSegue {
-            let destination = segue.destinationViewController as AddGroupViewController
+            let destination = segue.destinationViewController as! AddGroupViewController
             destination.group = sender as? Group
             destination.delegate = self
         }

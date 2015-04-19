@@ -46,7 +46,7 @@ class AddGroupViewController: UIViewController {
     }
 
     @IBAction func savePressed(sender: UIButton) {
-        if (countElements(groupTitleField.text) > 0) {
+        if (count(groupTitleField.text) > 0) {
             if group != nil {
                 group?.title = groupTitleField.text
                 coreDataStack.saveContext()
