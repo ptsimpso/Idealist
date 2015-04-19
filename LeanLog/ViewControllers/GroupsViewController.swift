@@ -86,14 +86,6 @@ class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDeleg
         coreDataStack.saveContext()
         dismissViewControllerAnimated(true, completion: nil)
     }
-    /*
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if indexPath.row == 0 {
-            return false
-        }
-        return true
-    }
-*/
     
     func handleEditPressed(sender: GroupCell) {
         let indexPath = self.tableView.indexPathForCell(sender)
@@ -121,30 +113,7 @@ class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDeleg
         
         self.presentViewController(deleteAlert, animated: true, completion: nil)
     }
-    /*
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
-        let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete") { (rowAction, indexPath) -> Void in
-            let group = self.groups.removeAtIndex(indexPath.row - 1)
-            self.coreDataStack.deleteGroup(group)
-            
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        }
-        let editAction = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Edit") { (rowAction, indexPath) -> Void in
-            
-            let group = self.groups[indexPath.row - 1]
-            self.performSegueWithIdentifier(self.kEditGroupSegue, sender: group)
-            
-            self.tableView.editing = false
-        }
-        editAction.backgroundColor = UIColor.lightGrayColor()
-        return [deleteAction, editAction]
-    }
-*/
-/*
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-
-    }
-*/
+    
     // MARK: Navigation
     
     @IBAction func dismissVC(sender: UIBarButtonItem) {
