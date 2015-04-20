@@ -9,11 +9,9 @@
 import UIKit
 import Photos
 
-class PicsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PicCellDelegate {
+class PicsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PicCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var pics: [UIImage] = []
-    var thumbnails: [UIImage] = []
     var selectedHolder: [Int] = []
     var idea: Idea!
     
@@ -24,39 +22,50 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.Denied {
-            var alert = UIAlertController(title: "Need Permission", message: "Please go Settings > Privacy > Photos in the Settings app and grant Idealist access.", preferredStyle: UIAlertControllerStyle.Alert)
-            
-            alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler:nil))
-            
-            self.presentViewController(alert, animated: true, completion: nil)
-        } else {
-            // Check if folder for this idea exists. If not, create it.
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.predicate = NSPredicate(format: "title = %@", idea.title!)
-            
-            // TODO: test if this loads when first asking for permission
-            let collection = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype:.Any, options: fetchOptions)
-            if let firstObj: AnyObject = collection.firstObject {
-                albumFound = true
-                assetCollection = firstObj as! PHAssetCollection
-                println("Found album...")
+        PHPhotoLibrary.requestAuthorization({ (authStatus) in
+            if authStatus == PHAuthorizationStatus.Denied {
+                var alert = UIAlertController(title: "Need Photos Permission", message: "Please go Settings > Privacy > Photos in the Settings app and grant Idealist access.", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
+                    self.navigationController?.popViewControllerAnimated(true)
+                }))
+                
+                self.presentViewController(alert, animated: true, completion: nil)
             } else {
-                // Create pic folder for idea
-                PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
-                    let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(self.idea.title!)
-                    }, completionHandler: { (success, error) -> Void in
-                        if success {
-                            println("Created new folder")
-                        } else {
-                            println("Photo folder creation failure.")
-                        }
-                        self.albumFound = success
-                })
+                self.fetchIdeaAlbum()
             }
-            
-            refreshPhotosFromCollection()
+        })
+    }
+    
+    func fetchIdeaAlbum() {
+        // Check if folder for this idea exists. If not, create it.
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "title = %@", idea.title!)
+        
+        let collection = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype:.Any, options: fetchOptions)
+        if let firstObj: AnyObject = collection.firstObject {
+            albumFound = true
+            assetCollection = firstObj as! PHAssetCollection
+            println("Found album...")
+        } else {
+            // Create pic folder for idea
+            var albumPlaceholder: PHObjectPlaceholder!
+            PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
+                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(self.idea.title!)
+                albumPlaceholder = request.placeholderForCreatedAssetCollection
+                }, completionHandler: { (success, error) -> Void in
+                    if success {
+                        println("Created new folder")
+                        let collection = PHAssetCollection.fetchAssetCollectionsWithLocalIdentifiers([albumPlaceholder.localIdentifier], options: nil)
+                        self.assetCollection = collection.firstObject as! PHAssetCollection
+                    } else {
+                        println("Photo folder creation failure.")
+                    }
+                    self.albumFound = success
+            })
         }
+        
+        refreshPhotosFromCollection()
     }
     
     func refreshPhotosFromCollection() {
@@ -66,26 +75,8 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         ]
         println("Fetching assets...")
         photosAsset = PHAsset.fetchAssetsInAssetCollection(assetCollection, options: fetchOptions)
-        println(photosAsset!.count)
-        for index in 0..<photosAsset!.count {
-            let asset: PHAsset = photosAsset![index] as! PHAsset
-            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil) { (result: UIImage!, info: [NSObject : AnyObject]!) -> Void in
-                println("Appending")
-                self.pics.append(result)
-                
-//                let size = CGSizeApplyAffineTransform(result.size, CGAffineTransformMakeScale(0.5, 0.5))
-//                let hasAlpha = false
-//                let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
-//                UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
-//                result.drawInRect(CGRect(origin: CGPointZero, size: size))
-//                let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-//                UIGraphicsEndImageContext()
-//                self.thumbnails.append(scaledImage)
-                
-                self.collectionView.reloadData()
-            }
-        }
         
+        self.collectionView.reloadData()
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -93,7 +84,11 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return thumbnails.count
+        var count = 0
+        if let photos = photosAsset {
+            count = photos.count
+        }
+        return count
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -103,7 +98,10 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("picCell", forIndexPath: indexPath) as! PicCell
         
-        cell.picImageView.image = thumbnails[indexPath.item]
+        let asset: PHAsset = photosAsset![indexPath.item] as! PHAsset
+        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSizeMake(self.collectionView.frame.width / 2 - 3, self.collectionView.frame.width / 2 - 3), contentMode: PHImageContentMode.AspectFill, options: nil) { (result: UIImage!, info: [NSObject : AnyObject]!) -> Void in
+            cell.picImageView.image = result
+        }
         cell.delegate = self
         
         return cell
@@ -111,15 +109,24 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as? PicCell
-        
+        // PHImageManagerMaximumSize
         if let cell = cell {
-            let imageInfo = JTSImageInfo()
-            imageInfo.image = pics[indexPath.item]
-            imageInfo.referenceRect = cell.frame
-            imageInfo.referenceView = cell.superview
             
-            let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
-            imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
+            let asset: PHAsset = photosAsset![indexPath.item] as! PHAsset
+            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil) { (result: UIImage!, info: [NSObject : AnyObject]!) -> Void in
+                
+                let degraded = info[PHImageResultIsDegradedKey] as! NSNumber
+                if !degraded.boolValue {
+                    let imageInfo = JTSImageInfo()
+                    imageInfo.image = result
+                    imageInfo.referenceRect = cell.frame
+                    imageInfo.referenceView = cell.superview
+                    
+                    let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
+                    imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
+                }
+                
+            }
         }
     }
     
@@ -148,9 +155,10 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
             
             var imgHolder: [UIImage] = []
-            for index in 0..<pics.count {
+            for index in 0..<photosAsset!.count {
                 if contains(selectedHolder, index) {
-                    imgHolder.append(pics[index])
+                    let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) as! PicCell
+                    imgHolder.append(cell.picImageView.image!)
                 }
             }
             
@@ -175,9 +183,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 if success {
                     println("Deleted picture.")
                     dispatch_async(dispatch_get_main_queue(),{
-                        self.pics.removeAtIndex(indexPath!.item)
-                        self.thumbnails.removeAtIndex(indexPath!.item)
-                        self.collectionView.reloadData()
+                        self.refreshPhotosFromCollection()
                     })
                     
                 }
@@ -186,5 +192,83 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func addImagePressed(sender: UIButton) {
+        if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.Denied {
+            var alert = UIAlertController(title: "Need Photos Permission", message: "Please go Settings > Privacy > Photos in the Settings app and grant Idealist access.", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
+                self.navigationController?.popViewControllerAnimated(true)
+            }))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            let optionMenu = UIAlertController(title:nil, message:"Add Image", preferredStyle: .ActionSheet)
+            
+            let takePhoto = UIAlertAction(title: "Take New Photo", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                
+                if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+                    let picker = UIImagePickerController()
+                    picker.navigationBar.barTintColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
+                    picker.navigationBar.tintColor = UIColor.whiteColor()
+                    picker.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+                    picker.sourceType = .Camera
+                    picker.delegate = self
+                    picker.allowsEditing = false
+                    self.presentViewController(picker, animated: true, completion: nil)
+                }
+                
+            })
+            let photoLibrary = UIAlertAction(title: "Select From Library", style: .Default, handler: { (alert: UIAlertAction!) -> Void in
+                let picker = UIImagePickerController()
+                picker.navigationBar.barTintColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
+                picker.navigationBar.tintColor = UIColor.whiteColor()
+                picker.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+                picker.sourceType = .PhotoLibrary
+                picker.delegate = self
+                picker.allowsEditing = false
+                self.presentViewController(picker, animated: true, completion: nil)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler:nil)
+            
+            optionMenu.addAction(takePhoto)
+            optionMenu.addAction(photoLibrary)
+            optionMenu.addAction(cancelAction)
+            
+            self.presentViewController(optionMenu, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: Image Picker Delegate Methods
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        // code
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+            let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+            let assetPlaceholder = createAssetRequest.placeholderForCreatedAsset
+            let albumChangeRequest = PHAssetCollectionChangeRequest(forAssetCollection: self.assetCollection, assets: self.photosAsset)
+            albumChangeRequest.addAssets([assetPlaceholder])
+        }, completionHandler: { (success, error) -> Void in
+            if success {
+                println("Added new picture.")
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.refreshPhotosFromCollection()
+                    picker.dismissViewControllerAnimated(true, completion: nil)
+                })
+            }
+        })
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
     }
 }

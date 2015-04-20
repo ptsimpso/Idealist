@@ -59,6 +59,8 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
     @IBAction func sendFeedbackPressed(sender: AnyObject) {
         if MFMailComposeViewController.canSendMail() {
             let mailComposeVC = MFMailComposeViewController()
+            mailComposeVC.navigationBar.tintColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
+            mailComposeVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)]
             mailComposeVC.mailComposeDelegate = self
             mailComposeVC.setToRecipients(["contact@getidealist.com"])
             mailComposeVC.setSubject("Idealist Feedback")

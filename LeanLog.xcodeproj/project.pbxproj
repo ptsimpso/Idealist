@@ -10,6 +10,7 @@
 		0B1555BA1AAFC76D0041E799 /* Idea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1555B91AAFC76D0041E799 /* Idea.swift */; };
 		0B210A411AA50C3A0005D357 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B210A401AA50C3A0005D357 /* DetailsViewController.swift */; };
 		0B210A451AA52B6C0005D357 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B210A441AA52B6C0005D357 /* CategoryCell.swift */; };
+		0B266DB51AE57F900022FCCF /* IdealistNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B266DB41AE57F900022FCCF /* IdealistNavigationBar.swift */; };
 		0B3BFCB91ABF4DE3005750C1 /* SectionToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3BFCB81ABF4DE3005750C1 /* SectionToggleButton.swift */; };
 		0B3EC7D21AB655720099F725 /* ModalProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3EC7D11AB655720099F725 /* ModalProtocol.swift */; };
 		0B3EC7D81AB671BA0099F725 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */; };
@@ -81,6 +82,7 @@
 		0B1555B91AAFC76D0041E799 /* Idea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Idea.swift; path = Model/Idea.swift; sourceTree = "<group>"; };
 		0B210A401AA50C3A0005D357 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailsViewController.swift; path = ViewControllers/DetailsViewController.swift; sourceTree = "<group>"; };
 		0B210A441AA52B6C0005D357 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = Views/CategoryCell.swift; sourceTree = "<group>"; };
+		0B266DB41AE57F900022FCCF /* IdealistNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdealistNavigationBar.swift; path = Views/IdealistNavigationBar.swift; sourceTree = "<group>"; };
 		0B3BFCB81ABF4DE3005750C1 /* SectionToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SectionToggleButton.swift; path = Views/SectionToggleButton.swift; sourceTree = "<group>"; };
 		0B3EC7D11AB655720099F725 /* ModalProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModalProtocol.swift; path = Model/ModalProtocol.swift; sourceTree = "<group>"; };
 		0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddGroupViewController.swift; path = ViewControllers/AddGroupViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 		0BACD12E1AA014040041A950 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0B266DB41AE57F900022FCCF /* IdealistNavigationBar.swift */,
 				0BCB5B2A1AE42C85007C2C1A /* PicCell.swift */,
 				0B3BFCB81ABF4DE3005750C1 /* SectionToggleButton.swift */,
 				0BDA53981AB3CB7300660546 /* GroupCell.swift */,
@@ -541,6 +544,7 @@
 				0B84CF371ADD6EEA00E848DA /* DesignableImageView.swift in Sources */,
 				0BCB5B291AE42417007C2C1A /* PicsViewController.swift in Sources */,
 				0BACD12A1AA00AB50041A950 /* IdeaListViewController.swift in Sources */,
+				0B266DB51AE57F900022FCCF /* IdealistNavigationBar.swift in Sources */,
 				0B84CF471ADD6EEA00E848DA /* SpringImageView.swift in Sources */,
 				0BD2136C1AD8615D00A15C3A /* IntroViewController.swift in Sources */,
 				0B417C1E1AC0C0FA0083148C /* Group.swift in Sources */,

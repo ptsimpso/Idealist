@@ -1687,7 +1687,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HFv-iD-mSP">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="540"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="0.0" id="A14-r4-vVB">
                                     <size key="itemSize" width="140" height="140"/>
@@ -1769,13 +1769,47 @@
                                     <outlet property="delegate" destination="YIZ-wR-LK5" id="4kg-OX-bbh"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocU-rk-PuB">
+                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="takePic" translatesAutoresizingMaskIntoConstraints="NO" id="ScT-ny-j1A">
+                                        <rect key="frame" x="281" y="11" width="38" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="38" id="2kG-cT-JvZ"/>
+                                            <constraint firstAttribute="height" constant="38" id="gFL-bh-aeC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oee-68-6u5">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addImagePressed:" destination="YIZ-wR-LK5" eventType="touchUpInside" id="PCB-kO-TMa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.2666666667" green="0.73725490199999999" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Oee-68-6u5" secondAttribute="trailing" id="IgU-Nx-ssy"/>
+                                    <constraint firstAttribute="height" constant="60" id="O2D-dZ-e1S"/>
+                                    <constraint firstAttribute="centerX" secondItem="ScT-ny-j1A" secondAttribute="centerX" id="Y5w-Xc-AUG"/>
+                                    <constraint firstAttribute="centerY" secondItem="ScT-ny-j1A" secondAttribute="centerY" id="chg-jJ-q7y"/>
+                                    <constraint firstItem="Oee-68-6u5" firstAttribute="leading" secondItem="ocU-rk-PuB" secondAttribute="leading" id="huh-A3-bvm"/>
+                                    <constraint firstItem="Oee-68-6u5" firstAttribute="top" secondItem="ocU-rk-PuB" secondAttribute="top" id="kWC-bC-gjd"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oee-68-6u5" secondAttribute="bottom" id="sta-lX-Inh"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="HFv-iD-mSP" secondAttribute="trailing" id="D2p-O7-QOa"/>
+                            <constraint firstAttribute="trailing" secondItem="ocU-rk-PuB" secondAttribute="trailing" id="L5P-VF-DI5"/>
                             <constraint firstItem="HFv-iD-mSP" firstAttribute="leading" secondItem="RVP-0T-HSf" secondAttribute="leading" id="M7J-hd-W2h"/>
-                            <constraint firstItem="HM7-pF-bCQ" firstAttribute="top" secondItem="HFv-iD-mSP" secondAttribute="bottom" id="bmx-J0-Bux"/>
+                            <constraint firstItem="ocU-rk-PuB" firstAttribute="leading" secondItem="RVP-0T-HSf" secondAttribute="leading" id="XaX-Cz-rCi"/>
+                            <constraint firstItem="ocU-rk-PuB" firstAttribute="top" secondItem="HFv-iD-mSP" secondAttribute="bottom" id="bTC-NT-Xxg"/>
                             <constraint firstItem="HFv-iD-mSP" firstAttribute="top" secondItem="RVP-0T-HSf" secondAttribute="top" id="gdW-14-z3t"/>
+                            <constraint firstItem="HM7-pF-bCQ" firstAttribute="top" secondItem="ocU-rk-PuB" secondAttribute="bottom" id="vdB-WR-BUJ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Images" id="wzQ-ry-sdh">
@@ -2088,6 +2122,7 @@
         <image name="sections" width="700" height="700"/>
         <image name="settings" width="22" height="22"/>
         <image name="star" width="30" height="30"/>
+        <image name="takePic" width="38" height="38"/>
         <image name="trash" width="38" height="38"/>
     </resources>
     <inferredMetricsTieBreakers>
