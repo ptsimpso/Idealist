@@ -275,7 +275,7 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2Rb-Kk-cVR" secondAttribute="trailing" constant="18" id="Pdn-BG-alN"/>
+                                        <constraint firstAttribute="trailing" secondItem="2Rb-Kk-cVR" secondAttribute="trailing" constant="26" id="JYY-Yz-bg9"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="2Rb-Kk-cVR" secondAttribute="bottom" constant="-4" id="tqW-jc-Kcm"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -676,7 +676,7 @@
                         <outlet property="searchSegmentedControl" destination="Tsq-j7-FvP" id="RmX-PQ-aus"/>
                         <segue destination="pWb-xF-mgy" kind="show" identifier="DetailSegue" id="2HS-jg-zuo"/>
                         <segue destination="WSH-Y7-Axx" kind="presentation" identifier="AddIdeaSegue" modalPresentationStyle="overCurrentContext" animates="NO" id="iLA-xg-zDg"/>
-                        <segue destination="9yq-Iw-tYM" kind="presentation" identifier="IntroSegue" animates="NO" id="t0i-Wh-2Kt"/>
+                        <segue destination="9yq-Iw-tYM" kind="presentation" identifier="IntroSegue" modalPresentationStyle="overCurrentContext" id="t0i-Wh-2Kt"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z2v-Mf-xYV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1674,7 +1674,7 @@
             </objects>
             <point key="canvasLocation" x="2909" y="543"/>
         </scene>
-        <!--Pictures-->
+        <!--Images-->
         <scene sceneID="cZP-BP-1g7">
             <objects>
                 <viewController id="YIZ-wR-LK5" customClass="PicsViewController" customModule="LeanLog" customModuleProvider="target" sceneMemberID="viewController">
@@ -1778,7 +1778,7 @@
                             <constraint firstItem="HFv-iD-mSP" firstAttribute="top" secondItem="RVP-0T-HSf" secondAttribute="top" id="gdW-14-z3t"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Pictures" id="wzQ-ry-sdh">
+                    <navigationItem key="navigationItem" title="Images" id="wzQ-ry-sdh">
                         <barButtonItem key="rightBarButtonItem" systemItem="action" id="qeq-q9-qdG">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>

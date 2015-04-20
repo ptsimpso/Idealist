@@ -250,6 +250,9 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
             let destination = navController.viewControllers[0] as! GroupsViewController
             destination.idea = idea
         } else if segue.identifier == kPicSegue {
+            let destinationVC = segue.destinationViewController as! PicsViewController
+            destinationVC.idea = idea
+            
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         }
     }
