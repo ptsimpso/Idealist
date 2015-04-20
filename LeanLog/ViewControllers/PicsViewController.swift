@@ -13,6 +13,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
 
     @IBOutlet weak var collectionView: UICollectionView!
     var pics: [UIImage] = []
+    var thumbnails: [UIImage] = []
     var selectedHolder: [Int] = []
     var idea: Idea!
     
@@ -39,6 +40,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
             if let firstObj: AnyObject = collection.firstObject {
                 albumFound = true
                 assetCollection = firstObj as! PHAssetCollection
+                println("Found album...")
             } else {
                 // Create pic folder for idea
                 PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
@@ -62,10 +64,28 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: true)
         ]
-        
+        println("Fetching assets...")
         photosAsset = PHAsset.fetchAssetsInAssetCollection(assetCollection, options: fetchOptions)
+        println(photosAsset!.count)
+        for index in 0..<photosAsset!.count {
+            let asset: PHAsset = photosAsset![index] as! PHAsset
+            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil) { (result: UIImage!, info: [NSObject : AnyObject]!) -> Void in
+                println("Appending")
+                self.pics.append(result)
+                
+//                let size = CGSizeApplyAffineTransform(result.size, CGAffineTransformMakeScale(0.5, 0.5))
+//                let hasAlpha = false
+//                let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+//                UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+//                result.drawInRect(CGRect(origin: CGPointZero, size: size))
+//                let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+//                UIGraphicsEndImageContext()
+//                self.thumbnails.append(scaledImage)
+                
+                self.collectionView.reloadData()
+            }
+        }
         
-        collectionView.reloadData()
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -73,11 +93,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var count = 0
-        if let photos = photosAsset {
-            count = photos.count
-        }
-        return count
+        return thumbnails.count
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -87,11 +103,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("picCell", forIndexPath: indexPath) as! PicCell
         
-        let asset: PHAsset = photosAsset![indexPath.item] as! PHAsset
-        PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSizeMake(self.collectionView.frame.width / 2 - 3, self.collectionView.frame.width / 2 - 3), contentMode: PHImageContentMode.AspectFill, options: nil) { (result: UIImage!, info: [NSObject : AnyObject]!) -> Void in
-            cell.picImageView.image = result
-        }
-        
+        cell.picImageView.image = thumbnails[indexPath.item]
         cell.delegate = self
         
         return cell
@@ -101,16 +113,13 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as? PicCell
         
         if let cell = cell {
-            let asset: PHAsset = photosAsset![indexPath.item] as! PHAsset
-            PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.AspectFill, options: nil) { (result: UIImage!, info: [NSObject : AnyObject]!) -> Void in
-                let imageInfo = JTSImageInfo()
-                imageInfo.image = result
-                imageInfo.referenceRect = cell.frame
-                imageInfo.referenceView = cell.superview
-                
-                let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
-                imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
-            }
+            let imageInfo = JTSImageInfo()
+            imageInfo.image = pics[indexPath.item]
+            imageInfo.referenceRect = cell.frame
+            imageInfo.referenceView = cell.superview
+            
+            let imageViewer = JTSImageViewController(imageInfo: imageInfo, mode: JTSImageViewControllerMode.Image, backgroundStyle: JTSImageViewControllerBackgroundOptions.Blurred)
+            imageViewer.showFromViewController(self, transition: JTSImageViewControllerTransition._FromOriginalPosition)
         }
     }
     
@@ -139,13 +148,9 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
             
             var imgHolder: [UIImage] = []
-            for index in 0..<photosAsset!.count {
+            for index in 0..<pics.count {
                 if contains(selectedHolder, index) {
-                    let indexPath = NSIndexPath(forItem: index, inSection: 0)
-                    let cell = self.collectionView.cellForItemAtIndexPath(indexPath) as? PicCell
-                    if let cell = cell {
-                        imgHolder.append(cell.picImageView.image!)
-                    }
+                    imgHolder.append(pics[index])
                 }
             }
             
@@ -169,7 +174,12 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }, completionHandler: { (success, error) -> Void in
                 if success {
                     println("Deleted picture.")
-                    self.refreshPhotosFromCollection()
+                    dispatch_async(dispatch_get_main_queue(),{
+                        self.pics.removeAtIndex(indexPath!.item)
+                        self.thumbnails.removeAtIndex(indexPath!.item)
+                        self.collectionView.reloadData()
+                    })
+                    
                 }
             })
         }))
