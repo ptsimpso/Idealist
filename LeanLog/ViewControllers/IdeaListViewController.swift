@@ -289,7 +289,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                         PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
                             if error != nil {
                                 let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                                alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
                                 self.presentViewController(alert, animated: true, completion: nil)
                             }
                         })

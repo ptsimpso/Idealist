@@ -11,22 +11,36 @@ import UIKit
 protocol GroupCellDelegate {
     func handleEditPressed(sender: GroupCell) -> Void
     func handleDeletePressed(sender: GroupCell) -> Void
+    func handleCheckPressed(sender: GroupCell) -> Void
 }
 
 class GroupCell: UITableViewCell {
-    
+    @IBOutlet weak var checkButton: UIButton?
     @IBOutlet weak var groupTitleLabel: UILabel!
-    var delegate: GroupCellDelegate!
+    var delegate: GroupCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        if let checkButton = checkButton {
+            checkButton.layer.borderWidth = 1.0
+            checkButton.layer.borderColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0).CGColor
+        }
     }
 
+    @IBAction func checkPressed(sender: UIButton) {
+        if let delegate = delegate {
+            delegate.handleCheckPressed(self)
+        }
+    }
     @IBAction func editPressed(sender: UIButton) {
-        delegate.handleEditPressed(self)
+        if let delegate = delegate {
+            delegate.handleEditPressed(self)
+        }
     }
     @IBAction func deletePressed(sender: UIButton) {
-        delegate.handleDeletePressed(self)
+        if let delegate = delegate {
+            delegate.handleDeletePressed(self)
+        }
     }
 }

@@ -12,7 +12,7 @@ import Photos
 class PicsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, PicCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
-    var selectedHolder: [Int] = []
+    var selectedHolder: Set<Int> = []
     var idea: Idea!
     
     var albumFound : Bool = false
@@ -26,7 +26,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
             if authStatus == PHAuthorizationStatus.Denied {
                 var alert = UIAlertController(title: "Need Photos Permission", message: "Please go Settings > Privacy > Photos in the Settings app and grant Idealist access.", preferredStyle: UIAlertControllerStyle.Alert)
                 
-                alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
+                alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: { (action) -> Void in
                     self.navigationController?.popViewControllerAnimated(true)
                 }))
                 
@@ -135,12 +135,12 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func handleCheckPressed(sender: PicCell) {
         let indexPath = self.collectionView.indexPathForCell(sender)
         if let indexPath = indexPath {
-            if contains(selectedHolder, indexPath.item) {
-                selectedHolder.removeAtIndex(find(selectedHolder, indexPath.item)!)
+            if selectedHolder.contains(indexPath.item) {
+                selectedHolder.remove(indexPath.item)
                 sender.checkButton.setBackgroundImage(UIImage(named: "noCheck"), forState: UIControlState.Normal)
                 sender.checkButton.backgroundColor = UIColor.whiteColor()
             } else {
-                selectedHolder.append(indexPath.item)
+                selectedHolder.insert(indexPath.item)
                 sender.checkButton.setBackgroundImage(UIImage(named: "yesCheck"), forState: UIControlState.Normal)
                 sender.checkButton.backgroundColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
             }
@@ -151,14 +151,14 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if selectedHolder.count == 0 {
             var noChecksAlert = UIAlertController(title: "No Images Selected", message: "Please select the images you'd like to share by tapping the checkmarks in the bottom right of the images.", preferredStyle: UIAlertControllerStyle.Alert)
             
-            noChecksAlert.addAction(UIAlertAction(title: "Okay", style: .Default, handler:nil))
+            noChecksAlert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler:nil))
             
             self.presentViewController(noChecksAlert, animated: true, completion: nil)
         } else {
             
             var imgHolder: [UIImage] = []
             for index in 0..<photosAsset!.count {
-                if contains(selectedHolder, index) {
+                if selectedHolder.contains(index) {
                     let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) as! PicCell
                     imgHolder.append(cell.picImageView.image!)
                 }
@@ -200,7 +200,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.Denied {
             var alert = UIAlertController(title: "Need Photos Permission", message: "Please go Settings > Privacy > Photos in the Settings app and grant Idealist access.", preferredStyle: UIAlertControllerStyle.Alert)
             
-            alert.addAction(UIAlertAction(title: "Okay", style: .Default, handler: { (action) -> Void in
+            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: { (action) -> Void in
                 self.navigationController?.popViewControllerAnimated(true)
             }))
             
