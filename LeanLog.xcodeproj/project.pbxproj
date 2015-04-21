@@ -60,7 +60,6 @@
 		0BCB5B291AE42417007C2C1A /* PicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB5B281AE42417007C2C1A /* PicsViewController.swift */; };
 		0BCB5B2B1AE42C85007C2C1A /* PicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BCB5B2A1AE42C85007C2C1A /* PicCell.swift */; };
 		0BD2136A1AD84A6500A15C3A /* Purchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD213691AD84A6500A15C3A /* Purchase.swift */; };
-		0BDA53971AB3CA5C00660546 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */; };
 		0BDA53991AB3CB7300660546 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BDA53981AB3CB7300660546 /* GroupCell.swift */; };
 		0BE59DE51AA4FD2600DDFF31 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */; };
 		0BEB50A51AB11BB000C35EB0 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BEB50A41AB11BB000C35EB0 /* Crashlytics.framework */; };
@@ -140,7 +139,6 @@
 		0BCB5B2A1AE42C85007C2C1A /* PicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PicCell.swift; path = Views/PicCell.swift; sourceTree = "<group>"; };
 		0BD213681AD849B300A15C3A /* LeanLog_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LeanLog_2.xcdatamodel; sourceTree = "<group>"; };
 		0BD213691AD84A6500A15C3A /* Purchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Purchase.swift; path = Model/Purchase.swift; sourceTree = "<group>"; };
-		0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupsViewController.swift; path = ViewControllers/GroupsViewController.swift; sourceTree = "<group>"; };
 		0BDA53981AB3CB7300660546 /* GroupCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GroupCell.swift; path = Views/GroupCell.swift; sourceTree = "<group>"; };
 		0BE59DE41AA4FD2600DDFF31 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = Model/CoreDataStack.swift; sourceTree = "<group>"; };
 		0BEB50831AB1152B00C35EB0 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -298,7 +296,6 @@
 				0B5A2F451AE6B48C0077C4FF /* SetGroupViewController.swift */,
 				0BA09E201AD335C50008C6D8 /* AddIdeaViewController.swift */,
 				0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */,
-				0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */,
 				0BEB50A61AB127A800C35EB0 /* SettingsViewController.swift */,
 				0B210A401AA50C3A0005D357 /* DetailsViewController.swift */,
 				0BCB5B281AE42417007C2C1A /* PicsViewController.swift */,
@@ -535,7 +532,6 @@
 				0B84CF321ADD6EEA00E848DA /* AsyncButton.swift in Sources */,
 				0BDA53991AB3CB7300660546 /* GroupCell.swift in Sources */,
 				0B3EC7D81AB671BA0099F725 /* AddGroupViewController.swift in Sources */,
-				0BDA53971AB3CA5C00660546 /* GroupsViewController.swift in Sources */,
 				0B84CF4D1ADD6EEA00E848DA /* TransitionZoom.swift in Sources */,
 				0B84CF3D1ADD6EEA00E848DA /* ImageLoader.swift in Sources */,
 				0B84CF4A1ADD6EEA00E848DA /* SpringTextView.swift in Sources */,
