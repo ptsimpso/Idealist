@@ -190,7 +190,11 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     func refreshData() {
-        if let group = idea.group {
+        let groups = idea.groups as! Set<Group>
+        if groups.count > 1 {
+            groupButton.setTitle("Multiple categories", forState: .Normal)
+        } else if groups.count == 1 {
+            let group = groups.first!
             groupButton.setTitle(group.title, forState: .Normal)
         } else {
             groupButton.setTitle("Uncategorized", forState: .Normal)
@@ -247,7 +251,7 @@ class DetailsViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         } else if segue.identifier == kGroupSegue {
             
             let navController = segue.destinationViewController as! UINavigationController
-            let destination = navController.viewControllers[0] as! GroupsViewController
+            let destination = navController.viewControllers[0] as! SetGroupViewController
             destination.idea = idea
         } else if segue.identifier == kPicSegue {
             let destinationVC = segue.destinationViewController as! PicsViewController

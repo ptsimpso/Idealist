@@ -6,7 +6,7 @@
         <attribute name="priority" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="r" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="ideas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Idea" inverseName="group" inverseEntity="Idea" syncable="YES"/>
+        <relationship name="ideas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Idea" inverseName="groups" inverseEntity="Idea" syncable="YES"/>
     </entity>
     <entity name="Idea" representedClassName="LeanLog.Idea" syncable="YES">
         <attribute name="alternatives" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,7 +24,7 @@
         <attribute name="unfairAdv" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" attributeType="Date" syncable="YES"/>
         <attribute name="uvp" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="ideas" inverseEntity="Group" syncable="YES"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="ideas" inverseEntity="Group" syncable="YES"/>
     </entity>
     <entity name="Purchase" representedClassName="LeanLog.Purchase" syncable="YES">
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
@@ -32,6 +32,6 @@
     <elements>
         <element name="Group" positionX="-812" positionY="45" width="128" height="133"/>
         <element name="Idea" positionX="-441" positionY="38" width="128" height="283"/>
-        <element name="Purchase" positionX="-630" positionY="162" width="128" height="58"/>
+        <element name="Purchase" positionX="-810" positionY="257" width="128" height="58"/>
     </elements>
 </model>

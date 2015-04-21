@@ -16,6 +16,7 @@
 		0B3EC7D81AB671BA0099F725 /* AddGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */; };
 		0B417C1E1AC0C0FA0083148C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B417C1D1AC0C0FA0083148C /* Group.swift */; };
 		0B5A2F441AE6A1040077C4FF /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A2F431AE6A1040077C4FF /* IntroView.swift */; };
+		0B5A2F461AE6B48C0077C4FF /* SetGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A2F451AE6B48C0077C4FF /* SetGroupViewController.swift */; };
 		0B84CF321ADD6EEA00E848DA /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B84CF141ADD6EEA00E848DA /* AsyncButton.swift */; };
 		0B84CF331ADD6EEA00E848DA /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B84CF151ADD6EEA00E848DA /* AsyncImageView.swift */; };
 		0B84CF341ADD6EEA00E848DA /* AutoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B84CF161ADD6EEA00E848DA /* AutoTextView.swift */; };
@@ -88,6 +89,7 @@
 		0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddGroupViewController.swift; path = ViewControllers/AddGroupViewController.swift; sourceTree = "<group>"; };
 		0B417C1D1AC0C0FA0083148C /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Group.swift; path = Model/Group.swift; sourceTree = "<group>"; };
 		0B5A2F431AE6A1040077C4FF /* IntroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroView.swift; path = Views/IntroView.swift; sourceTree = "<group>"; };
+		0B5A2F451AE6B48C0077C4FF /* SetGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetGroupViewController.swift; path = ViewControllers/SetGroupViewController.swift; sourceTree = "<group>"; };
 		0B648D131AAFBC5E001D69A6 /* LeanLog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LeanLog.entitlements; sourceTree = "<group>"; };
 		0B84CF141ADD6EEA00E848DA /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		0B84CF151ADD6EEA00E848DA /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 		0BACD12B1AA00AB90041A950 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0B5A2F451AE6B48C0077C4FF /* SetGroupViewController.swift */,
 				0BA09E201AD335C50008C6D8 /* AddIdeaViewController.swift */,
 				0B3EC7D71AB671BA0099F725 /* AddGroupViewController.swift */,
 				0BDA53961AB3CA5C00660546 /* GroupsViewController.swift */,
@@ -547,6 +550,7 @@
 				0B266DB51AE57F900022FCCF /* IdealistNavigationBar.swift in Sources */,
 				0B5A2F441AE6A1040077C4FF /* IntroView.swift in Sources */,
 				0B84CF471ADD6EEA00E848DA /* SpringImageView.swift in Sources */,
+				0B5A2F461AE6B48C0077C4FF /* SetGroupViewController.swift in Sources */,
 				0B417C1E1AC0C0FA0083148C /* Group.swift in Sources */,
 				0B210A451AA52B6C0005D357 /* CategoryCell.swift in Sources */,
 				0B84CF431ADD6EEA00E848DA /* SoundPlayer.swift in Sources */,

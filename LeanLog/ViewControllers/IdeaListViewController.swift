@@ -342,7 +342,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                     groupIdeaArrays.append(groupIdeas)
                 }
             }
-            let predicate = NSPredicate(format: "group == nil")
+            let predicate = NSPredicate(format: "groups.@count == 0")
             if let ungroupedIdeas = coreDataStack.fetchIdeasWithPredicate(predicate) {
                 ungrouped = ungroupedIdeas
             }

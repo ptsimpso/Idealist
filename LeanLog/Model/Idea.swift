@@ -26,6 +26,6 @@ class Idea: NSManagedObject {
     @NSManaged var unfairAdv: String?
     @NSManaged var updatedAt: NSDate
     @NSManaged var uvp: String?
-    @NSManaged var group: Group?
+    @NSManaged var groups: NSSet
 
 }

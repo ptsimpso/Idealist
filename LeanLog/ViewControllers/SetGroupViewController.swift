@@ -1,18 +1,19 @@
 //
-//  GroupsViewController.swift
+//  SetGroupViewController.swift
 //  LeanLog
 //
-//  Created by Peter Simpson on 3/13/15.
+//  Created by Peter Simpson on 4/21/15.
 //  Copyright (c) 2015 Pete Simpson. All rights reserved.
 //
 
 import UIKit
-import CoreData
 
-class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDelegate {
+class SetGroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, GroupCellDelegate, ModalDelegate {
 
     let kAddGroupSegue = "AddGroupSegue"
     let kEditGroupSegue = "EditGroupSegue"
+    
+    @IBOutlet weak var tableView: UITableView!
     
     let coreDataStack = CoreDataStack.sharedInstance
     var groups: [Group] = []
@@ -21,8 +22,9 @@ class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Do any additional setup after loading the view.
     }
-
+    
     func dismissModalHandler(sender: AnyObject?) {
         refreshData()
     }
@@ -42,19 +44,19 @@ class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDeleg
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return groups.count + 1
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 78.0
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("GroupCell", forIndexPath: indexPath) as! GroupCell
             
@@ -74,7 +76,7 @@ class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDeleg
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 {
             idea.groups = Set<Group>()
         } else {
@@ -121,11 +123,11 @@ class GroupsViewController: UITableViewController, ModalDelegate, GroupCellDeleg
     }
     
     func minimizeView(sender: AnyObject) {
-
+        
     }
     
     func maximizeView(sender: AnyObject) {
-
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
