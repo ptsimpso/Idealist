@@ -39,8 +39,10 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func fetchIdeaAlbum() {
         // Check if folder for this idea exists. If not, create it.
+        let ideaAlbumTitle = "Idealist\(Int(idea.createdAt.timeIntervalSince1970))"
+        
         let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "title = %@", idea.title!)
+        fetchOptions.predicate = NSPredicate(format: "title = %@", ideaAlbumTitle)
         
         let collection = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype:.Any, options: fetchOptions)
         if let firstObj: AnyObject = collection.firstObject {
@@ -51,7 +53,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // Create pic folder for idea
             var albumPlaceholder: PHObjectPlaceholder!
             PHPhotoLibrary.sharedPhotoLibrary().performChanges({ () -> Void in
-                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(self.idea.title!)
+                let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollectionWithTitle(ideaAlbumTitle)
                 albumPlaceholder = request.placeholderForCreatedAssetCollection
                 }, completionHandler: { (success, error) -> Void in
                     if success {

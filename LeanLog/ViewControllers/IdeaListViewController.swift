@@ -63,12 +63,10 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "receiveICloudChanges:", name: NSPersistentStoreDidImportUbiquitousContentChangesNotification, object: coreDataStack.managedObjectContext!.persistentStoreCoordinator)
 
         refreshData()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+        
         if !NSUserDefaults.standardUserDefaults().boolForKey("firstRun") {
-            performSegueWithIdentifier("IntroSegue", sender: nil)
+            let introView = IntroView(frame: self.navigationController!.view.bounds)
+            self.navigationController!.view.addSubview(introView)
         }
     }
     
