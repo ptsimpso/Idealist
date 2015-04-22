@@ -107,7 +107,7 @@ class SetGroupViewController: UIViewController, UITableViewDataSource, UITableVi
     // MARK: Actions
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedHolder.removeAll(keepCapacity: false)
+        selectedHolder.removeAll(keepCapacity: true)
         if indexPath.row != 0 {
             let group = groups[indexPath.row - 1]
             selectedHolder.insert(group)
@@ -162,8 +162,8 @@ class SetGroupViewController: UIViewController, UITableViewDataSource, UITableVi
         }
         idea.groups = selectedHolder
         idea.updatedAt = NSDate()
-        coreDataStack.saveContext()
         dismissVC(nil)
+        coreDataStack.saveContext()
     }
     
     // MARK: Navigation

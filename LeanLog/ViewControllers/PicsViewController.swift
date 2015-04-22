@@ -238,9 +238,10 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
             optionMenu.addAction(takePhoto)
             optionMenu.addAction(photoLibrary)
             optionMenu.addAction(cancelAction)
-            
-            optionMenu.popoverPresentationController!.sourceView = self.view
-            optionMenu.popoverPresentationController!.sourceRect = CGRectMake(self.view.frame.width / 2.0, self.view.frame.height - 60, 1.0, 1.0)
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+                optionMenu.popoverPresentationController!.sourceView = self.view
+                optionMenu.popoverPresentationController!.sourceRect = CGRectMake(self.view.frame.width / 2.0, self.view.frame.height - 60, 1.0, 1.0)
+            }
             
             self.presentViewController(optionMenu, animated: true, completion: nil)
         }
