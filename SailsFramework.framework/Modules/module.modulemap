@@ -1,0 +1,6 @@
+framework module SailsFramework {
+  umbrella header "SailsFramework.h"
+
+  export *
+  module * { export * }
+}

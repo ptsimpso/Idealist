@@ -15,11 +15,22 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>idealist</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>9</string>
+	<string>10</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -47,5 +58,7 @@
 	<false/>
 	<key>bnc_app_key</key>
 	<string>106464918911320604</string>
+	<key>branch_key</key>
+	<string>key_live_cobxxYQSjYYyChx5NtVfXbjeefgVfA1j</string>
 </dict>
 </plist>

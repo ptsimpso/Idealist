@@ -10,7 +10,8 @@ import UIKit
 import MessageUI
 
 class SettingsViewController: UIViewController, MFMailComposeViewControllerDelegate {
-
+    
+    @IBOutlet weak var referralLabel: UILabel!
     @IBOutlet weak var backButton: SpringButton!
     @IBOutlet weak var modalView: SpringView!
     @IBOutlet weak var hiLabel: SpringLabel!
@@ -35,6 +36,14 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
             iCloudBool = storediCloudBool
             updateiCloudButton()
         }
+        
+        let sail = Sail.sharedInstance()
+        sail.getUserData { (userParams) -> Void in
+            let referralCount = userParams["totalReferrals"] as? NSNumber
+            if let referralCount = referralCount {
+                self.referralLabel.text = "Referral count: \(referralCount.integerValue)"
+            }
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -43,12 +52,72 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
         backButton.animate()
         modalView.animate()
         hiLabel.animate()
+        
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if !userDefaults.boolForKey("firstSettings") {
+            PFConfig.getConfigInBackgroundWithBlock {
+                (var config, error) -> Void in
+                if error == nil {
+                    
+                } else {
+                    config = PFConfig.currentConfig()
+                }
+                
+                var paidApp: Bool
+                var paidAppOpt = config?.objectForKey("paidApp") as? Bool
+                if let paidAppBool = paidAppOpt {
+                    paidApp = paidAppBool
+                } else {
+                    paidApp = false
+                }
+                
+                var referralPrize: Int
+                var referralPrizeConfig = config?.objectForKey("referralPrize") as? Int
+                if let referralPrizeConfig = referralPrizeConfig {
+                    referralPrize = referralPrizeConfig
+                } else {
+                    referralPrize = 3
+                }
+                
+                var productPriceString: String
+                var productPriceConfig = config?.objectForKey("productPrice") as? String
+                if let productPrice = productPriceConfig {
+                    productPriceString = productPrice
+                } else {
+                    productPriceString = "$1.99"
+                }
+                
+                if !paidApp {
+                    let alert = UIAlertController(title: "Refer friends and win!", message: "Get \(referralPrize) friends to download and open the app with your unique URL, and you'll be able to add unlimited ideas for free (normally \(productPriceString)).", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    
+                    userDefaults.setBool(true, forKey: "firstSettings")
+                    userDefaults.synchronize()
+                }
+            }
+        }
     }
     
     @IBAction func sharePressed(sender: AnyObject) {
-        var shareText = "Idealist -- app for tracking biz ideas: https://bnc.lt/idealist-ios"
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let referralURL = userDefaults.objectForKey("referralURL") as? String
+        var shareURL: String
+        if let referralURL = referralURL {
+            shareURL = referralURL
+        } else {
+            shareURL = "https://bnc.lt/idealist-ios"
+            let sail = Sail.sharedInstance()
+            sail.getUserData { (userParams) -> Void in
+                let referralURL = userParams["referralURL"] as? String
+                if let referralURL = referralURL {
+                    userDefaults.setObject(referralURL, forKey: "referralURL")
+                    userDefaults.synchronize()
+                }
+            }
+        }
         Branch.getInstance().userCompletedAction("shared")
-        let activityVC: UIActivityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        let activityVC: UIActivityViewController = UIActivityViewController(activityItems: [shareURL], applicationActivities: nil)
         self.presentViewController(activityVC, animated: true, completion: nil)
     }
     

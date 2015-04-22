@@ -43,6 +43,7 @@ class SetGroupViewController: UIViewController, UITableViewDataSource, UITableVi
             self.presentViewController(alert, animated: true, completion: nil)
             
             userDefaults.setBool(true, forKey: "firstGroup")
+            userDefaults.synchronize()
         }
     }
     
@@ -156,6 +157,9 @@ class SetGroupViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func savePressed(sender: AnyObject?) {
+        if selectedHolder.count > 1 {
+            Heap.track("Multiple Categories")
+        }
         idea.groups = selectedHolder
         idea.updatedAt = NSDate()
         coreDataStack.saveContext()

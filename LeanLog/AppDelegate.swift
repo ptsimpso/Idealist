@@ -57,6 +57,65 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Crashlytics.startWithAPIKey("b78d43f1d70460b77b2d36657656524e3275e3e6")
         
+        let sail = Sail.sharedInstance()
+        sail.startSessionWithKey("-JiTtQBgQkeF9flDmGaB", andLaunchOptions: launchOptions)
+        sail.setAnonymousUserWithCompletion { (userParams, wasReferred) -> Void in
+            let referralURL = userParams["referralUrl"] as? String
+            if let referralURL = referralURL {
+                let userDefaults = NSUserDefaults.standardUserDefaults()
+                userDefaults.setObject(referralURL, forKey: "referralURL")
+                userDefaults.synchronize()
+            }
+            
+            if wasReferred {
+                Heap.track("Referral Install")
+            }
+        }
+        sail.listenForNewPrizeWithResponse { (userParams) -> Void in
+            Heap.track("Referral Price Won")
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            if !userDefaults.boolForKey(self.kPaidKey) {
+                userDefaults.setBool(true, forKey: self.kPaidKey)
+                userDefaults.synchronize()
+                PFConfig.getConfigInBackgroundWithBlock {
+                    (var config, error) -> Void in
+                    if error == nil {
+                        
+                    } else {
+                        config = PFConfig.currentConfig()
+                    }
+                    
+                    var paidApp: Bool
+                    var paidAppOpt = config?.objectForKey("paidApp") as? Bool
+                    if let paidAppBool = paidAppOpt {
+                        paidApp = paidAppBool
+                    } else {
+                        paidApp = false
+                    }
+                    
+                    if paidApp {
+                        Heap.setEventProperties(["Payment":"Paid"])
+                        CoreDataStack.sharedInstance.insertNewPurchase("paid")
+                    } else {
+                        Heap.setEventProperties(["Payment":"IAP"])
+                        CoreDataStack.sharedInstance.insertNewPurchase("IAP")
+                        
+                        var productPriceString: String
+                        var productPriceConfig = config?.objectForKey("productPrice") as? String
+                        if let productPrice = productPriceConfig {
+                            productPriceString = productPrice
+                        } else {
+                            productPriceString = "$1.99"
+                        }
+                        
+                        let alertView = UIAlertView(title: "Unlimited Ideas Unlocked", message: "Congratulations! By referring people, you've unlocked the ability to create unlimited ideas, which usually costs \(productPriceString)", delegate: nil, cancelButtonTitle: "Ok")
+                        alertView.show()
+                    }
+                    
+                }
+            }
+        }
+        
         window?.tintColor = UIColor(red: 68/255.0, green: 188/255.0, blue: 201/255.0, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         
