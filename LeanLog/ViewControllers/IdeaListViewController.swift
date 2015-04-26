@@ -244,7 +244,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 totalIdeas += ideaArray.count
             }
         }
-        if userDefaults.boolForKey(kPaidKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
+        if true || userDefaults.boolForKey(kPaidKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
             
             performSegueWithIdentifier(kAddIdeaSegue, sender: nil)
@@ -275,33 +275,70 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                     self.coreDataStack.insertNewPurchase("paid")
                     self.performSegueWithIdentifier(self.kAddIdeaSegue, sender: nil)
                 } else {
-                    var productPriceString: String
-                    var productPriceConfig = config?.objectForKey("productPrice") as? String
-                    if let productPrice = productPriceConfig {
-                        productPriceString = productPrice
+                    
+                    var donation: Bool
+                    let donationOpt = config?.objectForKey("donation") as? Bool
+                    if let donationOpt = donationOpt {
+                        donation = donationOpt
                     } else {
-                        productPriceString = "$1.99"
+                        donation = false
                     }
                     
-                    var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for \(productPriceString)", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    purchaseAlert.addAction(UIAlertAction(title: "Purchase", style: .Default, handler: { (action: UIAlertAction!) in
-                        PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
-                            if error != nil {
-                                let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
-                                alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
-                                self.presentViewController(alert, animated: true, completion: nil)
-                            }
-                        })
-                    }))
-                    
-                    purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
-                        PFPurchase.restore()
-                    }))
-                    
-                    purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
-                    
-                    self.presentViewController(purchaseAlert, animated: true, completion: nil)
+                    if donation {
+                        var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for free or by donating to the developer.", preferredStyle: UIAlertControllerStyle.Alert)
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "Free", style: .Default, handler: { (action: UIAlertAction!) in
+                            
+                        }))
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "$0.99", style: .Default, handler: { (action: UIAlertAction!) in
+                            
+                        }))
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "$1.99", style: .Default, handler: { (action: UIAlertAction!) in
+                            
+                        }))
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "$3.99", style: .Default, handler: { (action: UIAlertAction!) in
+                            
+                        }))
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
+                            PFPurchase.restore()
+                        }))
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler:nil))
+                        
+                        self.presentViewController(purchaseAlert, animated: true, completion: nil)
+                    } else {
+                        var productPriceString: String
+                        var productPriceConfig = config?.objectForKey("productPrice") as? String
+                        if let productPrice = productPriceConfig {
+                            productPriceString = productPrice
+                        } else {
+                            productPriceString = "$1.99"
+                        }
+                        
+                        var purchaseAlert = UIAlertController(title: "Limit Reached", message: "Unlock the ability to create unlimited ideas for \(productPriceString)", preferredStyle: UIAlertControllerStyle.Alert)
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "Purchase", style: .Default, handler: { (action: UIAlertAction!) in
+                            PFPurchase.buyProduct(self.kIAPIdentifer, block: { (error:NSError?) -> Void in
+                                if error != nil {
+                                    let alert = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+                                    alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: nil))
+                                    self.presentViewController(alert, animated: true, completion: nil)
+                                }
+                            })
+                        }))
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "Restore", style: .Default, handler: { (action: UIAlertAction!) in
+                            PFPurchase.restore()
+                        }))
+                        
+                        purchaseAlert.addAction(UIAlertAction(title: "Cancel", style: .Default, handler:nil))
+                        
+                        self.presentViewController(purchaseAlert, animated: true, completion: nil)
+                    }
                 }
                 
             }

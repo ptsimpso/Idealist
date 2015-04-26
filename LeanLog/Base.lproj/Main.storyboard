@@ -2047,7 +2047,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FNC-lO-Jqf" customClass="SpringView" customModule="LeanLog" customModuleProvider="target">
-                                <rect key="frame" x="143" y="152" width="314" height="173"/>
+                                <rect key="frame" x="143" y="137" width="314" height="173"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Idea" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Es-dj-Fsx">
                                         <rect key="frame" x="71" y="18" width="170" height="22"/>
@@ -2065,7 +2065,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W1x-vz-dOF">
                                                 <rect key="frame" x="11" y="0.0" width="261" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2125,7 +2125,7 @@
                             <constraint firstAttribute="centerX" secondItem="B6p-rd-P3g" secondAttribute="centerX" id="AR8-JZ-87M"/>
                             <constraint firstAttribute="centerX" secondItem="FNC-lO-Jqf" secondAttribute="centerX" id="M65-Lv-pMd"/>
                             <constraint firstItem="Go0-N5-pmD" firstAttribute="top" secondItem="B6p-rd-P3g" secondAttribute="bottom" id="PGm-cU-zcK"/>
-                            <constraint firstItem="Go0-N5-pmD" firstAttribute="top" secondItem="FNC-lO-Jqf" secondAttribute="bottom" constant="275" id="aRv-KS-hzM"/>
+                            <constraint firstItem="Go0-N5-pmD" firstAttribute="top" secondItem="FNC-lO-Jqf" secondAttribute="bottom" constant="290" id="aRv-KS-hzM"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="FNC-lO-Jqf" secondAttribute="trailing" constant="2" id="oR7-IC-FIN"/>
                             <constraint firstItem="FNC-lO-Jqf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="eIy-D6-OMg" secondAttribute="leadingMargin" constant="2" id="qIn-mD-YP5"/>
                         </constraints>

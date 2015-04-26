@@ -15,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     let kPaidKey = "unlimited"
+    let kUnlimitedIAP = "me.petersimpson.idealist.unlimited"
+    let kDonation0 = "me.petersimpson.idealist.donation0"
+    let kDonation1 = "me.petersimpson.idealist.donation1"
+    let kDonation2 = "me.petersimpson.idealist.donation2"
+    let kDonation3 = "me.petersimpson.idealist.donation3"
 
     override class func initialize() -> Void {
         iRate.sharedInstance().applicationName = "Idealist"
@@ -30,14 +35,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize Parse.
         Parse.setApplicationId("lcqPSVVFETGbyRqDafsoOILbBg3ZIR1bV2vAAyqI", clientKey: "NPpHYUKU3paEYReqw7ZIfWAmEO6NbzdecT7pVq9h")
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block:nil)
-        PFPurchase.addObserverForProduct("me.petersimpson.idealist.unlimited", block: { (transaction:SKPaymentTransaction!) -> Void in
-            Branch.getInstance().userCompletedAction("completed_purchase")
+        PFPurchase.addObserverForProduct(kUnlimitedIAP, block: { (transaction:SKPaymentTransaction!) -> Void in
             Heap.setEventProperties(["Payment":"IAP"])
-            CoreDataStack.sharedInstance.insertNewPurchase("IAP")
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: self.kPaidKey)
-            NSUserDefaults.standardUserDefaults().synchronize()
-            let alertView = UIAlertView(title: "Success!", message: "You can now create unlimited ideas.", delegate: nil, cancelButtonTitle: "Ok")
-            alertView.show()
+            self.handleNewPurchase()
+        })
+        PFPurchase.addObserverForProduct(kDonation0, block: { (transaction:SKPaymentTransaction!) -> Void in
+            Heap.setEventProperties(["Payment":"Free"])
+            self.handleNewPurchase()
+        })
+        PFPurchase.addObserverForProduct(kDonation1, block: { (transaction:SKPaymentTransaction!) -> Void in
+            Heap.setEventProperties(["Payment":"$0.99"])
+            self.handleNewPurchase()
+        })
+        PFPurchase.addObserverForProduct(kDonation2, block: { (transaction:SKPaymentTransaction!) -> Void in
+            Heap.setEventProperties(["Payment":"$1.99"])
+            self.handleNewPurchase()
+        })
+        PFPurchase.addObserverForProduct(kDonation3, block: { (transaction:SKPaymentTransaction!) -> Void in
+            Heap.setEventProperties(["Payment":"$3.99"])
+            self.handleNewPurchase()
         })
         
         Heap.setAppId("2862434026")
@@ -131,6 +147,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    func handleNewPurchase() {
+        Branch.getInstance().userCompletedAction("completed_purchase")
+        Heap.track("Completed purchase")
+        CoreDataStack.sharedInstance.insertNewPurchase("IAP")
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: self.kPaidKey)
+        NSUserDefaults.standardUserDefaults().synchronize()
+        let alertView = UIAlertView(title: "Success!", message: "You can now create unlimited ideas.", delegate: nil, cancelButtonTitle: "Ok")
+        alertView.show()
     }
 
     func applicationWillResignActive(application: UIApplication) {

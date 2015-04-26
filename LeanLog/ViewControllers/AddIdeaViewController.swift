@@ -20,8 +20,7 @@ class AddIdeaViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        ideaTitleField.autocorrectionType = UITextAutocorrectionType.No
-        ideaTitleField.autocapitalizationType = UITextAutocapitalizationType.Words
+//        ideaTitleField.autocorrectionType = UITextAutocorrectionType.No
         saveButton.layer.cornerRadius = 2.0
         saveButton.layer.borderColor = UIColor.whiteColor().CGColor
         saveButton.layer.borderWidth = 2.0
