@@ -165,6 +165,12 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
             }
             
             let activityVC: UIActivityViewController = UIActivityViewController(activityItems: imgHolder, applicationActivities: nil)
+            
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+                activityVC.popoverPresentationController!.sourceView = self.view
+                activityVC.popoverPresentationController!.sourceRect = CGRectMake(self.view.frame.width / 2.0, self.view.frame.height - 60, 1.0, 1.0)
+            }
+            
             self.presentViewController(activityVC, animated: true, completion: nil)
         }
     }

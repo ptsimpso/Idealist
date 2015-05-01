@@ -19,12 +19,16 @@ struct Categories {
             "prompt": "Who are your target customers and users? What are the characteristics of an early adopter (geographic, demographic, etc.)? What are they doing just before and after they choose to engage with your idea?"
         ],
         [
-            "title": "Existing Alternatives",
+            "title": "Competition",
             "prompt": "How is the problem currently solved? How could these existing alternatives be simpler? How is your idea different?"
         ],
         [
             "title": "Unique Value Proposition",
             "prompt": "Clear, compelling messages that state why your solution should matter to a prospective user."
+        ],
+        [
+            "title": "Cheap Tests",
+            "prompt": "How could you fake the product to validate the idea before building a real solution (e.g. perform the service manually for a few users or measure engagement on a fake landing page)?"
         ],
         [
             "title": "Solution",

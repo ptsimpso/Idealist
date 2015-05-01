@@ -80,16 +80,18 @@ struct IdeaHelper {
         case 3:
             categoryOpt = idea.uvp
         case 4:
-            categoryOpt = idea.solution
+            categoryOpt = idea.tests
         case 5:
-            categoryOpt = idea.channels
+            categoryOpt = idea.solution
         case 6:
-            categoryOpt = idea.revenue
+            categoryOpt = idea.channels
         case 7:
-            categoryOpt = idea.costs
+            categoryOpt = idea.revenue
         case 8:
-            categoryOpt = idea.metrics
+            categoryOpt = idea.costs
         case 9:
+            categoryOpt = idea.metrics
+        case 10:
             categoryOpt = idea.unfairAdv
         default:
             println("ERROR: No category index set.")

@@ -22,6 +22,7 @@ class Idea: NSManagedObject {
     @NSManaged var problem: String?
     @NSManaged var revenue: String?
     @NSManaged var solution: String?
+    @NSManaged var tests: String?
     @NSManaged var title: String?
     @NSManaged var unfairAdv: String?
     @NSManaged var updatedAt: NSDate

@@ -244,7 +244,7 @@ class IdeaListViewController: UITableViewController, ModalDelegate {
                 totalIdeas += ideaArray.count
             }
         }
-        if true || userDefaults.boolForKey(kPaidKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
+        if userDefaults.boolForKey(kPaidKey) || (searchIndex == 0 && ideas.count < 3) || (searchIndex == 1 && totalIdeas < 3) {
             Branch.getInstance().userCompletedAction("created_idea")
             
             performSegueWithIdentifier(kAddIdeaSegue, sender: nil)

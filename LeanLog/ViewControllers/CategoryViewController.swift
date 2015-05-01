@@ -53,26 +53,30 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
                 notesOpt = uvp
             }
         case 4:
+            if let tests = idea.tests {
+                notesOpt = tests
+            }
+        case 5:
             if let solution = idea.solution {
                 notesOpt = solution
             }
-        case 5:
+        case 6:
             if let channels = idea.channels {
                 notesOpt = channels
             }
-        case 6:
+        case 7:
             if let revenue = idea.revenue {
                 notesOpt = revenue
             }
-        case 7:
+        case 8:
             if let costs = idea.costs {
                 notesOpt = costs
             }
-        case 8:
+        case 9:
             if let metrics = idea.metrics {
                 notesOpt = metrics
             }
-        case 9:
+        case 10:
             if let adv = idea.unfairAdv {
                 notesOpt = adv
             }
@@ -121,16 +125,18 @@ class CategoryViewController: UIViewController, UITextViewDelegate {
         case 3:
             idea.uvp = notesTextView.text
         case 4:
-            idea.solution = notesTextView.text
+            idea.tests = notesTextView.text
         case 5:
-            idea.channels = notesTextView.text
+            idea.solution = notesTextView.text
         case 6:
-            idea.revenue = notesTextView.text
+            idea.channels = notesTextView.text
         case 7:
-            idea.costs = notesTextView.text
+            idea.revenue = notesTextView.text
         case 8:
-            idea.metrics = notesTextView.text
+            idea.costs = notesTextView.text
         case 9:
+            idea.metrics = notesTextView.text
+        case 10:
             idea.unfairAdv = notesTextView.text
         default:
             println("ERROR: No category index set.")

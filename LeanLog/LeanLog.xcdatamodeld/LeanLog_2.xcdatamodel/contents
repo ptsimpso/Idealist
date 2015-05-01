@@ -20,6 +20,7 @@
         <attribute name="problem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="revenue" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="solution" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tests" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unfairAdv" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="updatedAt" attributeType="Date" syncable="YES"/>
@@ -31,7 +32,7 @@
     </entity>
     <elements>
         <element name="Group" positionX="-812" positionY="45" width="128" height="133"/>
-        <element name="Idea" positionX="-441" positionY="38" width="128" height="283"/>
+        <element name="Idea" positionX="-441" positionY="38" width="128" height="300"/>
         <element name="Purchase" positionX="-810" positionY="257" width="128" height="58"/>
     </elements>
 </model>
