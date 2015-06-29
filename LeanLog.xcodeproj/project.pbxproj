@@ -17,8 +17,8 @@
 		0B417C1E1AC0C0FA0083148C /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B417C1D1AC0C0FA0083148C /* Group.swift */; };
 		0B5A2F441AE6A1040077C4FF /* IntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A2F431AE6A1040077C4FF /* IntroView.swift */; };
 		0B5A2F461AE6B48C0077C4FF /* SetGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5A2F451AE6B48C0077C4FF /* SetGroupViewController.swift */; };
-		0B7EEACC1AF30FBF006DBD66 /* SailsFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7EEACB1AF30FBF006DBD66 /* SailsFramework.framework */; };
-		0B7EEACE1AF30FC4006DBD66 /* SailsFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B7EEACB1AF30FBF006DBD66 /* SailsFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0B78D57C1B0E2D1600F60FD6 /* SailsFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B78D57A1B0E2D0F00F60FD6 /* SailsFramework.framework */; };
+		0B78D57D1B0E2D1600F60FD6 /* SailsFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0B78D57A1B0E2D0F00F60FD6 /* SailsFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0B84CF321ADD6EEA00E848DA /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B84CF141ADD6EEA00E848DA /* AsyncButton.swift */; };
 		0B84CF331ADD6EEA00E848DA /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B84CF151ADD6EEA00E848DA /* AsyncImageView.swift */; };
 		0B84CF341ADD6EEA00E848DA /* AutoTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B84CF161ADD6EEA00E848DA /* AutoTextView.swift */; };
@@ -87,7 +87,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				0B7EEACE1AF30FC4006DBD66 /* SailsFramework.framework in Embed Frameworks */,
+				0B78D57D1B0E2D1600F60FD6 /* SailsFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,7 +106,7 @@
 		0B5A2F431AE6A1040077C4FF /* IntroView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IntroView.swift; path = Views/IntroView.swift; sourceTree = "<group>"; };
 		0B5A2F451AE6B48C0077C4FF /* SetGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetGroupViewController.swift; path = ViewControllers/SetGroupViewController.swift; sourceTree = "<group>"; };
 		0B648D131AAFBC5E001D69A6 /* LeanLog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = LeanLog.entitlements; sourceTree = "<group>"; };
-		0B7EEACB1AF30FBF006DBD66 /* SailsFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SailsFramework.framework; sourceTree = "<group>"; };
+		0B78D57A1B0E2D0F00F60FD6 /* SailsFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SailsFramework.framework; sourceTree = "<group>"; };
 		0B84CF141ADD6EEA00E848DA /* AsyncButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		0B84CF151ADD6EEA00E848DA /* AsyncImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
 		0B84CF161ADD6EEA00E848DA /* AutoTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoTextView.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B7EEACC1AF30FBF006DBD66 /* SailsFramework.framework in Frameworks */,
+				0B78D57C1B0E2D1600F60FD6 /* SailsFramework.framework in Frameworks */,
 				0BEB50A51AB11BB000C35EB0 /* Crashlytics.framework in Frameworks */,
 				20263C2623D3D481632F229E /* libPods.a in Frameworks */,
 			);
@@ -355,7 +355,7 @@
 		0BEB509F1AB115E100C35EB0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0B7EEACB1AF30FBF006DBD66 /* SailsFramework.framework */,
+				0B78D57A1B0E2D0F00F60FD6 /* SailsFramework.framework */,
 				0BEB50A41AB11BB000C35EB0 /* Crashlytics.framework */,
 				0BEB50971AB1157D00C35EB0 /* libsqlite3.dylib */,
 				0BEB50951AB1156B00C35EB0 /* libz.dylib */,
@@ -739,7 +739,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "549af752-dfe4-4247-8088-40b167fdb734";
+				PROVISIONING_PROFILE = "5aafdefa-88cc-49ff-9233-1a3a578ed12e";
 				SWIFT_OBJC_BRIDGING_HEADER = "LeanLog/LeanLog-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -765,7 +765,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "89b54424-dce9-485f-99c7-4d779000127a";
+				PROVISIONING_PROFILE = "afcd6235-6e98-46e8-93fa-554d5b258c73";
 				SWIFT_OBJC_BRIDGING_HEADER = "LeanLog/LeanLog-Bridging-Header.h";
 			};
 			name = Release;

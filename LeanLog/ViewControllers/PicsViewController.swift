@@ -77,7 +77,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         ]
         println("Fetching assets...")
         photosAsset = PHAsset.fetchAssetsInAssetCollection(assetCollection, options: fetchOptions)
-        
+        println(photosAsset)
         self.collectionView.reloadData()
     }
     
@@ -90,6 +90,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if let photos = photosAsset {
             count = photos.count
         }
+        println("COUNT: \(count)")
         return count
     }
     
@@ -256,6 +257,7 @@ class PicsViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // MARK: Image Picker Delegate Methods
     func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         // code
+        println("Did finish picking image called.")
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {

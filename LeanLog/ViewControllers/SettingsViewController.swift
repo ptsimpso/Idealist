@@ -37,6 +37,7 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
             updateiCloudButton()
         }
         
+        /*
         let sail = Sail.sharedInstance()
         sail.getUserData { (userParams) -> Void in
             let referralCount = userParams["totalReferrals"] as? NSNumber
@@ -44,15 +45,17 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
                 self.referralLabel.text = "Referral count: \(referralCount.integerValue)"
             }
         }
+        */
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         delegate.minimizeView(self)
         backButton.animate()
         modalView.animate()
         hiLabel.animate()
-        
+        /*
         let userDefaults = NSUserDefaults.standardUserDefaults()
         if !userDefaults.boolForKey("firstSettings") {
             PFConfig.getConfigInBackgroundWithBlock {
@@ -95,8 +98,10 @@ class SettingsViewController: UIViewController, MFMailComposeViewControllerDeleg
                     userDefaults.setBool(true, forKey: "firstSettings")
                     userDefaults.synchronize()
                 }
+
             }
         }
+        */
     }
     
     @IBAction func sharePressed(sender: AnyObject) {
